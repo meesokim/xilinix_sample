@@ -1,0 +1,7 @@
+INFILE=C:\Xilinx\xilinx-sample\synth\xessdemo_par.ncd
+OUTFILE=C:\Xilinx\xilinx-sample\synth\xessdemo.bit
+FAMILY=Spartan6
+PART=xc6slx9-3tqg144
+WORKINGDIR=C:\Xilinx\xilinx-sample\synth
+LICENSE=WebPack
+USER_INFO=211233455_0_0_853
