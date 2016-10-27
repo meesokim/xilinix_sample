@@ -1,0 +1,2215 @@
+Release 7.1.04i - xst H.42
+Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to __projnav
+CPU : 0.00 / 0.72 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.72 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Reading design: mz700.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) HDL Analysis
+  4) HDL Synthesis
+  5) Advanced HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Final Report
+     7.1) Device utilization summary
+     7.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "mz700.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "mz700"
+Output Format                      : NGC
+Target Device                      : xc3s1000-4-ft256
+
+---- Source Options
+Top Module Name                    : mz700
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+Resource Sharing                   : YES
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 8
+Register Duplication               : YES
+Equivalent register Removal        : YES
+Slice Packing                      : YES
+Pack IO Registers into IOBs        : auto
+
+---- General Options
+Optimization Goal                  : Area
+Optimization Effort                : 1
+Keep Hierarchy                     : NO
+Global Optimization                : AllClockNets
+RTL Output                         : Yes
+Write Timing Constraints           : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+lso                                : mz700.lso
+Read Cores                         : YES
+cross_clock_analysis               : NO
+verilog2001                        : YES
+safe_implementation                : No
+Optimize Instantiated Primitives   : NO
+use_clock_enable                   : Yes
+use_sync_set                       : Yes
+use_sync_reset                     : Yes
+enable_auto_floorplanning          : No
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/develop/mz700/ps2kb.vhd" in Library work.
+Architecture behavioral of Entity ps2kb is up to date.
+Compiling vhdl file "C:/develop/mz700/T80_Pack.vhd" in Library work.
+Compiling vhdl file "C:/develop/mz700/T80_MCode.vhd" in Library work.
+Architecture rtl of Entity t80_mcode is up to date.
+Compiling vhdl file "C:/develop/mz700/T80_ALU.vhd" in Library work.
+Architecture rtl of Entity t80_alu is up to date.
+Compiling vhdl file "C:/develop/mz700/T80_Reg.vhd" in Library work.
+Architecture rtl of Entity t80_reg is up to date.
+Compiling vhdl file "C:/develop/mz700/counter0.vhd" in Library work.
+Architecture behavioral of Entity counter0 is up to date.
+Compiling vhdl file "C:/develop/mz700/counter1.vhd" in Library work.
+Architecture behavioral of Entity counter1 is up to date.
+Compiling vhdl file "C:/develop/mz700/counter2.vhd" in Library work.
+Architecture behavioral of Entity counter2 is up to date.
+Compiling vhdl file "C:/develop/mz700/kcpsm3.vhd" in Library work.
+Architecture low_level_definition of Entity kcpsm3 is up to date.
+Compiling vhdl file "C:/develop/mz700/PROM.VHD" in Library work.
+Architecture low_level_definition of Entity prom is up to date.
+Compiling vhdl file "C:/develop/mz700/keymatrix.vhd" in Library work.
+Architecture behavioral of Entity keymatrix is up to date.
+Compiling vhdl file "C:/develop/mz700/T80.vhd" in Library work.
+Architecture rtl of Entity t80 is up to date.
+Compiling vhdl file "C:/develop/mz700/T80s.vhd" in Library work.
+Architecture rtl of Entity t80s is up to date.
+Compiling vhdl file "C:/develop/mz700/my_dcm1.vhd" in Library work.
+Architecture behavioral of Entity my_dcm1 is up to date.
+Compiling vhdl file "C:/develop/mz700/my_dcm2.vhd" in Library work.
+Architecture behavioral of Entity my_dcm2 is up to date.
+Compiling vhdl file "C:/develop/mz700/memsel.vhd" in Library work.
+Architecture behavioral of Entity memsel is up to date.
+Compiling vhdl file "C:/develop/mz700/mrom.vhd" in Library work.
+Architecture behavioral of Entity mrom is up to date.
+Compiling vhdl file "C:/develop/mz700/vgaout.vhd" in Library work.
+Architecture behavioral of Entity vgaout is up to date.
+Compiling vhdl file "C:/develop/mz700/cgrom.vhd" in Library work.
+Architecture behavioral of Entity cgrom is up to date.
+Compiling vhdl file "C:/develop/mz700/dpram2k.vhd" in Library work.
+Architecture behavioral of Entity dpram2k is up to date.
+Compiling vhdl file "C:/develop/mz700/ls367.vhd" in Library work.
+Architecture behavioral of Entity ls367 is up to date.
+Compiling vhdl file "C:/develop/mz700/i8255.vhd" in Library work.
+Architecture behavioral of Entity i8255 is up to date.
+Compiling vhdl file "C:/develop/mz700/psio.vhd" in Library work.
+Architecture behavioral of Entity psio is up to date.
+Compiling vhdl file "C:/develop/mz700/i8253.vhd" in Library work.
+Architecture behavioral of Entity i8253 is up to date.
+Compiling vhdl file "C:/develop/mz700/exrom.vhd" in Library work.
+Architecture behavioral of Entity exrom is up to date.
+Compiling vhdl file "C:/develop/mz700/mz700.vhd" in Library work.
+Architecture behavioral of Entity mz700 is up to date.
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <mz700> (Architecture <behavioral>).
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 363: Unconnected output port 'HALT_n' of component 'T80s'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 363: Unconnected output port 'BUSAK_n' of component 'T80s'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 383: Unconnected output port 'CLKIN_IBUFG_OUT' of component 'my_dcm1'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 393: Unconnected output port 'CLKIN_IBUFG_OUT' of component 'my_dcm2'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 393: Unconnected output port 'LOCKED_OUT' of component 'my_dcm2'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 488: Unconnected output port 'LDDAT' of component 'i8255'.
+WARNING:Xst:753 - "C:/develop/mz700/mz700.vhd" line 509: Unconnected output port 'LDDAT' of component 'psio'.
+WARNING:Xst:766 - "C:/develop/mz700/mz700.vhd" line 550: Generating a Black Box for component <BUFG>.
+Entity <mz700> analyzed. Unit <mz700> generated.
+
+Analyzing generic Entity <T80s> (Architecture <rtl>).
+	Mode = 0
+	T2Write = 0
+	IOWait = 1
+WARNING:Xst:753 - "C:/develop/mz700/T80s.vhd" line 115: Unconnected output port 'IntE' of component 'T80'.
+WARNING:Xst:753 - "C:/develop/mz700/T80s.vhd" line 115: Unconnected output port 'Stop' of component 'T80'.
+Entity <T80s> analyzed. Unit <T80s> generated.
+
+Analyzing generic Entity <T80> (Architecture <rtl>).
+	Mode = 0
+	IOWait = 1
+	Flag_C = 0
+	Flag_N = 1
+	Flag_P = 2
+	Flag_X = 3
+	Flag_H = 4
+	Flag_Y = 5
+	Flag_Z = 6
+	Flag_S = 7
+Entity <T80> analyzed. Unit <T80> generated.
+
+Analyzing generic Entity <T80_MCode> (Architecture <rtl>).
+	Mode = 0
+	Flag_C = 0
+	Flag_N = 1
+	Flag_P = 2
+	Flag_X = 3
+	Flag_H = 4
+	Flag_Y = 5
+	Flag_Z = 6
+	Flag_S = 7
+Entity <T80_MCode> analyzed. Unit <T80_MCode> generated.
+
+Analyzing generic Entity <T80_ALU> (Architecture <rtl>).
+	Mode = 0
+	Flag_C = 0
+	Flag_N = 1
+	Flag_P = 2
+	Flag_X = 3
+	Flag_H = 4
+	Flag_Y = 5
+	Flag_Z = 6
+	Flag_S = 7
+Entity <T80_ALU> analyzed. Unit <T80_ALU> generated.
+
+Analyzing Entity <T80_Reg> (Architecture <rtl>).
+Entity <T80_Reg> analyzed. Unit <T80_Reg> generated.
+
+Analyzing Entity <my_dcm1> (Architecture <behavioral>).
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm1.vhd" line 99: Generating a Black Box for component <BUFG>.
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm1.vhd" line 103: Generating a Black Box for component <BUFG>.
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm1.vhd" line 107: Generating a Black Box for component <IBUFG>.
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm1.vhd" line 111: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLK90' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLK180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLK270' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLK2X' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLK2X180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'CLKFX180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'STATUS' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm1.vhd" line 115: Unconnected output port 'PSDONE' of component 'DCM'.
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm1.vhd" line 115: Generating a Black Box for component <DCM>.
+Entity <my_dcm1> analyzed. Unit <my_dcm1> generated.
+
+Analyzing Entity <my_dcm2> (Architecture <behavioral>).
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm2.vhd" line 94: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK0' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK90' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK270' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLKDV' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK2X' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLK2X180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'CLKFX180' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'STATUS' of component 'DCM'.
+WARNING:Xst:753 - "C:/develop/mz700/my_dcm2.vhd" line 102: Unconnected output port 'PSDONE' of component 'DCM'.
+WARNING:Xst:766 - "C:/develop/mz700/my_dcm2.vhd" line 102: Generating a Black Box for component <DCM>.
+Entity <my_dcm2> analyzed. Unit <my_dcm2> generated.
+
+Analyzing Entity <memsel> (Architecture <behavioral>).
+Entity <memsel> analyzed. Unit <memsel> generated.
+
+Analyzing Entity <mrom> (Architecture <behavioral>).
+Entity <mrom> analyzed. Unit <mrom> generated.
+
+Analyzing Entity <vgaout> (Architecture <behavioral>).
+Entity <vgaout> analyzed. Unit <vgaout> generated.
+
+Analyzing Entity <cgrom> (Architecture <behavioral>).
+Entity <cgrom> analyzed. Unit <cgrom> generated.
+
+Analyzing Entity <dpram2k> (Architecture <behavioral>).
+Entity <dpram2k> analyzed. Unit <dpram2k> generated.
+
+Analyzing Entity <ls367> (Architecture <behavioral>).
+Entity <ls367> analyzed. Unit <ls367> generated.
+
+Analyzing Entity <i8255> (Architecture <behavioral>).
+Entity <i8255> analyzed. Unit <i8255> generated.
+
+Analyzing Entity <keymatrix> (Architecture <behavioral>).
+Entity <keymatrix> analyzed. Unit <keymatrix> generated.
+
+Analyzing Entity <ps2kb> (Architecture <behavioral>).
+Entity <ps2kb> analyzed. Unit <ps2kb> generated.
+
+Analyzing Entity <psio> (Architecture <behavioral>).
+Entity <psio> analyzed. Unit <psio> generated.
+
+Analyzing Entity <kcpsm3> (Architecture <low_level_definition>).
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 289: Possible simulation mismatch on property <INIT> of instance <t_state_lut> set by attribute.
+    Set user-defined property "INIT =  1" for instance <t_state_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 332: Possible simulation mismatch on property <INIT> of instance <int_pulse_lut> set by attribute.
+    Set user-defined property "INIT =  0080" for instance <int_pulse_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 371: Possible simulation mismatch on property <INIT> of instance <int_update_lut> set by attribute.
+    Set user-defined property "INIT =  EAAA" for instance <int_update_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 381: Possible simulation mismatch on property <INIT> of instance <int_value_lut> set by attribute.
+    Set user-defined property "INIT =  04" for instance <int_value_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 403: Possible simulation mismatch on property <INIT> of instance <move_group_lut> set by attribute.
+    Set user-defined property "INIT =  7400" for instance <move_group_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 413: Possible simulation mismatch on property <INIT> of instance <condition_met_lut> set by attribute.
+    Set user-defined property "INIT =  5A3C" for instance <condition_met_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 423: Possible simulation mismatch on property <INIT> of instance <normal_count_lut> set by attribute.
+    Set user-defined property "INIT =  2F" for instance <normal_count_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 432: Possible simulation mismatch on property <INIT> of instance <call_type_lut> set by attribute.
+    Set user-defined property "INIT =  1000" for instance <call_type_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 442: Possible simulation mismatch on property <INIT> of instance <push_pop_lut> set by attribute.
+    Set user-defined property "INIT =  5400" for instance <push_pop_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 452: Possible simulation mismatch on property <INIT> of instance <valid_move_lut> set by attribute.
+    Set user-defined property "INIT =  D" for instance <valid_move_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 468: Possible simulation mismatch on property <INIT> of instance <flag_type_lut> set by attribute.
+    Set user-defined property "INIT =  41FC" for instance <flag_type_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 483: Possible simulation mismatch on property <INIT> of instance <flag_enable_lut> set by attribute.
+    Set user-defined property "INIT =  8" for instance <flag_enable_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 493: Possible simulation mismatch on property <INIT> of instance <low_zero_lut> set by attribute.
+    Set user-defined property "INIT =  0001" for instance <low_zero_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 503: Possible simulation mismatch on property <INIT> of instance <high_zero_lut> set by attribute.
+    Set user-defined property "INIT =  0001" for instance <high_zero_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 525: Possible simulation mismatch on property <INIT> of instance <sel_shadow_zero_lut> set by attribute.
+    Set user-defined property "INIT =  3F" for instance <sel_shadow_zero_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 554: Possible simulation mismatch on property <INIT> of instance <low_parity_lut> set by attribute.
+    Set user-defined property "INIT =  6996" for instance <low_parity_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 564: Possible simulation mismatch on property <INIT> of instance <high_parity_lut> set by attribute.
+    Set user-defined property "INIT =  6996" for instance <high_parity_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 587: Possible simulation mismatch on property <INIT> of instance <sel_parity_lut> set by attribute.
+    Set user-defined property "INIT =  F3FF" for instance <sel_parity_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 597: Possible simulation mismatch on property <INIT> of instance <sel_arith_carry_lut> set by attribute.
+    Set user-defined property "INIT =  F3" for instance <sel_arith_carry_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 606: Possible simulation mismatch on property <INIT> of instance <sel_shift_carry_lut> set by attribute.
+    Set user-defined property "INIT =  C" for instance <sel_shift_carry_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 614: Possible simulation mismatch on property <INIT> of instance <sel_shadow_carry_lut> set by attribute.
+    Set user-defined property "INIT =  3" for instance <sel_shadow_carry_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux0> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux0> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux1> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux1> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux2> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux2> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux3> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux3> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux4> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux4> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux5> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux5> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux6> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux6> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux7> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux7> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux8> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux8> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux8> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux8> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 682: Possible simulation mismatch on property <INIT> of instance <vector_select_mux9> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <vector_select_mux9> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 691: Possible simulation mismatch on property <INIT> of instance <value_select_mux9> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <value_select_mux9> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 794: Possible simulation mismatch on property <INIT> of instance <register_type_lut> set by attribute.
+    Set user-defined property "INIT =  0145" for instance <register_type_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 809: Possible simulation mismatch on property <INIT> of instance <register_enable_lut> set by attribute.
+    Set user-defined property "INIT =  8" for instance <register_enable_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit00> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit00> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux0> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit10> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit10> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux1> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit20> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit20> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux2> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit30> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit30> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux3> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit40> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit40> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux4> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit50> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit50> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux5> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit60> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit60> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux6> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 828: Possible simulation mismatch on property <INIT> of instance <register_bit70> set by attribute.
+    Set user-defined property "INIT =  0000" for instance <register_bit70> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 846: Possible simulation mismatch on property <INIT> of instance <operand_select_mux7> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <operand_select_mux7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 871: Possible simulation mismatch on property <INIT> of instance <memory_type_lut> set by attribute.
+    Set user-defined property "INIT =  0400" for instance <memory_type_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 886: Possible simulation mismatch on property <INIT> of instance <memory_enable_lut> set by attribute.
+    Set user-defined property "INIT =  8000" for instance <memory_enable_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit0> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit1> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit2> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit3> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit4> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit5> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit6> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 906: Possible simulation mismatch on property <INIT> of instance <memory_bit7> set by attribute.
+    Set user-defined property "INIT =  0000000000000000" for instance <memory_bit7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 937: Possible simulation mismatch on property <INIT> of instance <sel_logical_lut> set by attribute.
+    Set user-defined property "INIT =  FFE2" for instance <sel_logical_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut0> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut1> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut2> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut3> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut4> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut5> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut6> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 956: Possible simulation mismatch on property <INIT> of instance <logical_lut7> set by attribute.
+    Set user-defined property "INIT =  6E8A" for instance <logical_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 989: Possible simulation mismatch on property <INIT> of instance <high_shift_in_lut> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <high_shift_in_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 998: Possible simulation mismatch on property <INIT> of instance <low_shift_in_lut> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <low_shift_in_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1015: Possible simulation mismatch on property <INIT> of instance <shift_carry_lut> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_carry_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1041: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut0> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut1> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut2> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut3> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut4> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut5> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1061: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut6> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1081: Possible simulation mismatch on property <INIT> of instance <shift_mux_lut7> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <shift_mux_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1109: Possible simulation mismatch on property <INIT> of instance <sel_arith_lut> set by attribute.
+    Set user-defined property "INIT =  1F" for instance <sel_arith_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1136: Possible simulation mismatch on property <INIT> of instance <arith_carry_in_lut0> set by attribute.
+    Set user-defined property "INIT =  6C" for instance <arith_carry_in_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut0> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut1> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut2> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut3> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut4> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut5> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut6> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1200: Possible simulation mismatch on property <INIT> of instance <arith_carry_out_lut7> set by attribute.
+    Set user-defined property "INIT =  2" for instance <arith_carry_out_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1220: Possible simulation mismatch on property <INIT> of instance <arith_lut7> set by attribute.
+    Set user-defined property "INIT =  96" for instance <arith_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1244: Possible simulation mismatch on property <INIT> of instance <input_fetch_type_lut> set by attribute.
+    Set user-defined property "INIT =  0002" for instance <input_fetch_type_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut0> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut0> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut1> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut1> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut2> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut2> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut3> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut3> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut4> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut4> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut5> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut5> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut6> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut6> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1269: Possible simulation mismatch on property <INIT> of instance <or_lut7> set by attribute.
+    Set user-defined property "INIT =  FE" for instance <or_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1278: Possible simulation mismatch on property <INIT> of instance <mux_lut7> set by attribute.
+    Set user-defined property "INIT =  E4" for instance <mux_lut7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1301: Possible simulation mismatch on property <INIT> of instance <io_decode_lut> set by attribute.
+    Set user-defined property "INIT =  0010" for instance <io_decode_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1311: Possible simulation mismatch on property <INIT> of instance <write_active_lut> set by attribute.
+    Set user-defined property "INIT =  4000" for instance <write_active_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1327: Possible simulation mismatch on property <INIT> of instance <read_active_lut> set by attribute.
+    Set user-defined property "INIT =  0100" for instance <read_active_lut> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit0> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit1> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit2> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit3> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit4> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit4> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit5> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit5> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit6> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit6> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit7> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit7> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit8> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit8> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1368: Possible simulation mismatch on property <INIT> of instance <stack_bit9> set by attribute.
+    Set user-defined property "INIT =  00000000" for instance <stack_bit9> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1415: Possible simulation mismatch on property <INIT> of instance <count_lut0> set by attribute.
+    Set user-defined property "INIT =  6555" for instance <count_lut0> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1448: Possible simulation mismatch on property <INIT> of instance <count_lut1> set by attribute.
+    Set user-defined property "INIT =  A999" for instance <count_lut1> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1448: Possible simulation mismatch on property <INIT> of instance <count_lut2> set by attribute.
+    Set user-defined property "INIT =  A999" for instance <count_lut2> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1448: Possible simulation mismatch on property <INIT> of instance <count_lut3> set by attribute.
+    Set user-defined property "INIT =  A999" for instance <count_lut3> in unit <kcpsm3>.
+WARNING:Xst:2185 - "C:/develop/mz700/kcpsm3.vhd" line 1482: Possible simulation mismatch on property <INIT> of instance <count_lut4> set by attribute.
+    Set user-defined property "INIT =  A999" for instance <count_lut4> in unit <kcpsm3>.
+Entity <kcpsm3> analyzed. Unit <kcpsm3> generated.
+
+Analyzing Entity <prom> (Architecture <low_level_definition>).
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_00> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_01> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_02> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_03> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_04> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_05> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_06> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INITP_07> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_00> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_01> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_02> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_03> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_04> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_05> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_06> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_07> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_08> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_09> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0A> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0B> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0C> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0D> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0E> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_0F> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_10> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_11> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_12> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_13> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_14> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_15> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_16> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_17> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_18> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_19> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1A> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1B> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1C> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1D> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1E> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_1F> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_20> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_21> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_22> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_23> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_24> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_25> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_26> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_27> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_28> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_29> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2A> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2B> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2C> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2D> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2E> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_2F> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_30> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_31> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_32> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_33> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_34> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_35> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_36> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_37> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_38> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_39> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3A> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3B> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3C> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3D> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3E> of instance <ram_1024_x_18> set by attribute.
+WARNING:Xst:2185 - "C:/develop/mz700/PROM.VHD" line 182: Possible simulation mismatch on property <INIT_3F> of instance <ram_1024_x_18> set by attribute.
+    Set user-defined property "INIT_00 =  C007C006000000155C080006400400A8C00100B5021D0F03C107C106C1010100" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_01 =  0071B400006E00D70215CD080D000C000B000900C00440105C080006400400A8" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_02 =  0E80007EB400006E007EB400006E007BB400006E007BB400006E0071B400006E" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_03 =  446C4043C50615E0543F446D008D4E05009E0E80047F08000700B400006E009E" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_04 =  006E0071B400006E00815C36C401B400006EA800971000990307C60716E05443" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_05 =  0307008D4E05009E0E8008000700B400006E009E0E80007EB400006E007BB400" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_06 =  20404004401F0081545BD0601050B400006EC607C506E600C501A80097100099" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_07 =  03130E00409903130EFF409903F75473C401B400006E009903FF04280E00A000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_08 =  4006B4004BFF409E0E8000991E700307009E0E8000991E800307009E0E804099" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_09 =  20404004A0005C9AC301009E0100A000620200D70206E2020B00B00050104107" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0A =  400100B5C00100014202BC00000E4001A0008101BC000E02CE02589E000EB400" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0B =  00D7021BB400421D50D7420D58D7000640015CD74220A000C001000058AF000E" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0C =  4F0240D600D7023454CF4F0100D7023340D600D7023054C8AF038F0100D7025B" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0D =  89014A00E001E200A000C20058D7000E4003026D00D7023140D600D7023254D4" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0E =  8D0150F15AC040FB9CA0CA055CED498440FB5CE8490440FB50F94A0454E54901" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_0F =  0000000080016001620000D7020640FB0BFF54F952A042074A060C000900CD08" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_10 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_11 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_12 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_13 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_14 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_15 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_16 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_17 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_18 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_19 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_1F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_20 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_21 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_22 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_23 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_24 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_25 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_26 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_27 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_28 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_29 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_2F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_30 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_31 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_32 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_33 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_34 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_35 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_36 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_37 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_38 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_39 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INIT_3F =  40DC000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_00 =  0C336F024FC2E9573302F3BEFBF6D72378DCC02F3BEFBEFBEF200BE3A3E3F0A8" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_01 =  0C333402776DF7DD4AAE0CF37CDCF31CC9DE368E38289ABA4B7232242730CC33" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_02 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_03 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_04 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_05 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_06 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+    Set user-defined property "INITP_07 =  C000000000000000000000000000000000000000000000000000000000000000" for instance <ram_1024_x_18> in unit <prom>.
+Entity <prom> analyzed. Unit <prom> generated.
+
+Analyzing Entity <i8253> (Architecture <behavioral>).
+Entity <i8253> analyzed. Unit <i8253> generated.
+
+Analyzing Entity <counter0> (Architecture <behavioral>).
+Entity <counter0> analyzed. Unit <counter0> generated.
+
+Analyzing Entity <counter1> (Architecture <behavioral>).
+Entity <counter1> analyzed. Unit <counter1> generated.
+
+Analyzing Entity <counter2> (Architecture <behavioral>).
+WARNING:Xst:819 - "C:/develop/mz700/counter2.vhd" line 134: The following signals are missing in the process sensitivity list:
+   LEN, INIV.
+Entity <counter2> analyzed. Unit <counter2> generated.
+
+Analyzing Entity <exrom> (Architecture <behavioral>).
+Entity <exrom> analyzed. Unit <exrom> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <counter2>.
+    Related source file is "C:/develop/mz700/counter2.vhd".
+    Found 1-bit 4-to-1 multiplexer for signal <$n0007>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0008>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0015>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0016>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0017>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0018>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0022>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0023>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0024>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0025>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0026>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0029>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0030>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0031>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0032>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0033>.
+    Found 16-bit register for signal <CD>.
+    Found 1-bit register for signal <CEN>.
+    Found 16-bit down counter for signal <CREG>.
+    Found 1-bit register for signal <DTEN>.
+    Found 16-bit register for signal <INIV>.
+    Found 1-bit register for signal <LEN>.
+    Found 1-bit register for signal <PO>.
+    Found 2-bit register for signal <RL>.
+    Found 1-bit register for signal <RUL>.
+    Found 1-bit register for signal <WUL>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  40 D-type flip-flop(s).
+	inferred  17 Multiplexer(s).
+Unit <counter2> synthesized.
+
+
+Synthesizing Unit <counter1>.
+    Related source file is "C:/develop/mz700/counter1.vhd".
+WARNING:Xst:1305 - Output <DO> is never assigned. Tied to value 00000000.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0002>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0003>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0004>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0007>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0008>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0009>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0010>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0011>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0014>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0015>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0016>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0017>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0018>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0020>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0021>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0022>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0023>.
+    Found 16-bit down counter for signal <CREG>.
+    Found 1-bit register for signal <GT>.
+    Found 16-bit register for signal <INIV>.
+    Found 1-bit register for signal <NEWM>.
+    Found 1-bit register for signal <PO>.
+    Found 2-bit register for signal <RL>.
+    Found 1-bit register for signal <UL>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  22 D-type flip-flop(s).
+	inferred  18 Multiplexer(s).
+Unit <counter1> synthesized.
+
+
+Synthesizing Unit <counter0>.
+    Related source file is "C:/develop/mz700/counter0.vhd".
+WARNING:Xst:1305 - Output <DO> is never assigned. Tied to value 00000000.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0006>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0007>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0008>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0010>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0011>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0012>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0013>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0014>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0016>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0017>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0018>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0020>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0021>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0022>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0023>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0024>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0025>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0026>.
+    Found 16-bit 4-to-1 multiplexer for signal <$n0028> created at line 113.
+    Found 16-bit subtractor for signal <$n0029>.
+    Found 16-bit register for signal <CREG>.
+    Found 1-bit register for signal <GT>.
+    Found 16-bit register for signal <INIV>.
+    Found 1-bit register for signal <NEWM>.
+    Found 1-bit register for signal <PO>.
+    Found 2-bit register for signal <RL>.
+    Found 1-bit register for signal <UL>.
+    Summary:
+	inferred  38 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred  35 Multiplexer(s).
+Unit <counter0> synthesized.
+
+
+Synthesizing Unit <prom>.
+    Related source file is "C:/develop/mz700/PROM.VHD".
+Unit <prom> synthesized.
+
+
+Synthesizing Unit <kcpsm3>.
+    Related source file is "C:/develop/mz700/kcpsm3.vhd".
+Unit <kcpsm3> synthesized.
+
+
+Synthesizing Unit <ps2kb>.
+    Related source file is "C:/develop/mz700/ps2kb.vhd".
+    Found 1-bit register for signal <DTEN>.
+    Found 8-bit register for signal <DATA>.
+    Found 4-bit register for signal <CKDT>.
+    Found 11-bit register for signal <KEYDT>.
+    Summary:
+	inferred  24 D-type flip-flop(s).
+Unit <ps2kb> synthesized.
+
+
+Synthesizing Unit <keymatrix>.
+    Related source file is "C:/develop/mz700/keymatrix.vhd".
+WARNING:Xst:1780 - Signal <EN> is never used or assigned.
+WARNING:Xst:653 - Signal <SCAN01<3>> is used but never assigned. Tied to value 0.
+WARNING:Xst:653 - Signal <SCAN02<2:0>> is used but never assigned. Tied to value 000.
+WARNING:Xst:653 - Signal <SCAN10<2:0>> is used but never assigned. Tied to value 000.
+WARNING:Xst:653 - Signal <SCAN09<5:1>> is used but never assigned. Tied to value 00000.
+    Found 8-bit register for signal <LDDAT>.
+    Found 1-bit register for signal <FLGE0>.
+    Found 1-bit register for signal <FLGF0>.
+    Found 4-bit register for signal <SCAN01<7:4>>.
+    Found 3-bit register for signal <SCAN01<2:0>>.
+    Found 5-bit register for signal <SCAN02<7:3>>.
+    Found 8-bit register for signal <SCAN03>.
+    Found 8-bit register for signal <SCAN04>.
+    Found 8-bit register for signal <SCAN05>.
+    Found 8-bit register for signal <SCAN06>.
+    Found 8-bit register for signal <SCAN07>.
+    Found 8-bit register for signal <SCAN08>.
+    Found 2-bit register for signal <SCAN09<7:6>>.
+    Found 1-bit register for signal <SCAN09<0>>.
+    Found 5-bit register for signal <SCAN10<7:3>>.
+    Summary:
+	inferred  78 D-type flip-flop(s).
+Unit <keymatrix> synthesized.
+
+
+Synthesizing Unit <T80_Reg>.
+    Related source file is "C:/develop/mz700/T80_Reg.vhd".
+    Found 8x8-bit dual-port distributed RAM for signal <RegsH>.
+    -----------------------------------------------------------------------
+    | aspect ratio       | 8-word x 8-bit                      |          |
+    | clock              | connected to signal <Clk>           | rise     |
+    | write enable       | connected to internal node          | high     |
+    | address            | connected to signal <AddrA>         |          |
+    | dual address       | connected to signal <AddrB>         |          |
+    | data in            | connected to signal <DIH>           |          |
+    | data out           | connected to signal <DOAH>          |          |
+    | dual data out      | connected to signal <DOBH>          |          |
+    | ram_style          | Auto                                |          |
+    -----------------------------------------------------------------------
+INFO:Xst:1442 - HDL ADVISOR - The RAM contents appears to be read asynchronously. A synchronous read would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+    Found 8x8-bit dual-port distributed RAM for signal <RegsH>.
+    -----------------------------------------------------------------------
+    | aspect ratio       | 8-word x 8-bit                      |          |
+    | clock              | connected to signal <Clk>           | rise     |
+    | write enable       | connected to internal node          | high     |
+    | address            | connected to signal <AddrA>         |          |
+    | dual address       | connected to signal <AddrC>         |          |
+    | data in            | connected to signal <DIH>           |          |
+    | data out           | not connected                       |          |
+    | dual data out      | connected to signal <DOCH>          |          |
+    | ram_style          | Auto                                |          |
+    -----------------------------------------------------------------------
+INFO:Xst:1442 - HDL ADVISOR - The RAM contents appears to be read asynchronously. A synchronous read would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+WARNING:Xst:1772 - You have explicitly defined initial contents for this RAM, which are currently ignored when the RAM is implemented with LUT resources, leading to incorrect circuit behavior. Changing the RAM description so that it is read synchronously will allow implementation on block RAM resources for which we provide full initial contents support.
+    Found 8x8-bit dual-port distributed RAM for signal <RegsL>.
+    -----------------------------------------------------------------------
+    | aspect ratio       | 8-word x 8-bit                      |          |
+    | clock              | connected to signal <Clk>           | rise     |
+    | write enable       | connected to internal node          | high     |
+    | address            | connected to signal <AddrA>         |          |
+    | dual address       | connected to signal <AddrB>         |          |
+    | data in            | connected to signal <DIL>           |          |
+    | data out           | connected to signal <DOAL>          |          |
+    | dual data out      | connected to signal <DOBL>          |          |
+    | ram_style          | Auto                                |          |
+    -----------------------------------------------------------------------
+INFO:Xst:1442 - HDL ADVISOR - The RAM contents appears to be read asynchronously. A synchronous read would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+    Found 8x8-bit dual-port distributed RAM for signal <RegsL>.
+    -----------------------------------------------------------------------
+    | aspect ratio       | 8-word x 8-bit                      |          |
+    | clock              | connected to signal <Clk>           | rise     |
+    | write enable       | connected to internal node          | high     |
+    | address            | connected to signal <AddrA>         |          |
+    | dual address       | connected to signal <AddrC>         |          |
+    | data in            | connected to signal <DIL>           |          |
+    | data out           | not connected                       |          |
+    | dual data out      | connected to signal <DOCL>          |          |
+    | ram_style          | Auto                                |          |
+    -----------------------------------------------------------------------
+INFO:Xst:1442 - HDL ADVISOR - The RAM contents appears to be read asynchronously. A synchronous read would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+WARNING:Xst:1772 - You have explicitly defined initial contents for this RAM, which are currently ignored when the RAM is implemented with LUT resources, leading to incorrect circuit behavior. Changing the RAM description so that it is read synchronously will allow implementation on block RAM resources for which we provide full initial contents support.
+    Summary:
+	inferred   4 RAM(s).
+Unit <T80_Reg> synthesized.
+
+
+Synthesizing Unit <T80_ALU>.
+    Related source file is "C:/develop/mz700/T80_ALU.vhd".
+    Found 1-bit xor2 for signal <$n0000> created at line 131.
+    Found 6-bit adder for signal <$n0002> created at line 104.
+    Found 5-bit adder for signal <$n0004> created at line 104.
+    Found 3-bit adder for signal <$n0006> created at line 104.
+    Found 8-bit 8-to-1 multiplexer for signal <$n0007> created at line 147.
+    Found 9-bit adder for signal <$n0012> created at line 211.
+    Found 9-bit adder for signal <$n0023> created at line 215.
+    Found 8-bit subtractor for signal <$n0024> created at line 223.
+    Found 9-bit subtractor for signal <$n0034> created at line 226.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0053> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0054> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0055> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0056> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0057> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0058> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0059> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0060> created at line 202.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0061> created at line 202.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0076> created at line 288.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0083> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0084> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0085> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0086> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0087> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0088> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0089> created at line 143.
+    Found 1-bit 15-to-1 multiplexer for signal <$n0090> created at line 143.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0092> created at line 288.
+    Found 8-bit xor2 for signal <$n0121> created at line 163.
+    Found 4-bit comparator greater for signal <$n0149> created at line 205.
+    Found 4-bit comparator greater for signal <$n0150> created at line 220.
+    Found 5-bit comparator greater for signal <$n0155> created at line 214.
+    Found 8-bit comparator greater for signal <$n0156> created at line 225.
+    Found 1-bit xor8 for signal <$n0167> created at line 188.
+    Found 1-bit xor8 for signal <$n0168> created at line 239.
+    Found 1-bit xor8 for signal <$n0169> created at line 259.
+    Found 1-bit xor8 for signal <$n0170> created at line 338.
+    Found 1-of-8 decoder for signal <BitMask>.
+    Found 1-bit xor2 for signal <Overflow_v>.
+    Summary:
+	inferred   7 Adder/Subtractor(s).
+	inferred   4 Comparator(s).
+	inferred  27 Multiplexer(s).
+	inferred   1 Decoder(s).
+	inferred   4 Xor(s).
+Unit <T80_ALU> synthesized.
+
+
+Synthesizing Unit <T80_MCode>.
+    Related source file is "C:/develop/mz700/T80_MCode.vhd".
+WARNING:Xst:647 - Input <F<5:3>> is never used.
+WARNING:Xst:647 - Input <F<1>> is never used.
+    Found 256x5-bit ROM for signal <$n0214>.
+    Found 1-bit 4-to-1 multiplexer for signal <Inc_WZ>.
+    Found 1-bit 4-to-1 multiplexer for signal <LDW>.
+    Found 1-bit 4-to-1 multiplexer for signal <LDZ>.
+    Found 1-bit 8-to-1 multiplexer for signal <I_BTR>.
+    Found 3-bit 4-to-1 multiplexer for signal <Special_LD>.
+    Found 2-bit 4-to-1 multiplexer for signal <Set_BusB_To<3:2>>.
+    Found 1-bit 4-to-1 multiplexer for signal <Set_BusB_To<0>>.
+    Found 2-bit 4-to-1 multiplexer for signal <IMode>.
+    Found 3-bit 4-to-1 multiplexer for signal <TStates>.
+    Found 1-bit 4-to-1 multiplexer for signal <Read_To_Acc>.
+    Found 1-bit 4-to-1 multiplexer for signal <NoRead>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0030> created at line 171.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0100> created at line 248.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0107> created at line 1708.
+    Found 1-bit 256-to-1 multiplexer for signal <$n0113>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0114> created at line 547.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0116> created at line 1708.
+    Found 1-bit 256-to-1 multiplexer for signal <$n0119>.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0131> created at line 1007.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0135> created at line 1760.
+    Found 3-bit 256-to-1 multiplexer for signal <$n0137>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0143> created at line 1855.
+    Found 1-bit 256-to-1 multiplexer for signal <$n0147>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0149> created at line 1104.
+    Found 1-bit 256-to-1 multiplexer for signal <$n0160>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0162> created at line 1708.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0169> created at line 1708.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0180> created at line 1760.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0188> created at line 1811.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0193> created at line 274.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0194> created at line 274.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0195> created at line 274.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0196> created at line 274.
+    Summary:
+	inferred   1 ROM(s).
+	inferred  55 Multiplexer(s).
+Unit <T80_MCode> synthesized.
+
+
+Synthesizing Unit <T80>.
+    Related source file is "C:/develop/mz700/T80.vhd".
+    Found 1-bit 1-of-5 priority encoder for internal node.
+    Found 1-bit 1-of-5 priority encoder for internal node.
+    Found 1-bit register for signal <M1_n>.
+    Found 8-bit register for signal <DO>.
+    Found 16-bit register for signal <A>.
+    Found 1-bit register for signal <RFSH_n>.
+    Found 7-bit adder for signal <$n0000> created at line 406.
+    Found 16-bit adder for signal <$n0023> created at line 510.
+    Found 16-bit adder for signal <$n0120> created at line 556.
+    Found 16-bit adder for signal <$n0121> created at line 554.
+    Found 16-bit subtractor for signal <$n0122> created at line 559.
+    Found 16-bit adder for signal <$n0123> created at line 567.
+    Found 16-bit addsub for signal <$n0124> created at line 572.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0136> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0137> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0138> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0139> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0140> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0141> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0142> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0143> created at line 652.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0164> created at line 773.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0165> created at line 773.
+    Found 8-bit 15-to-1 multiplexer for signal <$n0174> created at line 846.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0201>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0202>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0205>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0207>.
+    Found 4-bit 4-to-1 multiplexer for signal <$n0208>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0209>.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0210>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0215>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0219>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0224>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0227>.
+    Found 2-bit 4-to-1 multiplexer for signal <$n0245>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0273>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0283>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0294>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0298>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0299>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0302>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0303>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0305>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0306>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0308>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0313>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0314>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0316>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0319>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0322>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0325>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0327>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0328>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0330>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0332>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0333>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0335>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0338>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0340>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0341>.
+    Found 3-bit adder for signal <$n0345> created at line 1025.
+    Found 3-bit comparator equal for signal <$n0357> created at line 334.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0384> created at line 633.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0390> created at line 633.
+    Found 3-bit comparator not equal for signal <$n0413> created at line 464.
+    Found 3-bit comparator equal for signal <$n0415> created at line 464.
+    Found 1-bit xor8 for signal <$n0622> created at line 642.
+    Found 8-bit register for signal <ACC>.
+    Found 1-bit register for signal <Alternate>.
+    Found 4-bit register for signal <ALU_Op_r>.
+    Found 8-bit register for signal <Ap>.
+    Found 1-bit register for signal <Arith16_r>.
+    Found 1-bit 4-to-1 multiplexer for signal <Auto_Wait>.
+    Found 1-bit register for signal <Auto_Wait_t1>.
+    Found 1-bit register for signal <Auto_Wait_t2>.
+    Found 1-bit register for signal <BTR_r>.
+    Found 8-bit register for signal <BusA>.
+    Found 1-bit register for signal <BusAck>.
+    Found 8-bit register for signal <BusB>.
+    Found 1-bit register for signal <BusReq_s>.
+    Found 8-bit register for signal <F>.
+    Found 8-bit register for signal <Fp>.
+    Found 1-bit register for signal <Halt_FF>.
+    Found 8-bit register for signal <I>.
+    Found 16-bit addsub for signal <ID16>.
+    Found 1-bit register for signal <IncDecZ>.
+    Found 1-bit register for signal <INT_s>.
+    Found 1-bit register for signal <IntCycle>.
+    Found 1-bit register for signal <IntE_FF1>.
+    Found 1-bit register for signal <IntE_FF2>.
+    Found 8-bit register for signal <IR>.
+    Found 2-bit register for signal <ISet>.
+    Found 2-bit register for signal <IStatus>.
+    Found 3-bit register for signal <MCycle>.
+    Found 3-bit register for signal <MCycles>.
+    Found 1-bit register for signal <NMI_s>.
+    Found 1-bit register for signal <NMICycle>.
+    Found 1-bit register for signal <No_BTR>.
+    Found 1-bit register for signal <OldNMI_n>.
+    Found 16-bit register for signal <PC>.
+    Found 3-bit register for signal <Pre_XY_F_M>.
+    Found 1-bit register for signal <PreserveC_r>.
+    Found 8-bit register for signal <R>.
+    Found 5-bit register for signal <Read_To_Reg_r>.
+    Found 3-bit 4-to-1 multiplexer for signal <RegAddrA>.
+    Found 3-bit register for signal <RegAddrA_r>.
+    Found 3-bit register for signal <RegAddrB_r>.
+    Found 3-bit register for signal <RegAddrC>.
+    Found 16-bit register for signal <RegBusA_r>.
+    Found 1-bit 8-to-1 multiplexer for signal <RegWEH>.
+    Found 1-bit 8-to-1 multiplexer for signal <RegWEL>.
+    Found 1-bit register for signal <Save_ALU_r>.
+    Found 8-bit 4-to-1 multiplexer for signal <Save_Mux>.
+    Found 16-bit register for signal <SP>.
+    Found 16-bit register for signal <TmpAddr>.
+    Found 3-bit up counter for signal <TState>.
+    Found 1-bit register for signal <XY_Ind>.
+    Found 2-bit register for signal <XY_State>.
+    Found 1-bit register for signal <Z16_r>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred 213 D-type flip-flop(s).
+	inferred   9 Adder/Subtractor(s).
+	inferred   3 Comparator(s).
+	inferred  77 Multiplexer(s).
+	inferred   2 Priority encoder(s).
+	inferred   1 Xor(s).
+Unit <T80> synthesized.
+
+
+Synthesizing Unit <exrom>.
+    Related source file is "C:/develop/mz700/exrom.vhd".
+WARNING:Xst:737 - Found 8-bit latch for signal <DO>.
+    Found 32x8-bit ROM for signal <$n0001> created at line 37.
+    Summary:
+	inferred   1 ROM(s).
+Unit <exrom> synthesized.
+
+
+Synthesizing Unit <i8253>.
+    Related source file is "C:/develop/mz700/i8253.vhd".
+WARNING:Xst:647 - Input <RST> is never used.
+WARNING:Xst:646 - Signal <RD1> is assigned but never used.
+Unit <i8253> synthesized.
+
+
+Synthesizing Unit <psio>.
+    Related source file is "C:/develop/mz700/psio.vhd".
+WARNING:Xst:1780 - Signal <IRST> is never used or assigned.
+WARNING:Xst:1780 - Signal <REN> is never used or assigned.
+    Found 8-bit register for signal <LDDAT>.
+    Found 16-bit register for signal <TADDR>.
+    Found 1-bit register for signal <DO<0>>.
+    Found 1-bit register for signal <RBIT>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 12-bit 4-to-1 multiplexer for signal <$n0020>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0022>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0024>.
+    Found 8-bit 4-to-1 multiplexer for signal <$n0025>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0026>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0028> created at line 284.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0031>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0033>.
+    Found 10-bit 4-to-1 multiplexer for signal <$n0035>.
+    Found 10-bit 4-to-1 multiplexer for signal <$n0042>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0046>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0048>.
+    Found 12-bit adder for signal <$n0052> created at line 296.
+    Found 4-bit adder for signal <$n0053> created at line 223.
+    Found 10-bit adder for signal <$n0054> created at line 255.
+    Found 11-bit adder for signal <$n0055> created at line 319.
+    Found 10-bit adder for signal <$n0056> created at line 225.
+    Found 11-bit adder for signal <$n0057> created at line 313.
+    Found 12-bit 4-to-1 multiplexer for signal <$n0064>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0070>.
+    Found 1-bit register for signal <BBUSY>.
+    Found 12-bit register for signal <BCTR>.
+    Found 1-bit register for signal <BP>.
+    Found 1-bit register for signal <IREQ>.
+    Found 11-bit register for signal <RADDR>.
+    Found 10-bit register for signal <RCTR>.
+    Found 8-bit register for signal <RD>.
+    Found 10-bit register for signal <RDAT>.
+    Found 8-bit register for signal <RDAT0>.
+    Found 1-bit register for signal <RDP>.
+    Found 1-bit register for signal <RXEN>.
+    Found 3-bit register for signal <RXIN>.
+    Found 4-bit register for signal <TBCTR>.
+    Found 1-bit register for signal <TBFULL>.
+    Found 1-bit register for signal <TBUSY>.
+    Found 10-bit register for signal <TCTR>.
+    Found 9-bit register for signal <TDAT>.
+    Found 8-bit register for signal <TDAT0>.
+    Found 11-bit register for signal <WADDR>.
+    Summary:
+	inferred 137 D-type flip-flop(s).
+	inferred   6 Adder/Subtractor(s).
+	inferred  62 Multiplexer(s).
+Unit <psio> synthesized.
+
+
+Synthesizing Unit <i8255>.
+    Related source file is "C:/develop/mz700/i8255.vhd".
+WARNING:Xst:646 - Signal <PA<6:4>> is assigned but never used.
+WARNING:Xst:646 - Signal <PC<7:4>> is assigned but never used.
+    Found 8-bit 4-to-1 multiplexer for signal <DO>.
+    Found 4-bit up counter for signal <CCOUNT>.
+    Found 1-bit register for signal <M_ON>.
+    Found 1-bit register for signal <MTR>.
+    Found 8-bit register for signal <PA>.
+    Found 4-bit register for signal <PC<3:0>>.
+    Found 1-bit register for signal <SENSE0>.
+    Found 1-bit register for signal <SNS>.
+    Found 4-bit register for signal <SWIN>.
+    Found 1-bit register for signal <TBLNK>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  21 D-type flip-flop(s).
+	inferred   8 Multiplexer(s).
+Unit <i8255> synthesized.
+
+
+Synthesizing Unit <ls367>.
+    Related source file is "C:/develop/mz700/ls367.vhd".
+WARNING:Xst:647 - Input <DI<7:1>> is never used.
+    Found 1-bit register for signal <GT>.
+    Found 16-bit up counter for signal <TCOUNT>.
+    Found 1-bit register for signal <TEMPO>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   2 D-type flip-flop(s).
+Unit <ls367> synthesized.
+
+
+Synthesizing Unit <dpram2k>.
+    Related source file is "C:/develop/mz700/dpram2k.vhd".
+Unit <dpram2k> synthesized.
+
+
+Synthesizing Unit <cgrom>.
+    Related source file is "C:/develop/mz700/cgrom.vhd".
+    Found 8-bit 8-to-1 multiplexer for signal <ROMD>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0015>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0016>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0017>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0018>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 3-bit 4-to-1 multiplexer for signal <$n0020>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0021>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0022>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0023>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0024>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0025>.
+    Found 8-bit register for signal <BUFD>.
+    Found 11-bit register for signal <PCGA>.
+    Found 8-bit 4-to-1 multiplexer for signal <PCGD>.
+    Found 1-bit register for signal <PCGDSEL>.
+    Found 1-bit register for signal <PCGWP>.
+    Found 3-bit register for signal <TMPA>.
+    Found 1-bit register for signal <TMPDSEL>.
+    Summary:
+	inferred  25 D-type flip-flop(s).
+	inferred  29 Multiplexer(s).
+Unit <cgrom> synthesized.
+
+
+Synthesizing Unit <vgaout>.
+    Related source file is "C:/develop/mz700/vgaout.vhd".
+WARNING:Xst:647 - Input <ADAT<3>> is never used.
+    Found 1-bit 4-to-1 multiplexer for signal <BLUE>.
+    Found 1-bit register for signal <HS>.
+    Found 1-bit register for signal <VS>.
+    Found 1-bit 4-to-1 multiplexer for signal <GRN>.
+    Found 1-bit 4-to-1 multiplexer for signal <RED>.
+    Found 1-bit register for signal <BCOLB>.
+    Found 1-bit register for signal <BCOLG>.
+    Found 1-bit register for signal <BCOLR>.
+    Found 1-bit register for signal <FCOLB>.
+    Found 1-bit register for signal <FCOLG>.
+    Found 1-bit register for signal <FCOLR>.
+    Found 9-bit up counter for signal <HCOUNT>.
+    Found 1-bit register for signal <HDISPEN>.
+    Found 8-bit register for signal <SDAT>.
+    Found 11-bit up counter for signal <VADRC>.
+    Found 11-bit register for signal <VADRL>.
+    Found 10-bit up counter for signal <VCOUNT>.
+    Found 1-bit register for signal <VDISPEN>.
+    Summary:
+	inferred   3 Counter(s).
+	inferred  29 D-type flip-flop(s).
+	inferred   3 Multiplexer(s).
+Unit <vgaout> synthesized.
+
+
+Synthesizing Unit <mrom>.
+    Related source file is "C:/develop/mz700/mrom.vhd".
+WARNING:Xst:646 - Signal <net_vcc> is assigned but never used.
+Unit <mrom> synthesized.
+
+
+Synthesizing Unit <memsel>.
+    Related source file is "C:/develop/mz700/memsel.vhd".
+WARNING:Xst:647 - Input <A<10:8>> is never used.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0001>.
+    Found 1-bit register for signal <reg00>.
+    Found 1-bit register for signal <regEX>.
+    Found 1-bit register for signal <regIO>.
+    Summary:
+	inferred   3 D-type flip-flop(s).
+	inferred   1 Multiplexer(s).
+Unit <memsel> synthesized.
+
+
+Synthesizing Unit <my_dcm2>.
+    Related source file is "C:/develop/mz700/my_dcm2.vhd".
+WARNING:Xst:653 - Signal <CLKIN_IBUFG> is used but never assigned. Tied to value 0.
+Unit <my_dcm2> synthesized.
+
+
+Synthesizing Unit <my_dcm1>.
+    Related source file is "C:/develop/mz700/my_dcm1.vhd".
+Unit <my_dcm1> synthesized.
+
+
+Synthesizing Unit <T80s>.
+    Related source file is "C:/develop/mz700/T80s.vhd".
+    Found 1-bit register for signal <IORQ_n>.
+    Found 1-bit register for signal <MREQ_n>.
+    Found 1-bit register for signal <RD_n>.
+    Found 1-bit register for signal <WR_n>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0016>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0017>.
+    Found 1-bit 8-to-1 multiplexer for signal <$n0018>.
+    Found 1-bit 4-to-1 multiplexer for signal <$n0019>.
+    Found 8-bit register for signal <DI_Reg>.
+    Summary:
+	inferred  12 D-type flip-flop(s).
+	inferred   4 Multiplexer(s).
+Unit <T80s> synthesized.
+
+
+Synthesizing Unit <mz700>.
+    Related source file is "C:/develop/mz700/mz700.vhd".
+WARNING:Xst:647 - Input <SW<6:5>> is never used.
+WARNING:Xst:647 - Input <SW<3:1>> is never used.
+WARNING:Xst:647 - Input <BTN0> is never used.
+WARNING:Xst:646 - Signal <LDDAT<7:6>> is assigned but never used.
+WARNING:Xst:1780 - Signal <LDDAT<5:0>> is never used or assigned.
+WARNING:Xst:646 - Signal <M1> is assigned but never used.
+WARNING:Xst:646 - Signal <RFSH> is assigned but never used.
+WARNING:Xst:1780 - Signal <CENB1> is never used or assigned.
+WARNING:Xst:1780 - Signal <CENB2> is never used or assigned.
+    Found 16x8-bit ROM for signal <SEG>.
+    Found 8-bit tristate buffer for signal <IO>.
+    Found 4-bit 4-to-1 multiplexer for signal <AN>.
+    Found 6-bit shift register for signal <BUF<9:6>>.
+    Found 6-bit shift register for signal <BUF<5>>.
+    Found 4-bit 4-to-1 multiplexer for signal <DDAT>.
+    Found 5-bit up counter for signal <DIV8>.
+    Found 1-bit register for signal <HCLK>.
+    Found 2-bit up counter for signal <TMG>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   2 Counter(s).
+	inferred   5 D-type flip-flop(s).
+	inferred   8 Multiplexer(s).
+	inferred   1 Shift register(s).
+	inferred   8 Tristate(s).
+Unit <mz700> synthesized.
+
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Advanced RAM inference ...
+Advanced multiplier inference ...
+Advanced Registered AddSub inference ...
+Dynamic shift register inference ...
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# LUT RAMs                         : 4
+ 8x8-bit dual-port distributed RAM : 4
+# ROMs                             : 3
+ 16x8-bit ROM                      : 1
+ 256x5-bit ROM                     : 1
+ 32x8-bit ROM                      : 1
+# Adders/Subtractors               : 23
+ 10-bit adder                      : 2
+ 11-bit adder                      : 2
+ 12-bit adder                      : 1
+ 16-bit adder                      : 4
+ 16-bit addsub                     : 2
+ 16-bit subtractor                 : 2
+ 3-bit adder                       : 2
+ 4-bit adder                       : 1
+ 5-bit adder                       : 1
+ 6-bit adder                       : 1
+ 7-bit adder                       : 1
+ 8-bit subtractor                  : 1
+ 9-bit adder                       : 2
+ 9-bit subtractor                  : 1
+# Counters                         : 10
+ 10-bit up counter                 : 1
+ 11-bit up counter                 : 1
+ 16-bit down counter               : 2
+ 16-bit up counter                 : 1
+ 2-bit up counter                  : 1
+ 3-bit up counter                  : 1
+ 4-bit up counter                  : 1
+ 5-bit up counter                  : 1
+ 9-bit up counter                  : 1
+# Registers                        : 375
+ 1-bit register                    : 331
+ 10-bit register                   : 3
+ 11-bit register                   : 4
+ 12-bit register                   : 1
+ 16-bit register                   : 3
+ 2-bit register                    : 6
+ 3-bit register                    : 7
+ 4-bit register                    : 2
+ 8-bit register                    : 17
+ 9-bit register                    : 1
+# Latches                          : 1
+ 8-bit latch                       : 1
+# Shift Registers                  : 1
+ 6-bit shift register              : 1
+# Comparators                      : 7
+ 3-bit comparator equal            : 2
+ 3-bit comparator not equal        : 1
+ 4-bit comparator greater          : 2
+ 5-bit comparator greater          : 1
+ 8-bit comparator greater          : 1
+# Multiplexers                     : 203
+ 1-bit 15-to-1 multiplexer         : 8
+ 1-bit 256-to-1 multiplexer        : 4
+ 1-bit 4-to-1 multiplexer          : 136
+ 1-bit 8-to-1 multiplexer          : 25
+ 10-bit 4-to-1 multiplexer         : 2
+ 12-bit 4-to-1 multiplexer         : 2
+ 16-bit 4-to-1 multiplexer         : 1
+ 2-bit 4-to-1 multiplexer          : 2
+ 3-bit 256-to-1 multiplexer        : 1
+ 3-bit 4-to-1 multiplexer          : 12
+ 4-bit 4-to-1 multiplexer          : 3
+ 8-bit 15-to-1 multiplexer         : 1
+ 8-bit 4-to-1 multiplexer          : 4
+ 8-bit 8-to-1 multiplexer          : 2
+# Decoders                         : 1
+ 1-of-8 decoder                    : 1
+# Priority Encoders                : 2
+ 1-bit 1-of-5 priority encoder     : 2
+# Tristates                        : 1
+ 8-bit tristate buffer             : 1
+# Xors                             : 8
+ 1-bit xor2                        : 2
+ 1-bit xor8                        : 5
+ 8-bit xor2                        : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1426 - The value init of the FF/Latch GT hinder the constant cleaning in the block counter1.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1291 - FF/Latch <PA_4> is unconnected in block <i8255>.
+WARNING:Xst:1291 - FF/Latch <PA_5> is unconnected in block <i8255>.
+WARNING:Xst:1291 - FF/Latch <PA_6> is unconnected in block <i8255>.
+WARNING:Xst:1710 - FF/Latch  <NMI_s> (without init value) has a constant value of 0 in block <T80>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <BusReq_s> (without init value) has a constant value of 0 in block <T80>.
+WARNING:Xst:1710 - FF/Latch  <NMICycle> (without init value) has a constant value of 0 in block <T80>.
+WARNING:Xst:1291 - FF/Latch <M1_n> is unconnected in block <u0>.
+WARNING:Xst:1291 - FF/Latch <RFSH_n> is unconnected in block <u0>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_6> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_5> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_4> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_3> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_2> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_1> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_0> is unconnected in block <keys>.
+WARNING:Xst:1291 - FF/Latch <LDDAT_7> is unconnected in block <keys>.
+WARNING:Xst:1988 - Unit <T80>: instances <Mcompar__n0415>, <Mcompar__n0413> of unit <LPM_COMPARE_5> and unit <LPM_COMPARE_6> are dual, second instance is removed
+WARNING:Xst:1710 - FF/Latch  <BusAck> (without init value) has a constant value of 0 in block <T80>.
+
+Optimizing unit <mz700> ...
+
+Optimizing unit <i8253> ...
+
+Optimizing unit <T80s> ...
+
+Optimizing unit <counter2> ...
+
+Optimizing unit <T80> ...
+
+Optimizing unit <i8255> ...
+
+Optimizing unit <vgaout> ...
+
+Optimizing unit <keymatrix> ...
+
+Optimizing unit <T80_ALU> ...
+
+Optimizing unit <memsel> ...
+
+Optimizing unit <psio> ...
+
+Optimizing unit <ls367> ...
+
+Optimizing unit <ps2kb> ...
+
+Optimizing unit <kcpsm3> ...
+
+Optimizing unit <T80_MCode> ...
+
+Optimizing unit <counter0> ...
+
+Optimizing unit <counter1> ...
+
+Optimizing unit <mrom> ...
+
+Optimizing unit <cgrom> ...
+Loading device for application Rf_Device from file '3s1000.nph' in environment C:/Xilinx.
+
+Mapping all equations...
+WARNING:Xst:1291 - FF/Latch <CPU0/u0/M1_n> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <CPU0/u0/RFSH_n> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_6> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_5> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_4> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_3> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_2> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_1> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_0> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PPI0/keys/LDDAT_7> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_7> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_0> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_1> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_2> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_3> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_4> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_5> is unconnected in block <mz700>.
+WARNING:Xst:1291 - FF/Latch <PSIO0/LDDAT_6> is unconnected in block <mz700>.
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block mz700, actual ratio is 29.
+PACKER Warning: Lut CPU0/u0/I191_inst_lut2_01 driving carry CPU0/u0/I191_inst_cy_1 can not be packed with the carry due to conflict with the common signal requirement between the LUT inputs and the Carry DI/MAND pins. This would result in an extra LUT for a feedthrough.
+PACKER Warning: Lut CPU0/u0/I188_inst_lut2_01 driving carry CPU0/u0/I188_inst_cy_1 can not be packed with the carry due to conflict with the common signal requirement between the LUT inputs and the Carry DI/MAND pins. This would result in an extra LUT for a feedthrough.
+FlipFlop CPU0/u0/DO_4 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_5 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_6 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_7 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_0 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_1 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_2 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/DO_3 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop VGA0/HS has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop VGA0/VS has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_15 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_14 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_13 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_12 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_11 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_10 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_9 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_8 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_7 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_6 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_5 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_4 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_3 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_2 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_1 has been replicated 1 time(s) to handle iob=true attribute.
+FlipFlop CPU0/u0/A_0 has been replicated 1 time(s) to handle iob=true attribute.
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : mz700.ngr
+Top Level Output File Name         : mz700
+Output Format                      : NGC
+Optimization Goal                  : Area
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 73
+
+Macro Statistics :
+# RAM                              : 4
+#      8x8-bit dual-port distributed RAM: 4
+# ROMs                             : 3
+#      16x8-bit ROM                : 1
+#      256x5-bit ROM               : 1
+#      32x8-bit ROM                : 1
+# Registers                        : 384
+#      1-bit register              : 334
+#      10-bit register             : 3
+#      11-bit register             : 4
+#      12-bit register             : 1
+#      16-bit register             : 3
+#      2-bit register              : 6
+#      3-bit register              : 13
+#      4-bit register              : 2
+#      8-bit register              : 17
+#      9-bit register              : 1
+# Counters                         : 3
+#      10-bit up counter           : 1
+#      11-bit up counter           : 1
+#      16-bit down counter         : 1
+# Shift Registers                  : 1
+#      6-bit shift register        : 1
+# Multiplexers                     : 203
+#      1-bit 15-to-1 multiplexer   : 8
+#      1-bit 256-to-1 multiplexer  : 4
+#      1-bit 4-to-1 multiplexer    : 136
+#      1-bit 8-to-1 multiplexer    : 25
+#      10-bit 4-to-1 multiplexer   : 2
+#      12-bit 4-to-1 multiplexer   : 2
+#      16-bit 4-to-1 multiplexer   : 1
+#      2-bit 4-to-1 multiplexer    : 2
+#      3-bit 256-to-1 multiplexer  : 1
+#      3-bit 4-to-1 multiplexer    : 12
+#      4-bit 4-to-1 multiplexer    : 3
+#      8-bit 15-to-1 multiplexer   : 1
+#      8-bit 4-to-1 multiplexer    : 4
+#      8-bit 8-to-1 multiplexer    : 2
+# Tristates                        : 1
+#      8-bit tristate buffer       : 1
+# Priority Encoders                : 2
+#      1-bit 1-of-5 priority encoder: 2
+# Decoders                         : 1
+#      1-of-8 decoder              : 1
+# Adders/Subtractors               : 18
+#      10-bit adder                : 2
+#      11-bit adder                : 2
+#      12-bit adder                : 1
+#      16-bit adder                : 4
+#      16-bit addsub               : 2
+#      16-bit subtractor           : 2
+#      5-bit adder                 : 1
+#      6-bit adder                 : 1
+#      7-bit adder                 : 1
+#      8-bit subtractor            : 1
+#      9-bit adder                 : 1
+# Comparators                      : 7
+#      3-bit comparator equal      : 2
+#      3-bit comparator not equal  : 1
+#      4-bit comparator greater    : 2
+#      5-bit comparator greater    : 1
+#      8-bit comparator greater    : 1
+# Xors                             : 5
+#      1-bit xor8                  : 5
+
+Cell Usage :
+# BELS                             : 4056
+#      GND                         : 1
+#      INV                         : 110
+#      LUT1                        : 125
+#      LUT2                        : 283
+#      LUT3                        : 858
+#      LUT4                        : 1813
+#      MUXCY                       : 317
+#      MUXF5                       : 213
+#      MUXF6                       : 17
+#      MUXF7                       : 8
+#      VCC                         : 1
+#      XORCY                       : 310
+# FlipFlops/Latches                : 829
+#      FD                          : 41
+#      FDC                         : 27
+#      FDCE                        : 206
+#      FDCE_1                      : 3
+#      FDCPE                       : 37
+#      FDE                         : 283
+#      FDE_1                       : 73
+#      FDP                         : 14
+#      FDPE                        : 63
+#      FDR                         : 48
+#      FDRE                        : 8
+#      FDRE_1                      : 2
+#      FDRSE                       : 11
+#      FDS                         : 2
+#      FDSE                        : 1
+#      FDSE_1                      : 2
+#      LD_1                        : 8
+# RAMS                             : 67
+#      RAM16X1D                    : 40
+#      RAM32X1S                    : 10
+#      RAM64X1S                    : 8
+#      RAMB16_S18                  : 1
+#      RAMB16_S9                   : 2
+#      RAMB16_S9_S9                : 6
+# Shifters                         : 1
+#      SRL16E                      : 1
+# Clock Buffers                    : 8
+#      BUFG                        : 8
+# IO Buffers                       : 67
+#      IBUF                        : 7
+#      IBUFG                       : 1
+#      IOBUF                       : 8
+#      OBUF                        : 51
+# DCMs                             : 2
+#      DCM                         : 2
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s1000ft256-4 
+
+ Number of Slices:                    1886  out of   7680    24%  
+ Number of Slice Flip Flops:           829  out of  15360     5%  
+ Number of 4 input LUTs:              3172  out of  15360    20%  
+ Number of bonded IOBs:                 73  out of    173    42%  
+ Number of BRAMs:                        9  out of     24    37%  
+ Number of GCLKs:                        8  out of      8   100%  
+ Number of DCM_ADVs:                     2  out of      4    50%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+----------------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)                  | Load  |
+-----------------------------------+----------------------------------------+-------+
+CSE8(DEC0/CSE820:O)                | NONE(*)(ROM1/DO_4)                     | 8     |
+GCK0                               | DCM0/DCM_INST:CLK0                     | 6     |
+VGA0/HS:Q                          | NONE                                   | 1     |
+DIV8_2:Q                           | BUFG                                   | 729   |
+GCK0                               | DCM0/DCM_INST:CLKDV                    | 66    |
+HCLK:Q                             | BUFG                                   | 20    |
+GCK0                               | DCM0/DCM_INST:CLKFX+DCM1/DCM_INST:CLKFX| 5     |
+PIT0/RD2(PIT0/RD21:O)              | NONE(*)(PIT0/CTR2/DTEN)                | 2     |
+PIT0/CTR1/PO:Q                     | NONE                                   | 17    |
+CPU0/WR_n:Q                        | BUFG                                   | 19    |
+GPIO0/TEMPO:Q                      | NONE                                   | 5     |
+DIV8_4:Q                           | NONE                                   | 18    |
+CGROM0/PCGWP:Q                     | NONE                                   | 1     |
+CGROM0/PCGDSEL:Q                   | NONE                                   | 2     |
+-----------------------------------+----------------------------------------+-------+
+(*) These 2 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 42.206ns (Maximum Frequency: 23.693MHz)
+   Minimum input arrival time before clock: 10.300ns
+   Maximum output required time after clock: 13.391ns
+   Maximum combinational path delay: 11.446ns
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'GCK0'
+  Clock period: 4.199ns (frequency: 238.152MHz)
+  Total number of paths / destination ports: 3639 / 152
+-------------------------------------------------------------------------
+Delay:               4.199ns (Levels of Logic = 0)
+  Source:            Mshreg_BUF<5>_srl_0 (FF)
+  Destination:       Mshreg_BUF<5>_0 (FF)
+  Source Clock:      GCK0 rising
+  Destination Clock: GCK0 rising
+
+  Data Path: Mshreg_BUF<5>_srl_0 to Mshreg_BUF<5>_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     SRL16E:CLK->Q         1   3.195   0.801  Mshreg_BUF<5>_srl_0 (Mshreg_BUF<5>__net0)
+     FDE:D                     0.203          Mshreg_BUF<5>_0
+    ----------------------------------------
+    Total                      4.199ns (3.398ns logic, 0.801ns route)
+                                       (80.9% logic, 19.1% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'VGA0/HS:Q'
+  Clock period: 4.992ns (frequency: 200.321MHz)
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Delay:               4.992ns (Levels of Logic = 2)
+  Source:            HCLK (FF)
+  Destination:       HCLK (FF)
+  Source Clock:      VGA0/HS:Q rising
+  Destination Clock: VGA0/HS:Q rising
+
+  Data Path: HCLK to HCLK
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              1   0.720   0.801  HCLK (HCLK1)
+     BUFG:I->O            21   0.401   1.515  HCLK_BUFG (HCLK)
+     INV:I->O              1   0.551   0.801  _n00391_INV_0 (_n0039)
+     FDC:D                     0.203          HCLK
+    ----------------------------------------
+    Total                      4.992ns (1.875ns logic, 3.117ns route)
+                                       (37.6% logic, 62.4% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'DIV8_2:Q'
+  Clock period: 42.206ns (frequency: 23.693MHz)
+  Total number of paths / destination ports: 2375731 / 1673
+-------------------------------------------------------------------------
+Delay:               42.206ns (Levels of Logic = 26)
+  Source:            CPU0/u0/IR_1 (FF)
+  Destination:       CPU0/u0/ACC_3 (FF)
+  Source Clock:      DIV8_2:Q rising
+  Destination Clock: DIV8_2:Q rising
+
+  Data Path: CPU0/u0/IR_1 to CPU0/u0/ACC_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q           124   0.720   2.719  CPU0/u0/IR_1 (CPU0/u0/IR_1)
+     LUT2:I0->O           15   0.551   1.383  CPU0/u0/mcode/Ker2811 (CPU0/u0/mcode/N281)
+     LUT4:I1->O            8   0.551   1.278  CPU0/u0/mcode/Ker4541 (CPU0/u0/mcode/N454)
+     LUT4:I1->O            1   0.551   0.869  CPU0/u0/mcode/Ker52593 (CHOICE15263)
+     LUT4:I2->O            1   0.551   0.869  CPU0/u0/mcode/Ker52596 (CHOICE15264)
+     LUT4:I2->O            1   0.551   0.827  CPU0/u0/mcode/Ker52675_SW0 (N14398)
+     LUT4:I3->O            1   0.551   0.827  CPU0/u0/mcode/Ker52675 (CHOICE15288)
+     LUT4:I3->O            1   0.551   0.869  CPU0/u0/mcode/Ker52687 (CHOICE15289)
+     LUT3:I2->O            1   0.551   0.869  CPU0/u0/mcode/Ker52697 (CHOICE15290)
+     LUT3:I2->O            2   0.551   0.945  CPU0/u0/mcode/Ker52708 (N12438)
+     LUT4:I2->O            2   0.551   0.945  CPU0/u0/mcode/Ker31267 (N3415)
+     LUT4:I2->O            1   0.551   0.869  CPU0/u0/mcode/Ker10383 (CHOICE15525)
+     LUT4:I2->O            1   0.551   0.827  CPU0/u0/mcode/Ker103265_SW1 (N14258)
+     LUT4:I3->O            3   0.551   1.246  CPU0/u0/mcode/Ker103265 (N13075)
+     LUT4:I0->O            1   0.551   0.000  CPU0/u0/mcode/_n0646<2>2107_F (N14830)
+     MUXF5:I0->O           1   0.360   0.869  CPU0/u0/mcode/_n0646<2>2107 (CHOICE15002)
+     LUT4:I2->O            1   0.551   0.869  CPU0/u0/mcode/_n0646<2>2114 (CHOICE15003)
+     LUT3:I2->O            1   0.551   0.827  CPU0/u0/mcode/_n0646<2>2136 (CHOICE15005)
+     LUT4:I3->O            1   0.551   0.827  CPU0/u0/mcode/_n0646<2>2163 (CHOICE15007)
+     LUT4:I3->O            1   0.551   1.140  CPU0/u0/mcode/_n0646<2>2259_SW0 (N13713)
+     LUT4:I0->O            1   0.551   0.827  CPU0/u0/mcode/_n0646<2>2259 (CPU0/u0/TStates<1>)
+     LUT4:I3->O           10   0.551   1.202  CPU0/u0/T_Res1_SW0 (N992)
+     LUT3:I2->O           28   0.551   2.169  CPU0/u0/T_Res1 (CPU0/u0/T_Res)
+     LUT4:I0->O            1   0.551   0.827  CPU0/u0/Ker383_SW0 (N1000)
+     LUT4:I3->O            8   0.551   1.422  CPU0/u0/Ker383 (CPU0/u0/N383)
+     LUT4:I0->O            1   0.551   0.827  CPU0/u0/_n0264<4>79_SW1 (N14195)
+     LUT4:I3->O            1   0.551   0.000  CPU0/u0/_n0264<4>79 (N4485)
+     FDPE:D                    0.203          CPU0/u0/ACC_4
+    ----------------------------------------
+    Total                     42.206ns (15.058ns logic, 27.148ns route)
+                                       (35.7% logic, 64.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'HCLK:Q'
+  Clock period: 12.205ns (frequency: 81.934MHz)
+  Total number of paths / destination ports: 3028 / 36
+-------------------------------------------------------------------------
+Delay:               12.205ns (Levels of Logic = 21)
+  Source:            PIT0/CTR1/CREG_4 (FF)
+  Destination:       PIT0/CTR1/CREG_15 (FF)
+  Source Clock:      HCLK:Q rising
+  Destination Clock: HCLK:Q rising
+
+  Data Path: PIT0/CTR1/CREG_4 to PIT0/CTR1/CREG_15
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              2   0.720   1.216  PIT0/CTR1/CREG_4 (PIT0/CTR1/CREG_4)
+     LUT4:I0->O            1   0.551   1.140  PIT0/CTR1/Ker137 (CHOICE12832)
+     LUT2:I0->O            1   0.551   1.140  PIT0/CTR1/Ker151 (CHOICE12840)
+     LUT4:I0->O            3   0.551   0.975  PIT0/CTR1/Ker165 (N6508)
+     LUT4:I2->O           18   0.551   1.756  PIT0/CTR1/_n00051 (PIT0/CTR1/_n0005)
+     LUT3:I0->O            1   0.551   0.000  PIT0/CTR1/CREG_inst_lut3_301 (PIT0/CTR1/CREG_inst_lut3_30)
+     MUXCY:S->O            1   0.500   0.000  PIT0/CTR1/CREG_inst_cy_28 (PIT0/CTR1/CREG_inst_cy_28)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_29 (PIT0/CTR1/CREG_inst_cy_29)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_30 (PIT0/CTR1/CREG_inst_cy_30)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_31 (PIT0/CTR1/CREG_inst_cy_31)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_32 (PIT0/CTR1/CREG_inst_cy_32)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_33 (PIT0/CTR1/CREG_inst_cy_33)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_34 (PIT0/CTR1/CREG_inst_cy_34)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_35 (PIT0/CTR1/CREG_inst_cy_35)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_36 (PIT0/CTR1/CREG_inst_cy_36)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_37 (PIT0/CTR1/CREG_inst_cy_37)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_38 (PIT0/CTR1/CREG_inst_cy_38)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_39 (PIT0/CTR1/CREG_inst_cy_39)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_40 (PIT0/CTR1/CREG_inst_cy_40)
+     MUXCY:CI->O           1   0.064   0.000  PIT0/CTR1/CREG_inst_cy_41 (PIT0/CTR1/CREG_inst_cy_41)
+     MUXCY:CI->O           0   0.064   0.000  PIT0/CTR1/CREG_inst_cy_42 (PIT0/CTR1/CREG_inst_cy_42)
+     XORCY:CI->O           1   0.904   0.000  PIT0/CTR1/CREG_inst_sum_36 (PIT0/CTR1/CREG_inst_sum_36)
+     FDE:D                     0.203          PIT0/CTR1/CREG_15
+    ----------------------------------------
+    Total                     12.205ns (5.978ns logic, 6.227ns route)
+                                       (49.0% logic, 51.0% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'PIT0/RD21:O'
+  Clock period: 5.550ns (frequency: 180.180MHz)
+  Total number of paths / destination ports: 3 / 2
+-------------------------------------------------------------------------
+Delay:               5.550ns (Levels of Logic = 2)
+  Source:            PIT0/CTR2/RUL (FF)
+  Destination:       PIT0/CTR2/DTEN (FF)
+  Source Clock:      PIT0/RD21:O rising
+  Destination Clock: PIT0/RD21:O rising
+
+  Data Path: PIT0/CTR2/RUL to PIT0/CTR2/DTEN
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q            10   0.720   1.329  PIT0/CTR2/RUL (PIT0/CTR2/RUL)
+     LUT4:I1->O            1   0.551   0.996  PIT0/CTR2/_n00111 (PIT0/CTR2/N26)
+     LUT2:I1->O            1   0.551   0.801  PIT0/CTR2/_n00112 (PIT0/CTR2/_n0011)
+     FDPE:CE                   0.602          PIT0/CTR2/DTEN
+    ----------------------------------------
+    Total                      5.550ns (2.424ns logic, 3.126ns route)
+                                       (43.7% logic, 56.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'PIT0/CTR1/PO:Q'
+  Clock period: 10.068ns (frequency: 99.325MHz)
+  Total number of paths / destination ports: 152 / 17
+-------------------------------------------------------------------------
+Delay:               10.068ns (Levels of Logic = 5)
+  Source:            PIT0/CTR2/CREG_0 (FF)
+  Destination:       PIT0/CTR2/PO (FF)
+  Source Clock:      PIT0/CTR1/PO:Q rising
+  Destination Clock: PIT0/CTR1/PO:Q rising
+
+  Data Path: PIT0/CTR2/CREG_0 to PIT0/CTR2/PO
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCPE:C->Q            4   0.720   1.256  PIT0/CTR2/CREG_0 (PIT0/CTR2/CREG_0)
+     LUT3:I0->O            1   0.551   1.140  PIT0/CTR2/_n008760 (CHOICE13518)
+     LUT4:I0->O            1   0.551   0.827  PIT0/CTR2/_n008767_SW0 (N13727)
+     LUT4:I3->O            1   0.551   1.140  PIT0/CTR2/_n008767 (CHOICE13520)
+     LUT3:I0->O            1   0.551   0.827  PIT0/CTR2/_n0087112_SW0 (N13873)
+     LUT4:I3->O            1   0.551   0.801  PIT0/CTR2/_n0087112 (N8212)
+     FDCE:CE                   0.602          PIT0/CTR2/PO
+    ----------------------------------------
+    Total                     10.068ns (4.077ns logic, 5.991ns route)
+                                       (40.5% logic, 59.5% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CPU0/WR_n:Q'
+  Clock period: 3.964ns (frequency: 252.270MHz)
+  Total number of paths / destination ports: 6 / 4
+-------------------------------------------------------------------------
+Delay:               3.964ns (Levels of Logic = 2)
+  Source:            PPI0/PC_3 (FF)
+  Destination:       PPI0/PC_3 (FF)
+  Source Clock:      CPU0/WR_n:Q rising
+  Destination Clock: CPU0/WR_n:Q rising
+
+  Data Path: PPI0/PC_3 to PPI0/PC_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             4   0.720   0.943  PPI0/PC_3 (PPI0/PC_3)
+     LUT4:I3->O            1   0.551   0.996  PPI0/_n0014_SW0 (N944)
+     LUT3:I1->O            1   0.551   0.000  PPI0/_n0014 (PPI0/_n0014)
+     FDCE:D                    0.203          PPI0/PC_3
+    ----------------------------------------
+    Total                      3.964ns (2.025ns logic, 1.939ns route)
+                                       (51.1% logic, 48.9% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'GPIO0/TEMPO:Q'
+  Clock period: 5.621ns (frequency: 177.904MHz)
+  Total number of paths / destination ports: 18 / 6
+-------------------------------------------------------------------------
+Delay:               5.621ns (Levels of Logic = 2)
+  Source:            PPI0/CCOUNT_2 (FF)
+  Destination:       PPI0/TBLNK (FF)
+  Source Clock:      GPIO0/TEMPO:Q rising
+  Destination Clock: GPIO0/TEMPO:Q rising
+
+  Data Path: PPI0/CCOUNT_2 to PPI0/TBLNK
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              4   0.720   1.256  PPI0/CCOUNT_2 (PPI0/CCOUNT_2)
+     LUT4:I0->O            1   0.551   1.140  PPI0/_n00031 (PPI0/N14)
+     LUT2:I0->O            1   0.551   0.801  PPI0/_n00032 (PPI0/_n0003)
+     FDE:CE                    0.602          PPI0/TBLNK
+    ----------------------------------------
+    Total                      5.621ns (2.424ns logic, 3.197ns route)
+                                       (43.1% logic, 56.9% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'DIV8_4:Q'
+  Clock period: 10.595ns (frequency: 94.384MHz)
+  Total number of paths / destination ports: 726 / 34
+-------------------------------------------------------------------------
+Delay:               10.595ns (Levels of Logic = 5)
+  Source:            PIT0/CTR0/CREG_12 (FF)
+  Destination:       PIT0/CTR0/CREG_6 (FF)
+  Source Clock:      DIV8_4:Q rising
+  Destination Clock: DIV8_4:Q rising
+
+  Data Path: PIT0/CTR0/CREG_12 to PIT0/CTR0/CREG_6
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              2   0.720   1.216  PIT0/CTR0/CREG_12 (PIT0/CTR0/CREG_12)
+     LUT4:I0->O            1   0.551   1.140  PIT0/CTR0/_n005561 (CHOICE13007)
+     LUT4:I0->O            1   0.551   0.827  PIT0/CTR0/_n005574_SW0 (N13765)
+     LUT4:I3->O            3   0.551   1.102  PIT0/CTR0/_n005574 (N6921)
+     LUT4:I1->O            1   0.551   0.996  PIT0/CTR0/_n0066_SW1 (N13997)
+     LUT4:I1->O           16   0.551   1.237  PIT0/CTR0/_n0066 (PIT0/CTR0/_n0066)
+     FDE:CE                    0.602          PIT0/CTR0/CREG_0
+    ----------------------------------------
+    Total                     10.595ns (4.077ns logic, 6.518ns route)
+                                       (38.5% logic, 61.5% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'GCK0'
+  Total number of paths / destination ports: 9 / 9
+-------------------------------------------------------------------------
+Offset:              4.273ns (Levels of Logic = 3)
+  Source:            SW<7> (PAD)
+  Destination:       VGA0/SDAT_0 (FF)
+  Destination Clock: GCK0 rising 0.3X
+
+  Data Path: SW<7> to VGA0/SDAT_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             8   0.821   1.278  SW_7_IBUF (SW_7_IBUF)
+     LUT4:I1->O            1   0.551   0.869  CGROM0/Mmux_ROMD_ROMD<0> (CGDAT<0>)
+     LUT4:I2->O            1   0.551   0.000  VGA0/_n0012<0>1 (VGA0/_n0012<0>)
+     FDC:D                     0.203          VGA0/SDAT_0
+    ----------------------------------------
+    Total                      4.273ns (2.126ns logic, 2.147ns route)
+                                       (49.8% logic, 50.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'DIV8_2:Q'
+  Total number of paths / destination ports: 42 / 25
+-------------------------------------------------------------------------
+Offset:              10.300ns (Levels of Logic = 10)
+  Source:            SW<4> (PAD)
+  Destination:       PSIO0/scpu/zero_flag_flop (FF)
+  Destination Clock: DIV8_2:Q rising
+
+  Data Path: SW<4> to PSIO0/scpu/zero_flag_flop
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.821   0.827  SW_4_IBUF (SW_4_IBUF)
+     LUT4:I3->O            1   0.551   1.140  PSIO0/PI<7>12 (CHOICE11544)
+     LUT3:I0->O            1   0.551   0.827  PSIO0/PI<7>51_SW0 (N14027)
+     LUT4:I3->O            1   0.551   0.996  PSIO0/PI<7>51 (PSIO0/PI<7>)
+     LUT3:I1->O            1   0.551   0.000  PSIO0/scpu/mux_lut7 (PSIO0/scpu/input_group<7>)
+     MUXF5:I1->O           2   0.360   0.903  PSIO0/scpu/shift_in_muxf57 (PSIO0/scpu/alu_result<7>)
+     LUT4:I3->O            1   0.551   0.000  PSIO0/scpu/high_zero_lut (PSIO0/scpu/high_zero)
+     MUXCY:S->O            1   0.500   0.000  PSIO0/scpu/high_zero_cymux (PSIO0/scpu/high_zero_carry)
+     MUXCY:CI->O           0   0.064   0.000  PSIO0/scpu/zero_cymux (PSIO0/scpu/zero_carry)
+     XORCY:CI->O           1   0.904   0.000  PSIO0/scpu/zero_xor (PSIO0/scpu/zero_fast_route)
+     FDRE:D                    0.203          PSIO0/scpu/zero_flag_flop
+    ----------------------------------------
+    Total                     10.300ns (5.607ns logic, 4.693ns route)
+                                       (54.4% logic, 45.6% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'DIV8_2:Q'
+  Total number of paths / destination ports: 230 / 35
+-------------------------------------------------------------------------
+Offset:              13.391ns (Levels of Logic = 4)
+  Source:            DEC0/regEX (FF)
+  Destination:       IO<4> (PAD)
+  Source Clock:      DIV8_2:Q falling
+
+  Data Path: DEC0/regEX to IO<4>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE_1:C->Q          16   0.720   1.576  DEC0/regEX (DEC0/regEX)
+     LUT4:I0->O            1   0.551   0.827  DEC0/CS1_SW1 (N2203)
+     LUT4:I3->O           19   0.551   1.645  DEC0/CS1 (CE1_OBUF)
+     LUT2:I1->O            8   0.551   1.083  IO_DO_EnableTr_INV1 (IO_DO_N0)
+     IOBUF:T->IO               5.887          IO_7_IOBUF (IO<7>)
+    ----------------------------------------
+    Total                     13.391ns (8.260ns logic, 5.131ns route)
+                                       (61.7% logic, 38.3% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'GCK0'
+  Total number of paths / destination ports: 15 / 6
+-------------------------------------------------------------------------
+Offset:              9.989ns (Levels of Logic = 3)
+  Source:            DIV8_2 (FF)
+  Destination:       WE (PAD)
+  Source Clock:      GCK0 rising 0.6X
+
+  Data Path: DIV8_2 to WE
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              1   0.720   0.801  DIV8_2 (DIV8_21)
+     BUFG:I->O             6   0.401   1.071  DIV8_2_BUFG (DIV8_2)
+     LUT3:I2->O            1   0.551   0.801  WE1 (WE_OBUF)
+     OBUF:I->O                 5.644          WE_OBUF (WE)
+    ----------------------------------------
+    Total                      9.989ns (7.316ns logic, 2.673ns route)
+                                       (73.2% logic, 26.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'DIV8_4:Q'
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Offset:              8.623ns (Levels of Logic = 2)
+  Source:            PIT0/CTR0/PO (FF)
+  Destination:       SPKOUT (PAD)
+  Source Clock:      DIV8_4:Q rising
+
+  Data Path: PIT0/CTR0/PO to SPKOUT
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              3   0.720   0.907  PIT0/CTR0/PO (PIT0/CTR0/PO)
+     INV:I->O              1   0.551   0.801  SPKOUT1_INV_0 (SPKOUT_OBUF)
+     OBUF:I->O                 5.644          SPKOUT_OBUF (SPKOUT)
+    ----------------------------------------
+    Total                      8.623ns (6.915ns logic, 1.708ns route)
+                                       (80.2% logic, 19.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'HCLK:Q'
+  Total number of paths / destination ports: 92 / 11
+-------------------------------------------------------------------------
+Offset:              11.541ns (Levels of Logic = 4)
+  Source:            TMG_1 (FF)
+  Destination:       SEG<6> (PAD)
+  Source Clock:      HCLK:Q rising
+
+  Data Path: TMG_1 to SEG<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q              13   0.720   1.509  TMG_1 (TMG_1)
+     LUT4:I0->O            1   0.551   0.000  AN<0>_AN<0>111_F (N14594)
+     MUXF5:I0->O           7   0.360   1.405  AN<0>_AN<0>111 (DDAT<0>)
+     LUT4:I0->O            1   0.551   0.801  Mrom_SEG_inst_lut4_01 (SEG_0_OBUF)
+     OBUF:I->O                 5.644          SEG_0_OBUF (SEG<0>)
+    ----------------------------------------
+    Total                     11.541ns (7.826ns logic, 3.715ns route)
+                                       (67.8% logic, 32.2% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 57 / 8
+-------------------------------------------------------------------------
+Delay:               11.446ns (Levels of Logic = 5)
+  Source:            SW<0> (PAD)
+  Destination:       SEG<6> (PAD)
+
+  Data Path: SW<0> to SEG<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O            12   0.821   1.313  SW_0_IBUF (SW_0_IBUF)
+     LUT4:I1->O            1   0.551   0.000  AN<0>_AN<0>111_F (N14594)
+     MUXF5:I0->O           7   0.360   1.405  AN<0>_AN<0>111 (DDAT<0>)
+     LUT4:I0->O            1   0.551   0.801  Mrom_SEG_inst_lut4_01 (SEG_0_OBUF)
+     OBUF:I->O                 5.644          SEG_0_OBUF (SEG<0>)
+    ----------------------------------------
+    Total                     11.446ns (7.927ns logic, 3.519ns route)
+                                       (69.3% logic, 30.7% route)
+
+=========================================================================
+CPU : 235.61 / 236.39 s | Elapsed : 236.00 / 236.00 s
+ 
+--> 
+
+Total memory usage is 168824 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :  312 (   0 filtered)
+Number of infos    :    5 (   0 filtered)
+

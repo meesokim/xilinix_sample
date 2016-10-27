@@ -1,0 +1,338 @@
+         ;
+         ; Printer and Tape control firmware for PicoBlaze
+         ; for MZ-700 on FPGA
+         ;
+         ; Nibbles Lab. 2005
+         ;
+         ; Input ports
+         CONSTANT RX, 00
+         CONSTANT STROBE, 01
+         CONSTANT PDATA, 02
+         CONSTANT TXSTAT, 03
+         CONSTANT PSTAT, 04
+         CONSTANT BUFR, 05
+         CONSTANT RBLK, 06
+         CONSTANT WBLK, 07
+         ; Output ports
+         CONSTANT TX, 00
+         CONSTANT BUSY, 01
+         CONSTANT PWM, 02
+         ;  CONSTANT PWM0, 02
+         ;  CONSTANT PWM1, 03
+         CONSTANT BUFRES, 04
+         CONSTANT BUFW, 05
+         CONSTANT CTRL, 06
+         CONSTANT CTRH, 07
+         CONSTANT LED, 08
+         ; XMODEM protocol
+         CONSTANT SOH, 01
+         CONSTANT EOT, 04
+         CONSTANT ACK, 06
+         CONSTANT NAK, 15
+         ;
+         ; Register list
+         ;  s0 work
+         ;  s1 sub work
+         ;  s2 parameter
+         ;  s3 counter (low)
+         ;  s4 counter (high)
+         ;  s5 file size (low)
+         ;  s6 file size (high)
+         ;  s7 sum (low)
+         ;  s8 sum (high)
+         ;  s9 block counter
+         ;  sA recieve data
+         ;  sB waiting ACK mode
+         ;  sC
+         ;  sD
+         ;  sE
+         ;  sF pen color
+         ;
+  START: LOAD s1, 00         ; Initialize
+         OUTPUT s1, BUSY
+         OUTPUT s1, CTRL
+         OUTPUT s1, CTRH
+         LOAD sF, 03
+         LOAD s2, 1D
+         CALL PCODE          ; set terminal's color to default
+         ENABLE INTERRUPT
+         ;
+   LOOP: CALL PRINT
+         INPUT s0, PSTAT     ; PLAY button check (off->on)
+         SL0 s0
+         JUMP NC, LOOP
+         CALL RTAPE
+         LOAD s0, 00
+         OUTPUT s0, CTRL
+         OUTPUT s0, CTRH
+         ;
+  LOOP2: CALL PRINT
+         INPUT s0, PSTAT     ; PLAY button check (on->off)
+         SL0 s0
+         JUMP NC, LOOP
+         JUMP LOOP2
+         ;
+  RTAPE: OUTPUT s0, BUFRES
+         LOAD s9, 00
+         LOAD sB, 00
+         LOAD sC, 00
+         LOAD sD, 00
+         OUTPUT sD, LED
+         LOAD s2, NAK        ; request to start XMODEM transfer
+         CALL TXOUT
+         CALL CHKBTN         ; PLAY button check (off)
+         RETURN NZ
+         ;
+ RTAPE1: CALL Z11000         ; 0 * 22000
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         CALL Z11000
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         ;
+         CALL BIT120         ; 1 * 40
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         CALL BIT120
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         CALL BIT020         ; 1 * 40
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         CALL BIT020
+         ;
+         LOAD sE, 80         ; 1 * 1
+         CALL PLSOUT
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         ;
+         LOAD s7, 00         ; sum clear
+         LOAD s8, 00
+         LOAD s4, 7F         ; Header size
+ RTAPE2: LOAD sE, 80         ; start bit
+         CALL PLSOUT
+         INPUT sE, BUFR      ; Header
+         CALL TCHK
+         COMPARE s4, 6D
+         JUMP NZ, RTAPE3
+         LOAD s5, sE         ; size low
+         OUTPUT s5, CTRL
+         JUMP RTAPE4
+ RTAPE3: COMPARE s4, 6C
+         JUMP NZ, RTAPE4
+         LOAD s6, sE         ; size high
+         OUTPUT s6, CTRH
+ RTAPE4: LOAD s3, 07
+         CALL PLSLOOP
+         ADD s7, s1
+         ADDCY s8, 00
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         SUB s4, 01
+         JUMP NC, RTAPE2
+         ;
+         CALL TSUM
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         ;
+         CALL Z11000         ; 0 * 11000
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         ;
+         CALL BIT120         ; 1 * 20
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         CALL BIT020         ; 0 * 20
+         ;
+         LOAD sE, 80         ; 1 * 1
+         CALL PLSOUT
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         ;
+         LOAD s7, 00         ; sum clear
+         LOAD s8, 00
+ RTAPE6: LOAD sE, 80         ; start bit
+         CALL PLSOUT
+         INPUT sE, BUFR      ; Data
+         CALL TCHK
+         LOAD s3, 07
+         CALL PLSLOOP
+         ADD s7, s1          ; add sum
+         ADDCY s8, 00
+         SUB s5, 01
+         SUBCY s6, 00
+         OUTPUT s5, CTRL
+         OUTPUT s6, CTRH
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         LOAD s0, s5
+         OR s0, s6
+         JUMP NZ, RTAPE6
+         ;
+         CALL TSUM
+         JUMP RTAPE1
+         ;
+ CHKBTN: INPUT s0, PSTAT     ; PLAY button check
+         TEST s0, 40
+         RETURN 
+         ;
+ Z11000: LOAD sE, 00         ; 0 * 11000
+         LOAD s4, 28
+     Z0: LOAD s3, FF
+         CALL PLSLOOP
+         CALL CHKBTN
+         RETURN NZ           ; button off
+         SUB s4, 01
+         JUMP NZ, Z0
+         LOAD s3, F7
+         JUMP PLSLOOP
+         ;
+ BIT120: LOAD sE, FF         ; 1 * 20
+         LOAD s3, 13
+         JUMP PLSLOOP
+         ;
+ BIT020: LOAD sE, 00         ; 0 * 20
+         LOAD s3, 13
+         JUMP PLSLOOP
+         ;
+   TSUM: LOAD sE, 80         ; start bit
+         CALL PLSOUT
+         LOAD s3, 07
+         LOAD sE, s8         ; high
+         CALL PLSLOOP
+         LOAD sE, 80         ; start bit
+         CALL PLSOUT
+         LOAD s3, 07
+         LOAD sE, s7         ; low
+         CALL PLSLOOP
+         LOAD sE, 80         ; 1 * 1
+         JUMP PLSOUT
+         ;
+   TCHK: COMPARE sB, FF      ; waiting ACK?
+         RETURN NZ
+         INPUT s0, RBLK      ; can I recieve?
+         INPUT s1, WBLK
+         ;  ADD  s1, 01
+         ;  AND  s1, 0F
+         COMPARE s0, s1
+         RETURN Z
+         LOAD sB, 00
+         STORE s2, 02
+         LOAD s2, ACK
+         CALL TXOUT
+         FETCH s2, 02
+         RETURN 
+         ;
+PLSLOOP: LOAD s1, 00
+PLSLOP1: CALL PLSOUT
+         SUB s3, 01
+         JUMP NC, PLSLOP1
+         RETURN 
+         ;
+ PLSOUT: INPUT s0, PSTAT     ; PLAY button check
+         TEST s0, 40
+         RETURN NZ           ; button off
+         SR0 s0              ; busy check
+         JUMP C, PLSOUT
+         OUTPUT sE, PWM
+         RL sE
+         RETURN NC
+         ADD s1, 01
+         RETURN 
+         ;
+  PRINT: INPUT s0, STROBE    ; Print data set?
+         SR0 s0
+         RETURN NC
+         INPUT s2, PDATA     ; get Print data
+         LOAD s0, 01
+         OUTPUT s0, BUSY     ; Printer is busy
+         CALL PCODE
+CHKSTB2: INPUT s0, STROBE    ; Print end?
+         SR0 s0
+         JUMP C, CHKSTB2
+         LOAD s0, 00         ; Printer is not busy
+         OUTPUT s0, BUSY
+         RETURN 
+         ;
+  PCODE: COMPARE s2, 20
+         JUMP NC, TXOUT      ; force output over 0x1f
+         INPUT s0, STROBE
+         SL0 s0
+         JUMP C, TXOUT       ; force output
+         COMPARE s2, 0D      ; CR
+         JUMP Z, TXOUT
+         COMPARE s2, 1D      ; Pen change
+         RETURN NZ
+         LOAD s2, 1B         ; ESC
+         CALL TXOUT
+         LOAD s2, 5B         ; '['
+         CALL TXOUT
+         ADD sF, 01
+         AND sF, 03
+         JUMP NZ, PCODE1
+         LOAD s2, 30         ; '0' (default)
+         CALL TXOUT
+         JUMP PCODE4
+ PCODE1: LOAD s2, 33         ; '3'
+         CALL TXOUT
+         COMPARE sF, 01
+         JUMP NZ, PCODE2
+         LOAD s2, 34         ; '4' (blue)
+         CALL TXOUT
+         JUMP PCODE4
+ PCODE2: COMPARE sF, 02
+         JUMP NZ, PCODE3
+         LOAD s2, 32         ; '2' (green)
+         CALL TXOUT
+         JUMP PCODE4
+ PCODE3: LOAD s2, 31         ; '1' (red)
+         CALL TXOUT
+ PCODE4: LOAD s2, 6D         ; 'm'
+         ;  JUMP TXOUT
+         ;
+  TXOUT: INPUT s0, TXSTAT    ; Is Serial(TX) busy?
+         SR0 s0
+         JUMP C, TXOUT
+         OUTPUT s2, TX       ; set Serial port
+         RETURN 
+         ;
+   RXIN: STORE s2, 00
+         STORE s0, 01
+         INPUT sA, RX
+         ADD s9, 01
+         COMPARE s9, 01      ; SOH/EOT
+         JUMP NZ, RXIN0
+         COMPARE sA, EOT
+         JUMP Z, RXIN3
+         JUMP RXIN9
+  RXIN0: COMPARE s9, 04      ; block num
+         JUMP NC, RXIN1
+         JUMP RXIN9
+  RXIN1: COMPARE s9, 84      ; data
+         JUMP NC, RXIN2
+         OUTPUT sA, BUFW
+         ADD sC, sA
+         JUMP RXIN9
+  RXIN2: COMPARE sA, sC
+         JUMP Z, RXIN21
+         ADD sD, 01
+         OUTPUT sD, LED
+ RXIN21: LOAD s9, 00
+         LOAD sC, 00
+         INPUT sA, RBLK
+         INPUT s2, WBLK
+         ;  ADD  s2, 01
+         ;  AND  s2, 0F
+         COMPARE s2, sA
+         JUMP NZ, RXIN3
+         LOAD sB, FF
+         JUMP RXIN9
+  RXIN3: LOAD s2, ACK
+         CALL TXOUT
+  RXIN9: FETCH s2, 00
+         FETCH s0, 01
+         RETURNI ENABLE
+         ;
+         ADDRESS 3FF
+         ;
+         JUMP RXIN
