@@ -18,9 +18,9 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity mz700 is
-    Port ( RED : out std_logic;
-           GRN : out std_logic;
-           BLUE : out std_logic;
+    Port ( VRED : out std_logic_vector(4 downto 0);
+           VGRN : out std_logic_vector(5 downto 0);
+           VBLUE : out std_logic_vector(4 downto 0);
            HS : out std_logic;
            VS : out std_logic;
            GCK0 : in std_logic;
@@ -54,6 +54,7 @@ entity mz700 is
 --		 CE2 : out std_logic;
 --		 UB2 : out std_logic;
 --		 LB2 : out std_logic;
+		 CE1 : in std_logic;
          SDRAM_CKE : out std_logic;
 		 SDRAM_CS_N : out std_logic;
 		 SDRAM_RAS_N : out std_logic;
@@ -64,6 +65,7 @@ entity mz700 is
 		 SDRAM_DQ : inout std_logic_vector(15 downto 0);
 		 SDRAM_DQMH : out std_logic;
 		 SDRAM_DQML : out std_logic;
+		 SDRAM_CLK : out std_logic;
 		 AN : out std_logic_vector(3 downto 0);
 		 SEG : out std_logic_vector(7 downto 0);
 		 LD : out std_logic_vector(7 downto 0));
@@ -79,7 +81,7 @@ signal REFRESH : std_logic;
 signal RW : std_logic;
 signal WE : std_logic;
 signal ADDR : std_logic_vector(23 downto 0);
-signal DATAI : std_logic_vector(15 downto 0);
+signal DATA : std_logic_vector(15 downto 0);
 signal UB : std_logic;
 signal LB : std_logic;
 signal READY : std_logic;
@@ -186,31 +188,32 @@ signal CENB2 : std_logic;
 component sdram_simple
 	port(
       -- Host side
-	  clk_100m0_i    : in std_logic;	-- Master clock
+		clk_100m0_i		: in std_logic;
 	  
-	  reset_i        : in std_logic := '0';     -- Reset, active high
-	  refresh_i      : in std_logic := '0';     -- Initiate a refresh cycle, active high
-	  rw_i           : in std_logic := '0';     -- Initiate a read or write operation, active high
-	  we_i           : in std_logic := '0';     -- Write enable, active low
-	  addr_i         : in std_logic_vector(23 downto 0) := (others => '0');   -- Address from host to SDRAM
-	  data_i         : in std_logic_vector(15 downto 0) := (others => '0');   -- Data from host to SDRAM
-	  ub_i           : in std_logic;     -- Data upper byte enable, active low
-	  lb_i           : in std_logic;     -- Data lower byte enable, active low
-	  ready_o        : out std_logic := '0';    -- Set to '1' when the memory is ready
-	  done_o         : out std_logic := '0';    -- Read, write, or refresh, operation is done
-	  data_o         : out std_logic_vector(15 downto 0);   -- Data from SDRAM to host
+		reset_i			: in std_logic := '0';  -- Reset, active high
+		refresh_i		: in std_logic := '0';  -- Initiate a refresh cycle, active high
+		rw_i			: in std_logic := '0';  -- Initiate a read or write operation, active high
+		we_i			: in std_logic := '0';  -- Write enable, active low
+		addr_i			: in std_logic_vector(23 downto 0) := (others => '0'); -- Address from host to SDRAM
+		data_i			: in std_logic_vector(15 downto 0) := (others => '0'); -- Data from host to SDRAM
+		ub_i			: in std_logic;     -- Data upper byte enable, active low
+		lb_i			: in std_logic;     -- Data lower byte enable, active low
+		ready_o			: out std_logic := '0';    -- Set to '1' when the memory is ready
+		done_o			: out std_logic := '0';    -- Read, write, or refresh, operation is done
+		data_o			: out std_logic_vector(15 downto 0);   -- Data from SDRAM to host
 
 	-- SDRAM side
-	  sdCke_o        : out std_logic;           -- Clock-enable to SDRAM
-	  sdCe_bo        : out std_logic;           -- Chip-select to SDRAM
-	  sdRas_bo       : out std_logic;           -- SDRAM row address strobe
-	  sdCas_bo       : out std_logic;           -- SDRAM column address strobe
-	  sdWe_bo        : out std_logic;           -- SDRAM write enable
-	  sdBs_o         : out std_logic_vector(1 downto 0);    -- SDRAM bank address
-	  sdAddr_o       : out std_logic_vector(12 downto 0);   -- SDRAM row/column address
-	  sdData_io      : inout std_logic_vector(15 downto 0); -- Data to/from SDRAM
-	  sdDqmh_o       : out std_logic;           -- Enable upper-byte of SDRAM databus if true
-	  sdDqml_o       : out std_logic            -- Enable lower-byte of SDRAM databus if true	
+		sdCke_o			: out std_logic;           -- Clock-enable to SDRAM
+		sdCe_bo			: out std_logic;           -- Chip-select to SDRAM
+		sdRas_bo		: out std_logic;           -- SDRAM row address strobe
+		sdCas_bo		: out std_logic;           -- SDRAM column address strobe
+		sdWe_bo			: out std_logic;           -- SDRAM write enable
+		sdBs_o			: out std_logic_vector(1 downto 0);    -- SDRAM bank address
+		sdAddr_o		: out std_logic_vector(12 downto 0);   -- SDRAM row/column address
+		sdData_io		: inout std_logic_vector(15 downto 0); -- Data to/from SDRAM
+		sdDqmh_o		: out std_logic;           -- Enable upper-byte of SDRAM databus if true
+		sdDqml_o		: out std_logic;            -- Enable lower-byte of SDRAM databus if true	
+		sdClk_o			: out std_logic
 	);
 end component;
 component T80s
@@ -416,29 +419,29 @@ begin
 	--
 	
 	SRAM : sdram_simple port map (
-			clk_100m0_i => MCLK,
+			clk_100m0_i => MCLK,
 			reset_i => URST,
-			refresh_i => RFSH,   
-			rw_i => RW,         
-			we_i => WE,         
-			addr_i => A16,       
-			data_i => DI,       
-			ub_i => UB,         
-			lb_i => LB,         
-			ready_o => READY,  
-			done_o => DONE,
-			data_o => DO,       
-			sdCke_o => SDRAM_CKE,     
-			sdCe_bo => SDRAM_CS_N,      
-			sdRas_bo => SDRAM_RAS_N,     
-			sdCas_bo => SDRAM_CAS_N,
-			sdWe_bo => SDRAM_WE_N,      
-			sdBs_o => SDRAM_BA,       
-			sdAddr_o => SDRAM_A,     
-			sdData_io => SDRAM_DQ,    
-			sdDqmh_o => SDRAM_DQMH,     
-			sdDqml_o => SDRAM_DQML     
-			)
+			refresh_i => RFSH,   
+			rw_i => RW,         
+			we_i => WE,         
+			addr_i => ADDR,       
+			data_i => DATA,       
+			ub_i => UB,         
+			lb_i => LB,         
+			ready_o => READY,  
+			done_o => DONE,
+			data_o => DATAO, 
+			sdCke_o => SDRAM_CKE,     
+			sdCe_bo => SDRAM_CS_N,      
+			sdRas_bo => SDRAM_RAS_N,     
+			sdCas_bo => SDRAM_CAS_N,
+			sdWe_bo => SDRAM_WE_N,      
+			sdBs_o => SDRAM_BA,       
+			sdAddr_o => SDRAM_A,     
+			sdData_io => SDRAM_DQ,    
+			sdDqmh_o => SDRAM_DQMH,     
+			sdDqml_o => SDRAM_DQML,
+			sdClk_o => SDRAM_CLK);
 	CPU0 : T80s port map (
 			RESET_n => URST,
 			CLK_n => CLK,
@@ -506,9 +509,9 @@ begin
 	VGA0 : vgaout port map (
 			RST => URST,
 			CLK => DCLK,
-			RED => RED,
-			GRN => GRN,
-			BLUE => BLUE,
+			RED => VRED(4),
+			GRN => VGRN(5),
+			BLUE => VBLUE(4),
 			HS => HSPLS,
 			VS => VS,
 			VBLNK => VBLNK,
@@ -666,8 +669,8 @@ begin
 	--
 	-- misc.
 	--
-	A<=A16;
-	CE<=CS1;
+	ADDR(15 downto 0)<=A16;
+	SDRAM_CS_N <= CS1;
 	UB<='1';
 	LB<='0';
 	WE<=WR or MREQ or XCLK;
@@ -685,12 +688,12 @@ begin
 	    CVDI when CSD0='0' else
 	    AVDI when CSD8='0' else
 	    EMDI when CSE8='0' else
-	    IO when CS1='0' else
+	    DATAO(7 downto 0) when CS1='0' else
 	    DO367 when CS367='0' else
 	    DOPPI when CSPPI='0' else
 	    DOPIT when CSPIT='0' else
 	    DOPRT when CSPRT='0' else (others=>'1');
-	IO<=DO when CS1='0' and RD='1' else (others=>'Z');
+	DATA(7 downto 0)<=DO when CS1='0' and RD='1' else (others=>'Z');
 
 	--
 	-- LED
