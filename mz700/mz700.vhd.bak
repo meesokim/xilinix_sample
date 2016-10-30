@@ -77,7 +77,7 @@ architecture Behavioral of mz700 is
 --
 -- SDRAM
 --
-signal MCLK : std_logic;
+--signal MCLK : std_logic;
 --signal REFRESH : std_logic;
 signal RW : std_logic;
 signal WE : std_logic;
@@ -85,9 +85,9 @@ signal ADDR : std_logic_vector(23 downto 0);
 signal DATA : std_logic_vector(15 downto 0);
 signal UB : std_logic;
 signal LB : std_logic;
-signal READY : std_logic;
-signal DONE : std_logic;
-signal DATAO : std_logic_vector(15 downto 0);
+--signal READY : std_logic;
+--signal DONE : std_logic;
+--signal DATAO : std_logic_vector(15 downto 0);
 --
 -- T80
 --
@@ -420,7 +420,7 @@ begin
 	--
 	
 	SRAM : sdram_simple port map (
-			clk_100m0_i => XCLK,
+			clk_100m0_i => CLK50M,
 			reset_i => URST,
 			refresh_i => RFSH,   
 			rw_i => RW,         
@@ -664,12 +664,10 @@ begin
 			HCLK<='0';
 		elsif( HSPLS'event and HSPLS='1' ) then
 			HCLK<=not HCLK;
-			if (DIV8 = 0) then
---				LED(0) <= HCLK;
-				LED(1) <= '0';
-				LED(2) <= HCLK;
-				LED(3) <= '0';
-			end if;
+			LED(0) <= HCLK;
+			LED(1) <= not HCLK;
+			LED(2) <= HCLK;
+			LED(3) <= not HCLK;
 		end if;
 	end process;
 
@@ -683,7 +681,6 @@ begin
 	WE<=WR or MREQ or XCLK;
 	RW<=RD or MREQ;
 	TXD<=TXDi;
-	LED(0) <= '0';
 
 	HS<=HSPLS;
 	SPKOUT<=not XSPKOUT;

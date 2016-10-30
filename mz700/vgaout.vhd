@@ -26,18 +26,18 @@ entity vgaout is
 --		VEN : out std_logic;
 --		SD : out std_logic_vector(7 downto 0);
 -- for sim
-    		 CLK : in std_logic;
+    	   CLK : in std_logic;
            RED : out std_logic;
            GRN : out std_logic;
            BLUE : out std_logic;
            HS : out std_logic;
            VS : out std_logic;
-		 VBLNK : out std_logic;
+		   VBLNK : out std_logic;
            VADR : out std_logic_vector(10 downto 0);
            FDAT : in std_logic_vector(7 downto 0);
            ADAT : in std_logic_vector(7 downto 0);
            FADR : out std_logic_vector(2 downto 0);
-		 CSEL : out std_logic
+		   CSEL : out std_logic
 		);
 end vgaout;
 

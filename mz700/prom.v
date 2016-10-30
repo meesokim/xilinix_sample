@@ -15,7 +15,7 @@
 //Command: kcpsm3 prom.psm
 //Device: Spartan-3, Spartan-3E, Virtex-II, and Virtex-II Pro FPGAs
 //Design Name: prom
-//Generated 26 Oct 2016 - 22:02:38.
+//Generated 29 Oct 2016 - 00:24:02.
 //Purpose:
 //	prom verilog program definition.
 //

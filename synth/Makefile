@@ -7,4 +7,4 @@ top_module = xessdemo
 vfiles = ../verilog/xessdemo.v 
 vhdlfiles = ../verilog/fdc.vhdl
 
-include xilinx.mk
+include ../common/xilinx.mk

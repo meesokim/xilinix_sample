@@ -1,8 +1,3 @@
-run
--p xc6slx9-3-tqg144
--top mz700
--ifn mz700.prj
--ofn mz700.ngc
 -ifmt mixed
 -ofmt NGC
 -opt_mode speed

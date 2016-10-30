@@ -1,0 +1,56 @@
+# Constraints for 'spi_flash_memory_uart_programmer'.
+#
+# Revision B of the Spartan-3E Starter Kit.
+#
+# Ken Chapman - Xilinx Ltd - November 2005
+#
+# Time specifications for 50MHz clock
+#
+TIMESPEC TS01 = FROM : FFS : TO : FFS : 20 ns;
+TIMESPEC TS02 = FROM : RAMS : TO : FFS : 20 ns;
+TIMESPEC TS03 = FROM : FFS : TO : RAMS : 20 ns;
+TIMESPEC TS04 = FROM : RAMS : TO : RAMS : 20 ns;
+TIMESPEC TS05 = FROM : FFS : TO : PADS : 20 ns; 
+TIMESPEC TS06 = FROM : PADS : TO : FFS : 20 ns; 
+TIMESPEC TS07 = FROM : PADS : TO : RAMS : 20 ns; 
+#TIMESPEC TS08 = FROM : RAMS : TO : PADS : 20 ns;
+NET "clk" TNM_NET = "clk";
+TIMESPEC TS_48MHZ_clk = PERIOD "clk" 20.0ns HIGH 50%;
+#
+#
+# I/O constraints for Spartan-3E Starter Kit (Rev.B)
+#
+# soldered 48MHz Clock
+# 
+NET "clk" LOC = "P56";
+#NET "cpu_rst" LOC = "P16";
+#
+#
+# UART connections
+#
+NET "tx" LOC = "P12" | SLEW = SLOW | DRIVE = 4;
+NET "rx" LOC = "P14";
+#
+# SPI devices 
+#
+NET "spi_sck" LOC = "P88";
+NET "spi_sdi" LOC = "P87";
+NET "spi_sdo" LOC = "P92";
+NET "spi_rom_cs" LOC = "P93";
+#NET "spi_amp_cs" LOC = "N7";
+#NET "spi_adc_conv" LOC = "P11";
+#NET "spi_dac_cs" LOC = "N8";
+#NET "spi_amp_shdn" LOC = "P7";
+#NET "spi_amp_sdo" LOC = "E18";
+#NET "spi_dac_clr" LOC = "P8";
+#
+# Strata Flash 
+#
+#NET "strataflash_oe" LOC = "C18";
+#NET "strataflash_ce" LOC = "D16";
+#NET "strataflash_we" LOC = "D17";
+#
+#NET "platformflash_oe" LOC = "T3";
+#
+# End of File
+#

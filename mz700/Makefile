@@ -34,4 +34,4 @@ sram.vhd \
 prom.vhd
 
 
-include xilinx.mk
+include ../common/xilinx.mk
