@@ -39,11 +39,11 @@
 --    Initial implementation.
 
 
-library IEEE, UNISIM;
-use IEEE.std_logic_1164.all;
-use IEEE.std_logic_unsigned.all;
-use IEEE.numeric_std.all;
-use IEEE.math_real.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VComponents.all;
+use IEEE.NUMERIC_STD.ALL;
 
 entity sdram_simple is
    port(
@@ -84,7 +84,6 @@ architecture rtl of sdram_simple is
    ST_INIT_WAIT, ST_INIT_PRECHARGE, ST_INIT_REFRESH1, ST_INIT_MODE, ST_INIT_REFRESH2,
    ST_IDLE, ST_REFRESH, ST_ACTIVATE, ST_RCD, ST_RW, ST_RAS1, ST_RAS2, ST_PRECHARGE);
    signal state_r, state_x : fsm_state_type := ST_INIT_WAIT;
-
 
    -- SDRAM mode register data sent on the address bus.
    --
@@ -140,7 +139,6 @@ begin
    sdData_io   <= sd_dout_r when sd_busdir_r = '1' else (others => 'Z');   -- SDRAM data bus.
    sdDqmh_o    <= sd_dqmu_r;  -- SDRAM high data byte enable, active low
    sdDqml_o    <= sd_dqml_r;  -- SDRAM low date byte enable, active low
-   sdClk_o     <= clk_100m0_i;
 
    -- Signals back to host.
    ready_o <= ready_r;
@@ -152,6 +150,10 @@ begin
    row_s <= addr_i(21 downto 9);
    col_s <= addr_i(8 downto 0);
 
+ sdram_clk_forward : ODDR2
+   generic map(DDR_ALIGNMENT => "NONE", INIT => '0', SRTYPE => "SYNC")
+   port map (Q => sdClk_o, C0 => clk_100m0_i, C1 => not clk_100m0_i, CE => '1', R => '0', S => '0', D0 => '0', D1 => '1');
+   
 
    process (
    state_r, timer_r, refcnt_r, cke_r, addr_r, sd_dout_r, sd_busdir_r, sd_dqmu_r, sd_dqml_r, ready_r,

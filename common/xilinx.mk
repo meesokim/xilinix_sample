@@ -167,7 +167,7 @@ junk += $(project).twr $(project).twx smartpreview.twr
 
 $(project)_err.twr: $(project)_par.ncd
 	$(xil_env); trce -e 10 $< $(project).pcf -o $(project)_err.twr
-junk += $(project)_err.twr $(project)_err.twx *.log _xmsgs *.xwbt *.html
+junk += $(project)_err.twr $(project)_err.twx *.log _xmsgs *.xwbt *.html *.tmp
 
 .gitignore: $(mkfiles)
 	echo programming_files $(junk) | sed 's, ,\n,g' > .gitignore

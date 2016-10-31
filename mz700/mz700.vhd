@@ -37,7 +37,7 @@ entity mz700 is
 --		 TDO : out std_logic_vector(7 downto 0);
 --		 TCLK : out std_logic;
 --		 TURST : out std_logic;
-		 BTN0 : in std_logic;
+--		 BTN0 : in std_logic;
 		 BTN3 : in std_logic;
 		 PS2C : in std_logic;
 		 PS2D : in std_logic;
@@ -69,7 +69,10 @@ entity mz700 is
 		 SDRAM_CLK : out std_logic;
 		 AN : out std_logic_vector(3 downto 0);
 		 SEG : out std_logic_vector(7 downto 0);
-		 LD : out std_logic_vector(7 downto 0));
+		 LD : out std_logic_vector(7 downto 0);
+		 DS : out std_logic_vector(7 downto 0);
+		 DSEN : out std_logic_vector(3 downto 0)
+	);
 end mz700;
 
 architecture Behavioral of mz700 is
@@ -111,11 +114,13 @@ signal LOCKDCM1 : std_logic;
 signal XLOCKDCM1 : std_logic;
 signal NTSCCLK : std_logic;
 signal CLK : std_logic;
+signal CLK2X : std_logic;
 signal XCLK : std_logic;
 signal SCLK : std_logic;
 signal HCLK : std_logic;
 signal DIV8 : std_logic_vector(4 downto 0);
 signal CASCADE : std_logic;
+signal GCK1 : std_logic;
 --
 -- Decodes, misc
 --
@@ -249,7 +254,8 @@ component my_dcm1
           CLKDV_OUT       : out   std_logic; 
           CLKFX_OUT       : out   std_logic; 
           CLKIN_IBUFG_OUT : out   std_logic; 
-          CLK0_OUT        : out   std_logic; 
+          CLK0_OUT        : out   std_logic;
+		  CLK2X_OUT       : out   std_logic;
           LOCKED_OUT      : out   std_logic);
 end component;
 
@@ -420,7 +426,7 @@ begin
 	--
 	
 	SRAM : sdram_simple port map (
-			clk_100m0_i => XCLK,
+			clk_100m0_i => CLK2X,
 			reset_i => URST,
 			refresh_i => RFSH,   
 			rw_i => RW,         
@@ -469,6 +475,7 @@ begin
 			CLKFX_OUT => CLK45M,
 			CLKDV_OUT => DCLK,
 			CLKIN_IBUFG_OUT => open,
+			CLK2X_OUT => CLK2X,
 			LOCKED_OUT => LOCKDCM1);
 --			LOCKED_OUT => open);
 
@@ -718,22 +725,26 @@ begin
 		 DNUM(7 downto 4) when TMG="01" else
 		 DNUM(11 downto 8) when TMG="10" else
 		 DNUM(15 downto 12) when TMG="11" else (others=>'0');
-	SEG<="10000001" when DDAT="0000" else
-		"11001111" when DDAT="0001" else
-		"10010010" when DDAT="0010" else
-		"10000110" when DDAT="0011" else
-		"11001100" when DDAT="0100" else
-		"10100100" when DDAT="0101" else
-		"10100000" when DDAT="0110" else
-		"10001111" when DDAT="0111" else
-		"10000000" when DDAT="1000" else
-		"10000100" when DDAT="1001" else
-		"10001000" when DDAT="1010" else
-		"11100000" when DDAT="1011" else
-		"10110001" when DDAT="1100" else
-		"11000010" when DDAT="1101" else
-		"10110000" when DDAT="1110" else
-		"10111000" when DDAT="1111" else (others=>'1');
+	DSEN(0) <= '0';
+	DSEN(1) <= '1';
+	DSEN(2) <= '1';
+	DSEN(3) <= '1';
+ 	DS<="10000001" when A16(3 downto 0)="0000" else
+		"11001111" when A16(3 downto 0)="0001" else
+		"10010010" when A16(3 downto 0)="0010" else
+		"10000110" when A16(3 downto 0)="0011" else
+		"11001100" when A16(3 downto 0)="0100" else
+		"10100100" when A16(3 downto 0)="0101" else
+		"10100000" when A16(3 downto 0)="0110" else
+		"10001111" when A16(3 downto 0)="0111" else
+		"10000000" when A16(3 downto 0)="1000" else
+		"10000100" when A16(3 downto 0)="1001" else
+		"10001000" when A16(3 downto 0)="1010" else
+		"11100000" when A16(3 downto 0)="1011" else
+		"10110001" when A16(3 downto 0)="1100" else
+		"11000010" when A16(3 downto 0)="1101" else
+		"10110000" when A16(3 downto 0)="1110" else
+		"10111000" when A16(3 downto 0)="1111" else (others=>'1');
 	process( HCLK ) begin
 		if( HCLK'event and HCLK='1' ) then
 			TMG<=TMG+'1';
