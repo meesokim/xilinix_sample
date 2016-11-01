@@ -67,9 +67,9 @@ entity mz700 is
 		 SDRAM_DQMH : out std_logic;
 		 SDRAM_DQML : out std_logic;
 		 SDRAM_CLK : out std_logic;
-		 AN : out std_logic_vector(3 downto 0);
+		 --LED : out std_logic_vector(3 downto 0);
 		 SEG : out std_logic_vector(7 downto 0);
-		 LD : out std_logic_vector(7 downto 0);
+		 --LD : out std_logic_vector(7 downto 0);
 		 DS : out std_logic_vector(7 downto 0);
 		 DSEN : out std_logic_vector(3 downto 0)
 	);
@@ -714,10 +714,10 @@ begin
 	-- LED
 	--
 --	AN<=(others=>'1');
-	AN<="1110" when TMG="00" else
-	    "1101" when TMG="01" else
-	    "1011" when TMG="10" else
-	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
+--	LED<="1110" when TMG="00" else
+--	    "1101" when TMG="01" else
+--	    "1011" when TMG="10" else
+--	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
 --	    "0111" when TMG="11" else (others=>'1');
 	DNUM<=TADDR when SW(0)='0' else
 		 X"0700" when SW(0)='1' else (others=>'1');
@@ -751,7 +751,7 @@ begin
 		end if;
 	end process;
 
-	LD<=(others=>'0');
+--	LD<=(others=>'0');
 --	LD<=LDDAT;
 --	LD(0)<='0';
 --	LD(1)<='0';
