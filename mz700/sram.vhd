@@ -48,7 +48,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity sdram_simple is
    port(
       -- Host side
-      clk_100m0_i    : in std_logic;            -- Master clock
+      clk50m         : in std_logic;            -- Master clock
       reset_i        : in std_logic := '0';      -- Reset, active high
       refresh_i      : in std_logic := '0';      -- Initiate a refresh cycle, active high
       rw_i           : in std_logic := '0';      -- Initiate a read or write operation, active high
@@ -152,8 +152,8 @@ begin
 
  sdram_clk_forward : ODDR2
    generic map(DDR_ALIGNMENT => "NONE", INIT => '0', SRTYPE => "SYNC")
-   port map (Q => sdClk_o, C0 => clk_100m0_i, C1 => not clk_100m0_i, CE => '1', R => '0', S => '0', D0 => '0', D1 => '1');
-   
+-- port map (Q => sdClk_o, C0 => clk_100m0_i, C1 => not clk_100m0_i, CE => '1', R => '0', S => '0', D0 => '0', D1 => '1');
+   port map(S => '0', R => '0', D0 => '1', D1 =>'0', CE =>'1', C0 => clk50m, C1 => not clk50m,Q => sdClk_o);
 
    process (
    state_r, timer_r, refcnt_r, cke_r, addr_r, sd_dout_r, sd_busdir_r, sd_dqmu_r, sd_dqml_r, ready_r,
@@ -350,9 +350,9 @@ begin
       end if;
    end process;
 
-   process (clk_100m0_i)
+   process (clk50m)
    begin
-      if rising_edge(clk_100m0_i) then
+      if rising_edge(clk50m) then
       if reset_i = '1' then
          state_r  <= ST_INIT_WAIT;
          timer_r  <= 0;

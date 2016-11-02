@@ -194,7 +194,7 @@ signal CENB2 : std_logic;
 component sdram_simple
 	port(
       -- Host side
-		clk_100m0_i		: in std_logic;
+		clk50m		: in std_logic;
 	  
 		reset_i			: in std_logic := '0';  -- Reset, active high
 		refresh_i		: in std_logic := '0';  -- Initiate a refresh cycle, active high
@@ -426,7 +426,7 @@ begin
 	--
 	
 	SRAM : sdram_simple port map (
-			clk_100m0_i => CLK2X,
+			clk50m => CLK50M,
 			reset_i => URST,
 			refresh_i => RFSH,   
 			rw_i => RW,         
