@@ -64,8 +64,7 @@ entity mz700 is
 		 SDRAM_BA : out std_logic_vector(1 downto 0);
 		 SDRAM_A : out std_logic_vector(12 downto 0);
 		 SDRAM_DQ : inout std_logic_vector(15 downto 0);
-		 SDRAM_DQMH : out std_logic;
-		 SDRAM_DQML : out std_logic;
+		 SDRAM_DQM : out std_logic_vector(1 downto 0);
 		 SDRAM_CLK : out std_logic;
 		 --LED : out std_logic_vector(3 downto 0);
 		 SEG : out std_logic_vector(7 downto 0);
@@ -80,17 +79,14 @@ architecture Behavioral of mz700 is
 --
 -- SDRAM
 --
-signal MCLK : std_logic;
---signal REFRESH : std_logic;
-signal RW : std_logic;
-signal WE : std_logic;
-signal ADDR : std_logic_vector(23 downto 0);
-signal DATA : std_logic_vector(15 downto 0);
-signal UB : std_logic;
-signal LB : std_logic;
-signal READY : std_logic;
-signal DONE : std_logic;
-signal DATAO : std_logic_vector(15 downto 0);
+signal cmd_address     : std_logic_vector(20 downto 0) := (others => '0');
+signal cmd_wr          : std_logic := '1';
+signal cmd_enable      : std_logic;
+signal cmd_byte_enable : std_logic_vector(3 downto 0);
+signal cmd_data_in     : std_logic_vector(31 downto 0);
+signal cmd_ready       : std_logic;
+signal data_out        : std_logic_vector(31 downto 0);
+signal data_out_ready  : std_logic;
 --
 -- T80
 --
@@ -187,41 +183,55 @@ signal DDAT : std_logic_vector(3 downto 0);
 signal DNUM : std_logic_vector(15 downto 0);
 signal CENB1 : std_logic;
 signal CENB2 : std_logic;
+signal DIG : std_logic_vector(1 downto 0);
+signal AA : std_logic_vector(3 downto 0);
 
 --
 -- Components
 --
-component sdram_simple
-	port(
-      -- Host side
-		clk50m		: in std_logic;
-	  
-		reset_i			: in std_logic := '0';  -- Reset, active high
-		refresh_i		: in std_logic := '0';  -- Initiate a refresh cycle, active high
-		rw_i			: in std_logic := '0';  -- Initiate a read or write operation, active high
-		we_i			: in std_logic := '0';  -- Write enable, active low
-		addr_i			: in std_logic_vector(23 downto 0) := (others => '0'); -- Address from host to SDRAM
-		data_i			: in std_logic_vector(15 downto 0) := (others => '0'); -- Data from host to SDRAM
-		ub_i			: in std_logic;     -- Data upper byte enable, active low
-		lb_i			: in std_logic;     -- Data lower byte enable, active low
-		ready_o			: out std_logic := '0';    -- Set to '1' when the memory is ready
-		done_o			: out std_logic := '0';    -- Read, write, or refresh, operation is done
-		data_o			: out std_logic_vector(15 downto 0);   -- Data from SDRAM to host
+constant sdram_address_width : natural := 22;
+constant sdram_column_bits   : natural := 8;
+constant sdram_startup_cycles: natural := 10100; -- 100us, plus a little more
+constant test_width          : natural := sdram_address_width-1; -- each 32-bit word is two 16-bit SDRAM addresses 
+constant cycles_per_refresh  : natural := (64000*100)/4096-1;
 
-	-- SDRAM side
-		sdCke_o			: out std_logic;           -- Clock-enable to SDRAM
-		sdCe_bo			: out std_logic;           -- Chip-select to SDRAM
-		sdRas_bo		: out std_logic;           -- SDRAM row address strobe
-		sdCas_bo		: out std_logic;           -- SDRAM column address strobe
-		sdWe_bo			: out std_logic;           -- SDRAM write enable
-		sdBs_o			: out std_logic_vector(1 downto 0);    -- SDRAM bank address
-		sdAddr_o		: out std_logic_vector(12 downto 0);   -- SDRAM row/column address
-		sdData_io		: inout std_logic_vector(15 downto 0); -- Data to/from SDRAM
-		sdDqmh_o		: out std_logic;           -- Enable upper-byte of SDRAM databus if true
-		sdDqml_o		: out std_logic;            -- Enable lower-byte of SDRAM databus if true	
-		sdClk_o			: out std_logic
-	);
-end component;
+	COMPONENT SDRAM_Controller
+    generic (
+      sdram_address_width : natural;
+      sdram_column_bits   : natural;
+      sdram_startup_cycles: natural;
+      cycles_per_refresh  : natural
+    );
+    PORT(
+		clk             : IN std_logic;
+		reset           : IN std_logic;
+      
+      -- Interface to issue commands
+		cmd_ready       : OUT std_logic;
+		cmd_enable      : IN std_logic;
+		cmd_wr          : IN std_logic;
+        cmd_address     : in  STD_LOGIC_VECTOR(sdram_address_width-2 downto 0); -- address to read/write
+		cmd_byte_enable : IN std_logic_vector(3 downto 0);
+		cmd_data_in     : IN std_logic_vector(31 downto 0);    
+      
+      -- Data being read back from SDRAM
+		data_out        : OUT std_logic_vector(31 downto 0);
+		data_out_ready  : OUT std_logic;
+
+      -- SDRAM signals
+		SDRAM_CLK       : OUT   std_logic;
+		SDRAM_CKE       : OUT   std_logic;
+		SDRAM_CS        : OUT   std_logic;
+		SDRAM_RAS       : OUT   std_logic;
+		SDRAM_CAS       : OUT   std_logic;
+		SDRAM_WE        : OUT   std_logic;
+		SDRAM_DQM       : OUT   std_logic_vector(1 downto 0);
+		SDRAM_ADDR      : OUT   std_logic_vector(12 downto 0);
+		SDRAM_BA        : OUT   std_logic_vector(1 downto 0);
+		SDRAM_DATA      : INOUT std_logic_vector(15 downto 0)     
+		);
+	END COMPONENT;
+
 component T80s
 	generic(
 		Mode : integer := 0;	-- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
@@ -425,30 +435,37 @@ begin
 	-- Instantiation
 	--
 	
-	SRAM : sdram_simple port map (
-			clk50m => CLK50M,
-			reset_i => URST,
-			refresh_i => RFSH,   
-			rw_i => RW,         
-			we_i => WE,         
-			addr_i => ADDR,       
-			data_i => DATA,       
-			ub_i => UB,         
-			lb_i => LB,         
-			ready_o => READY,  
-			done_o => DONE,
-			data_o => DATAO, 
-			sdCke_o => SDRAM_CKE,     
-			sdCe_bo => SDRAM_CS_N,      
-			sdRas_bo => SDRAM_RAS_N,     
-			sdCas_bo => SDRAM_CAS_N,
-			sdWe_bo => SDRAM_WE_N,      
-			sdBs_o => SDRAM_BA,       
-			sdAddr_o => SDRAM_A,     
-			sdData_io => SDRAM_DQ,    
-			sdDqmh_o => SDRAM_DQMH,     
-			sdDqml_o => SDRAM_DQML,
-			sdClk_o => SDRAM_CLK);
+Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
+      sdram_address_width => sdram_address_width,
+      sdram_column_bits   => sdram_column_bits,
+      sdram_startup_cycles=> sdram_startup_cycles,
+      cycles_per_refresh  => cycles_per_refresh
+   ) PORT MAP(
+      clk             => CLK50M,
+      reset           => '0',
+
+      cmd_address     => cmd_address,
+      cmd_wr          => cmd_wr,
+      cmd_enable      => cmd_enable,
+      cmd_ready       => cmd_ready,
+      cmd_byte_enable => cmd_byte_enable,
+      cmd_data_in     => cmd_data_in,
+      
+      data_out        => data_out,
+      data_out_ready  => data_out_ready,
+   
+      SDRAM_CLK       => SDRAM_CLK,
+      SDRAM_CKE       => SDRAM_CKE,
+      SDRAM_CS        => SDRAM_CS_N,
+      SDRAM_RAS       => SDRAM_RAS_N,
+      SDRAM_CAS       => SDRAM_CAS_N,
+      SDRAM_WE        => SDRAM_WE_N,
+      SDRAM_DQM       => SDRAM_DQM,
+      SDRAM_BA        => SDRAM_BA,
+      SDRAM_ADDR      => SDRAM_A,
+      SDRAM_DATA      => SDRAM_DQ
+   );
+
 	CPU0 : T80s port map (
 			RESET_n => URST,
 			CLK_n => CLK,
@@ -647,7 +664,7 @@ begin
 	URST<='0' when BUF(9 downto 5)="00000" else '1';
 	process( CLK50M ) begin
 		if( CLK50M'event and CLK50M='1' ) then
-			BUF<=BUF(8 downto 0)&(not BTN3);
+			BUF<=BUF(8 downto 0)&(BTN3);
 		end if;
 	end process;
 
@@ -683,12 +700,10 @@ begin
 	--
 	-- misc.
 	--
-	ADDR(15 downto 0)<=A16;
-	SDRAM_CS_N <= CS1;
-	UB<='1';
-	LB<='0';
-	WE<=WR or MREQ or XCLK;
-	RW<=RD or MREQ;
+	cmd_enable <= not CS1;
+	cmd_address <= "00000" & A16;
+	cmd_wr<=(RD or not WR) and not MREQ;
+	cmd_byte_enable <= (others =>'1');
 	TXD<=TXDi;
 	LED(0) <= '0';
 
@@ -703,12 +718,12 @@ begin
 	    CVDI when CSD0='0' else
 	    AVDI when CSD8='0' else
 	    EMDI when CSE8='0' else
-	    DATAO(7 downto 0) when CS1='0' else
+	    data_out(7 downto 0) when CS1='0' and data_out_ready = '1' else
 	    DO367 when CS367='0' else
 	    DOPPI when CSPPI='0' else
 	    DOPIT when CSPIT='0' else
 	    DOPRT when CSPRT='0' else (others=>'1');
-	DATA(7 downto 0)<=DO when CS1='0' and RD='1' else (others=>'Z');
+	cmd_data_in(7 downto 0)<=DO when CS1='0' and RD='1' and cmd_ready = '1' else (others=>'Z');
 
 	--
 	-- LED
@@ -725,29 +740,35 @@ begin
 		 DNUM(7 downto 4) when TMG="01" else
 		 DNUM(11 downto 8) when TMG="10" else
 		 DNUM(15 downto 12) when TMG="11" else (others=>'0');
-	DSEN(0) <= '0';
-	DSEN(1) <= '1';
-	DSEN(2) <= '1';
-	DSEN(3) <= '1';
- 	DS<="10000001" when A16(3 downto 0)="0000" else
-		"11001111" when A16(3 downto 0)="0001" else
-		"10010010" when A16(3 downto 0)="0010" else
-		"10000110" when A16(3 downto 0)="0011" else
-		"11001100" when A16(3 downto 0)="0100" else
-		"10100100" when A16(3 downto 0)="0101" else
-		"10100000" when A16(3 downto 0)="0110" else
-		"10001111" when A16(3 downto 0)="0111" else
-		"10000000" when A16(3 downto 0)="1000" else
-		"10000100" when A16(3 downto 0)="1001" else
-		"10001000" when A16(3 downto 0)="1010" else
-		"11100000" when A16(3 downto 0)="1011" else
-		"10110001" when A16(3 downto 0)="1100" else
-		"11000010" when A16(3 downto 0)="1101" else
-		"10110000" when A16(3 downto 0)="1110" else
-		"10111000" when A16(3 downto 0)="1111" else (others=>'1');
+	DSEN <= "1110" when DIG = 0 else
+			"1101" when DIG = 1 else
+			"1011" when DIG = 2 else
+			"0111" when DIG = 3 else (others=>'0');
+	AA<= A16(3 downto 0) when DIG = 0 else
+		 A16(7 downto 4) when DIG = 1 else
+		 A16(11 downto 8) when DIG = 2 else
+		 A16(15 downto 12) when DIG = 3;
+	DS<="10000001" when AA="0000" else
+		"11001111" when AA="0001" else
+		"10010010" when AA="0010" else
+		"10000110" when AA="0011" else
+		"11001100" when AA="0100" else
+		"10100100" when AA="0101" else
+		"10100000" when AA="0110" else
+		"10001111" when AA="0111" else
+		"10000000" when AA="1000" else
+		"10000100" when AA="1001" else
+		"10001000" when AA="1010" else
+		"11100000" when AA="1011" else
+		"10110001" when AA="1100" else
+		"11000010" when AA="1101" else
+		"10110000" when AA="1110" else
+		"10111000" when AA="1111" else (others=>'1');		
 	process( HCLK ) begin
 		if( HCLK'event and HCLK='1' ) then
 			TMG<=TMG+'1';
+			DIG <= DIG + 1;
+	
 		end if;
 	end process;
 

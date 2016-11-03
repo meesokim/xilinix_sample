@@ -30,7 +30,7 @@ T80_Reg.vhd \
 T80s.vhd \
 vgaout.vhd \
 kcpsm6.vhd \
-sram.vhd \
+SDRAM_Controller.vhd \
 prom.vhd
 
 
