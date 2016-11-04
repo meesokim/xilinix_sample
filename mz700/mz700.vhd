@@ -186,6 +186,9 @@ signal CENB2 : std_logic;
 signal DIG : std_logic_vector(1 downto 0);
 signal AA : std_logic_vector(3 downto 0);
 
+   -- signals for clocking
+--   signal clk, clku, clkfb, clkb   : std_logic;
+   
 --
 -- Components
 --
@@ -435,13 +438,15 @@ begin
 	-- Instantiation
 	--
 	
+
+	
 Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
       sdram_address_width => sdram_address_width,
       sdram_column_bits   => sdram_column_bits,
       sdram_startup_cycles=> sdram_startup_cycles,
       cycles_per_refresh  => cycles_per_refresh
    ) PORT MAP(
-      clk             => CLK50M,
+      clk             => CLK2X,
       reset           => '0',
 
       cmd_address     => cmd_address,
@@ -550,7 +555,7 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 			ROMA => CGADR,
 			CSEL => CSEL,
 			ROMD => CGDAT,
-			PCGSW => SW(7),
+			PCGSW => '1',
 			CSPCG => CSPCG,
 			WR => WR,
 			RAMA => A16(1 downto 0),
@@ -688,12 +693,6 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 			HCLK<='0';
 		elsif( HSPLS'event and HSPLS='1' ) then
 			HCLK<=not HCLK;
-			if (DIV8 = 0) then
---				LED(0) <= HCLK;
-				LED(1) <= '0';
-				LED(2) <= HCLK;
-				LED(3) <= '0';
-			end if;
 		end if;
 	end process;
 
@@ -705,12 +704,11 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 	cmd_wr<=(RD or not WR) and not MREQ;
 	cmd_byte_enable <= (others =>'1');
 	TXD<=TXDi;
-	LED(0) <= '0';
-
+	--LED<= "0000";
 	HS<=HSPLS;
-	SPKOUT<=not XSPKOUT;
+	SPKOUT <= '0';
+	--SPKOUT<=not XSPKOUT;
 	INT<=not (INTX and INTMSK);
-
 	--
 	-- Data Bus
 	--
@@ -718,21 +716,21 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 	    CVDI when CSD0='0' else
 	    AVDI when CSD8='0' else
 	    EMDI when CSE8='0' else
-	    data_out(7 downto 0) when CS1='0' and data_out_ready = '1' else
+	    data_out(7 downto 0) when CS1='0' and RD='0' and data_out_ready = '1' else
 	    DO367 when CS367='0' else
 	    DOPPI when CSPPI='0' else
 	    DOPIT when CSPIT='0' else
 	    DOPRT when CSPRT='0' else (others=>'1');
-	cmd_data_in(7 downto 0)<=DO when CS1='0' and RD='1' and cmd_ready = '1' else (others=>'Z');
+	cmd_data_in(7 downto 0)<=DO when CS1='0' and WR='0' and cmd_ready = '1' else (others=>'Z');
 
 	--
 	-- LED
 	--
 --	AN<=(others=>'1');
---	LED<="1110" when TMG="00" else
---	    "1101" when TMG="01" else
---	    "1011" when TMG="10" else
---	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
+	LED<="1110" when TMG="00" else
+	    "1101" when TMG="01" else
+	    "1011" when TMG="10" else
+	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
 --	    "0111" when TMG="11" else (others=>'1');
 	DNUM<=TADDR when SW(0)='0' else
 		 X"0700" when SW(0)='1' else (others=>'1');
@@ -748,22 +746,22 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 		 A16(7 downto 4) when DIG = 1 else
 		 A16(11 downto 8) when DIG = 2 else
 		 A16(15 downto 12) when DIG = 3;
-	DS<="10000001" when AA="0000" else
-		"11001111" when AA="0001" else
-		"10010010" when AA="0010" else
-		"10000110" when AA="0011" else
-		"11001100" when AA="0100" else
-		"10100100" when AA="0101" else
-		"10100000" when AA="0110" else
-		"10001111" when AA="0111" else
-		"10000000" when AA="1000" else
-		"10000100" when AA="1001" else
-		"10001000" when AA="1010" else
-		"11100000" when AA="1011" else
-		"10110001" when AA="1100" else
-		"11000010" when AA="1101" else
-		"10110000" when AA="1110" else
-		"10111000" when AA="1111" else (others=>'1');		
+	DS<="11111100" when AA="0000" else
+		"01100000" when AA="0001" else
+		"11011010" when AA="0010" else
+		"11110010" when AA="0011" else
+		"01100110" when AA="0100" else
+		"10110110" when AA="0101" else
+		"10111110" when AA="0110" else
+		"11100000" when AA="0111" else
+		"11111110" when AA="1000" else
+		"11110110" when AA="1001" else
+		"11111010" when AA="1010" else
+		"00111110" when AA="1011" else
+		"00111010" when AA="1100" else
+		"01110010" when AA="1101" else
+		"10011110" when AA="1110" else
+		"10001110" when AA="1111" else (others=>'1');		
 	process( HCLK ) begin
 		if( HCLK'event and HCLK='1' ) then
 			TMG<=TMG+'1';
