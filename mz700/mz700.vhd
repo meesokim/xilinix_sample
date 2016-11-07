@@ -62,7 +62,7 @@ entity mz700 is
 		 SDRAM_CAS_N : out std_logic;
 		 SDRAM_WE_N : out std_logic;
 		 SDRAM_BA : out std_logic_vector(1 downto 0);
-		 SDRAM_A : out std_logic_vector(12 downto 0);
+		 SDRAM_A : out std_logic_vector(11 downto 0);
 		 SDRAM_DQ : inout std_logic_vector(15 downto 0);
 		 SDRAM_DQM : out std_logic_vector(1 downto 0);
 		 SDRAM_CLK : out std_logic;
@@ -79,14 +79,16 @@ architecture Behavioral of mz700 is
 --
 -- SDRAM
 --
-signal cmd_address     : std_logic_vector(20 downto 0) := (others => '0');
+signal cmd_address     : std_logic_vector(21 downto 0) := (others => '0');
 signal cmd_wr          : std_logic := '1';
 signal cmd_enable      : std_logic;
 signal cmd_byte_enable : std_logic_vector(3 downto 0);
-signal cmd_data_in     : std_logic_vector(31 downto 0);
+signal cmd_data_in     : std_logic_vector(15 downto 0);
 signal cmd_ready       : std_logic;
 signal data_out        : std_logic_vector(31 downto 0);
 signal data_out_ready  : std_logic;
+signal cmd_refresh	   : std_logic := '1';
+
 --
 -- T80
 --
@@ -128,6 +130,7 @@ signal DO367 : std_logic_vector(7 downto 0);
 signal CSPRT : std_logic;
 signal DOPRT : std_logic_vector(7 downto 0);
 signal BUF : std_logic_vector(9 downto 0);
+signal WAITN : std_logic;
 --
 -- Video
 --
@@ -187,53 +190,41 @@ signal DIG : std_logic_vector(1 downto 0);
 signal AA : std_logic_vector(3 downto 0);
 
    -- signals for clocking
---   signal clk, clku, clkfb, clkb   : std_logic;
+--   signal clk2, clku, clkfb, clkb   : std_logic;
    
 --
 -- Components
 --
-constant sdram_address_width : natural := 22;
-constant sdram_column_bits   : natural := 8;
-constant sdram_startup_cycles: natural := 10100; -- 100us, plus a little more
-constant test_width          : natural := sdram_address_width-1; -- each 32-bit word is two 16-bit SDRAM addresses 
-constant cycles_per_refresh  : natural := (64000*100)/4096-1;
+component sdram_simple 
+   port(
+      -- Host side
+      clk50m         : in std_logic;            -- Master clock
+      reset_i        : in std_logic := '0';      -- Reset, active high
+      refresh_i      : in std_logic := '0';      -- Initiate a refresh cycle, active high
+      rw_i           : in std_logic := '0';      -- Initiate a read or write operation, active high
+      we_i           : in std_logic := '0';      -- Write enable, active low
+      addr_i         : in std_logic_vector(21 downto 0) := (others => '0');   -- Address from host to SDRAM
+      data_i         : in std_logic_vector(15 downto 0) := (others => '0');   -- Data from host to SDRAM
+      ub_i           : in std_logic;            -- Data upper byte enable, active low
+      lb_i           : in std_logic;            -- Data lower byte enable, active low
+      ready_o        : out std_logic := '0';    -- Set to '1' when the memory is ready
+      done_o         : out std_logic := '0';    -- Read, write, or refresh, operation is done
+      data_o         : out std_logic_vector(15 downto 0);   -- Data from SDRAM to host
 
-	COMPONENT SDRAM_Controller
-    generic (
-      sdram_address_width : natural;
-      sdram_column_bits   : natural;
-      sdram_startup_cycles: natural;
-      cycles_per_refresh  : natural
-    );
-    PORT(
-		clk             : IN std_logic;
-		reset           : IN std_logic;
-      
-      -- Interface to issue commands
-		cmd_ready       : OUT std_logic;
-		cmd_enable      : IN std_logic;
-		cmd_wr          : IN std_logic;
-        cmd_address     : in  STD_LOGIC_VECTOR(sdram_address_width-2 downto 0); -- address to read/write
-		cmd_byte_enable : IN std_logic_vector(3 downto 0);
-		cmd_data_in     : IN std_logic_vector(31 downto 0);    
-      
-      -- Data being read back from SDRAM
-		data_out        : OUT std_logic_vector(31 downto 0);
-		data_out_ready  : OUT std_logic;
-
-      -- SDRAM signals
-		SDRAM_CLK       : OUT   std_logic;
-		SDRAM_CKE       : OUT   std_logic;
-		SDRAM_CS        : OUT   std_logic;
-		SDRAM_RAS       : OUT   std_logic;
-		SDRAM_CAS       : OUT   std_logic;
-		SDRAM_WE        : OUT   std_logic;
-		SDRAM_DQM       : OUT   std_logic_vector(1 downto 0);
-		SDRAM_ADDR      : OUT   std_logic_vector(12 downto 0);
-		SDRAM_BA        : OUT   std_logic_vector(1 downto 0);
-		SDRAM_DATA      : INOUT std_logic_vector(15 downto 0)     
-		);
-	END COMPONENT;
+      -- SDRAM side
+      sdCke_o        : out std_logic;           -- Clock-enable to SDRAM
+      sdCe_bo        : out std_logic;           -- Chip-select to SDRAM
+      sdRas_bo       : out std_logic;           -- SDRAM row address strobe
+      sdCas_bo       : out std_logic;           -- SDRAM column address strobe
+      sdWe_bo        : out std_logic;           -- SDRAM write enable
+      sdBs_o         : out std_logic_vector(1 downto 0);    -- SDRAM bank address
+      sdAddr_o       : out std_logic_vector(11 downto 0);   -- SDRAM row/column address
+      sdData_io      : inout std_logic_vector(15 downto 0); -- Data to/from SDRAM
+      sdDqmh_o       : out std_logic;           -- Enable upper-byte of SDRAM databus if true
+      sdDqml_o       : out std_logic;            -- Enable lower-byte of SDRAM databus if true
+	  sdClk_o        : out std_logic
+   );
+end component;
 
 component T80s
 	generic(
@@ -427,54 +418,45 @@ component exrom
            CS : in std_logic);
 end component;
 
-component BUFG
-      port ( I : in    std_logic; 
-             O : out   std_logic);
-end component;
-
 begin
 
 	--
 	-- Instantiation
 	--
-	
 
 	
-Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
-      sdram_address_width => sdram_address_width,
-      sdram_column_bits   => sdram_column_bits,
-      sdram_startup_cycles=> sdram_startup_cycles,
-      cycles_per_refresh  => cycles_per_refresh
-   ) PORT MAP(
-      clk             => CLK2X,
-      reset           => '0',
+Inst_SDRAM_Controller: sdram_simple PORT MAP(
+      clk50m          => CLK2X,
+      reset_i         => not URST,
 
-      cmd_address     => cmd_address,
-      cmd_wr          => cmd_wr,
-      cmd_enable      => cmd_enable,
-      cmd_ready       => cmd_ready,
-      cmd_byte_enable => cmd_byte_enable,
-      cmd_data_in     => cmd_data_in,
-      
-      data_out        => data_out,
-      data_out_ready  => data_out_ready,
+      refresh_i		  => cmd_refresh,
+      rw_i            => cmd_enable,
+      we_i            => cmd_wr,
+	  addr_i 		  => cmd_address,
+	  data_i          => cmd_data_in,
+      ub_i            => '1',
+      lb_i            => '0',
+      ready_o         => cmd_ready,
+	  done_o          => data_out_ready,
+      data_o          => data_out(15 downto 0),
    
-      SDRAM_CLK       => SDRAM_CLK,
-      SDRAM_CKE       => SDRAM_CKE,
-      SDRAM_CS        => SDRAM_CS_N,
-      SDRAM_RAS       => SDRAM_RAS_N,
-      SDRAM_CAS       => SDRAM_CAS_N,
-      SDRAM_WE        => SDRAM_WE_N,
-      SDRAM_DQM       => SDRAM_DQM,
-      SDRAM_BA        => SDRAM_BA,
-      SDRAM_ADDR      => SDRAM_A,
-      SDRAM_DATA      => SDRAM_DQ
+      sdClk_o         => SDRAM_CLK,
+      sdCke_o         => SDRAM_CKE,
+      sdCe_bo         => SDRAM_CS_N,
+      sdRas_bo        => SDRAM_RAS_N,
+      sdCas_bo        => SDRAM_CAS_N,
+      sdWe_bo         => SDRAM_WE_N,
+      sdBs_o          => SDRAM_DQM,
+      sdDqmh_o        => SDRAM_BA(1),
+      sdDqml_o        => SDRAM_BA(0),
+      sdAddr_o        => SDRAM_A,
+      sdData_io       => SDRAM_DQ
    );
 
 	CPU0 : T80s port map (
 			RESET_n => URST,
 			CLK_n => CLK,
-			WAIT_n => '1',
+			WAIT_n => WAITN,
 --			INT_n => '1',
 			INT_n => INT,
 			NMI_n => '1',
@@ -517,8 +499,8 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 			IORQ => IORQ,
 			WR => WR,
 			A => A16,
-			LED0 => LDDAT(7),
-			LED1 => LDDAT(6),
+			LED0 => LED(0),
+			LED1 => LED(1),
 			CS00 => CS00,
 			CSD0 => CSD0,
 			CSD8 => CSD8,
@@ -699,10 +681,11 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 	--
 	-- misc.
 	--
+	cmd_refresh <= '1';
 	cmd_enable <= not CS1;
-	cmd_address <= "00000" & A16;
-	cmd_wr<=(RD or not WR) and not MREQ;
-	cmd_byte_enable <= (others =>'1');
+	cmd_address <= "000000" & A16;
+	cmd_wr<=WR;
+	--cmd_byte_enable <= (others =>'1');
 	TXD<=TXDi;
 	--LED<= "0000";
 	HS<=HSPLS;
@@ -716,21 +699,24 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 	    CVDI when CSD0='0' else
 	    AVDI when CSD8='0' else
 	    EMDI when CSE8='0' else
-	    data_out(7 downto 0) when CS1='0' and RD='0' and data_out_ready = '1' else
+	    data_out(7 downto 0) when CS1='0' and RD = '0' else
 	    DO367 when CS367='0' else
 	    DOPPI when CSPPI='0' else
 	    DOPIT when CSPIT='0' else
 	    DOPRT when CSPRT='0' else (others=>'1');
-	cmd_data_in(7 downto 0)<=DO when CS1='0' and WR='0' and cmd_ready = '1' else (others=>'Z');
-
+	cmd_data_in(7 downto 0)<=DO when CS1='0' and WR = '0' else (others=>'Z');
+	
+	WAITN <= '0' when (data_out_ready = '0' and CS1='0' and (RD = '0' or WR = '0')) or cmd_ready = '0' else '1';
+--	WAITN <= '1';
 	--
 	-- LED
 	--
 --	AN<=(others=>'1');
-	LED<="1110" when TMG="00" else
-	    "1101" when TMG="01" else
-	    "1011" when TMG="10" else
-	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
+    LED(3 downto 2) <= "00";
+--	LED<="1110" when TMG="00" else
+--	    "1101" when TMG="01" else
+--	    "1011" when TMG="10" else
+--	    "0111" when TMG="11" and SW(0)='0' else (others=>'1');
 --	    "0111" when TMG="11" else (others=>'1');
 	DNUM<=TADDR when SW(0)='0' else
 		 X"0700" when SW(0)='1' else (others=>'1');
@@ -769,6 +755,8 @@ Inst_SDRAM_Controller: SDRAM_Controller GENERIC MAP (
 	
 		end if;
 	end process;
+	
+	
 
 --	LD<=(others=>'0');
 --	LD<=LDDAT;

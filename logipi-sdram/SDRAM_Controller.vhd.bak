@@ -15,7 +15,6 @@
 --                50% of the refresh overhead
 -- Revision 0.5 - Add more paramaters to the design, allowing it to work for both the 
 --                Papilio Pro and Logi-Pi
--- Revision 0.6 - Fixed bugs in back-to-back reads (thanks Scotty!)
 --
 -- Worst case performance (single accesses to different rows or banks) is: 
 -- Writes 16 cycles = 6,250,000 writes/sec = 25.0MB/s (excluding refresh overhead)
@@ -162,9 +161,7 @@ architecture Behavioral of SDRAM_Controller is
    signal iob_dq_hiz       : std_logic := '1';
 
    -- signals for when to read the data off of the bus
-   -- signal data_ready_delay : std_logic_vector( 4 downto 0);   
-   
-   signal data_ready_delay : std_logic_vector( 3 downto 0);   
+   signal data_ready_delay : std_logic_vector( 4 downto 0);   
    
    -- bit indexes used when splitting the address into row/colum/bank.
    constant start_of_col  : natural := 0;
@@ -406,7 +403,6 @@ main_proc: process(clk)
                   if save_wr = '0' then
                      state         <= s_read_1;
                      ready_for_new <= '1'; -- we will be ready for a new transaction next cycle!
-                     got_transaction <= '0';
                   end if;
                end if;
                
@@ -416,7 +412,6 @@ main_proc: process(clk)
                   if save_wr = '0' then
                      state         <= s_read_1;
                      ready_for_new <= '1'; -- we will be ready for a new transaction next cycle!
-                     got_transaction <= '0';
                   end if;
                end if;
 
@@ -427,7 +422,6 @@ main_proc: process(clk)
                   if save_wr = '0' then
                      state         <= s_read_1;
                      ready_for_new <= '1'; -- we will be ready for a new transaction next cycle!
-                     got_transaction <= '0';
                   else
                      state <= s_open_in_2; -- we have to wait for the read data to come back before we swutch the bus into HiZ
                   end if;

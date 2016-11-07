@@ -138,7 +138,6 @@ i_error_blink : blinker PORT MAP(
    );
    
    led(0) <= blink xor error_blink;
-   led(1) <= error_blink;
 
 Inst_Memory_tester: Memory_tester GENERIC MAP(address_width => test_width) PORT MAP(
       clk             => clk,

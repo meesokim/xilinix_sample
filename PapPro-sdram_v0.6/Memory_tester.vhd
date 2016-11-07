@@ -9,7 +9,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity Memory_tester is
-    Generic (address_width : natural := 23);
+    Generic (address_width : natural := 22);
     Port ( clk           : in  STD_LOGIC;
 
            cmd_enable      : out std_logic;
@@ -170,7 +170,7 @@ process(clk)
          end if;
 
          if e = '1' then
-            if cmd_ready = '1' then  -- the transaction will be acceptedthis cycle
+            if cmd_ready = '1' then  -- the transaction will be accepted this cycle
                 -- Blink the LED every time the counter roles over (for later use)
                if test_counter = terminal_count then
                   b <= not b;

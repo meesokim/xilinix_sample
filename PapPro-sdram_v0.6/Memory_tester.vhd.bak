@@ -170,7 +170,7 @@ process(clk)
          end if;
 
          if e = '1' then
-            if cmd_ready = '1' then  -- the transaction will be acceptedthis cycle
+            if cmd_ready = '1' then  -- the transaction will be accepted this cycle
                 -- Blink the LED every time the counter roles over (for later use)
                if test_counter = terminal_count then
                   b <= not b;

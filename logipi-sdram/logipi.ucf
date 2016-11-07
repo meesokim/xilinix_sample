@@ -56,4 +56,4 @@ NET "SDRAM_DQ<13>"   LOC = "P120"  | IOSTANDARD = LVTTL;
 NET "SDRAM_DQ<14>"   LOC = "P119"  | IOSTANDARD = LVTTL;   
 NET "SDRAM_DQ<15>"   LOC = "P118"   | IOSTANDARD = LVTTL;   
 
-NET "pi_rx"          LOC = "P12"  | IOSTANDARD = LVTTL;   
+NET "tx"          LOC = "P12"  | IOSTANDARD = LVTTL;   

@@ -182,12 +182,12 @@ process(clk)
             if data_out_ready = '1' then
                received <= data_out;
                wanted   <= read_pattern;
-               if data_out /= read_pattern then
-                  has_errored <= '1';
-                  e <= '0';
-               else
+--               if data_out /= read_pattern then
+--                  has_errored <= '1';
+--                  e <= '0';
+--               else
                   read_counter <= read_counter+1;                  
-               end if;
+--               end if;
             end if;
          end if;
       end if;

@@ -53,7 +53,7 @@ entity sdram_simple is
       refresh_i      : in std_logic := '0';      -- Initiate a refresh cycle, active high
       rw_i           : in std_logic := '0';      -- Initiate a read or write operation, active high
       we_i           : in std_logic := '0';      -- Write enable, active low
-      addr_i         : in std_logic_vector(23 downto 0) := (others => '0');   -- Address from host to SDRAM
+      addr_i         : in std_logic_vector(21 downto 0) := (others => '0');   -- Address from host to SDRAM
       data_i         : in std_logic_vector(15 downto 0) := (others => '0');   -- Data from host to SDRAM
       ub_i           : in std_logic;            -- Data upper byte enable, active low
       lb_i           : in std_logic;            -- Data lower byte enable, active low
@@ -68,7 +68,7 @@ entity sdram_simple is
       sdCas_bo       : out std_logic;           -- SDRAM column address strobe
       sdWe_bo        : out std_logic;           -- SDRAM write enable
       sdBs_o         : out std_logic_vector(1 downto 0);    -- SDRAM bank address
-      sdAddr_o       : out std_logic_vector(12 downto 0);   -- SDRAM row/column address
+      sdAddr_o       : out std_logic_vector(11 downto 0);   -- SDRAM row/column address
       sdData_io      : inout std_logic_vector(15 downto 0); -- Data to/from SDRAM
       sdDqmh_o       : out std_logic;           -- Enable upper-byte of SDRAM databus if true
       sdDqml_o       : out std_logic;            -- Enable lower-byte of SDRAM databus if true
@@ -78,7 +78,7 @@ end entity;
 
 architecture rtl of sdram_simple is
 
-
+   constant tOPD: time := 2.1 ns;
    -- SDRAM controller states.
    type fsm_state_type is (
    ST_INIT_WAIT, ST_INIT_PRECHARGE, ST_INIT_REFRESH1, ST_INIT_MODE, ST_INIT_REFRESH2,
@@ -90,7 +90,7 @@ architecture rtl of sdram_simple is
    -- | A12-A10 |    A9    | A8  A7 | A6 A5 A4 |    A3   | A2 A1 A0 |
    -- | reserved| wr burst |reserved| CAS Ltncy|addr mode| burst len|
    --   0  0  0      0       0   0    0  1  0       0      0  0  0
-   constant MODE_REG : std_logic_vector(12 downto 0) := "000" & "0" & "00" & "010" & "0" & "000";
+   constant MODE_REG : std_logic_vector(11 downto 0) := "00" & "0" & "00" & "010" & "0" & "000";
 
    -- SDRAM commands combine SDRAM inputs: cs, ras, cas, we.
    subtype cmd_type is unsigned(3 downto 0);
@@ -106,10 +106,10 @@ architecture rtl of sdram_simple is
    signal cmd_x            : cmd_type;
 
    signal bank_s           : std_logic_vector(1 downto 0);
-   signal row_s            : std_logic_vector(12 downto 0);
-   signal col_s            : std_logic_vector(8 downto 0);
-   signal addr_r           : std_logic_vector(12 downto 0);
-   signal addr_x           : std_logic_vector(12 downto 0);    -- SDRAM row/column address.
+   signal row_s            : std_logic_vector(11 downto 0);
+   signal col_s            : std_logic_vector(7 downto 0);
+   signal addr_r           : std_logic_vector(11 downto 0);
+   signal addr_x           : std_logic_vector(11 downto 0);    -- SDRAM row/column address.
    signal sd_dout_r        : std_logic_vector(15 downto 0);
    signal sd_dout_x        : std_logic_vector(15 downto 0);
    signal sd_busdir_r      : std_logic;
@@ -123,16 +123,16 @@ architecture rtl of sdram_simple is
    signal sd_dqmu_r, sd_dqmu_x   : std_logic;
    signal sd_dqml_r, sd_dqml_x   : std_logic;
    signal ready_r, ready_x       : std_logic;
-   signal sdCe_box               : std_logic;
 
    -- Data buffer for SDRAM to Host.
    signal buf_dout_r, buf_dout_x : std_logic_vector(15 downto 0);
+   signal sdram_clk              : std_logic;
 
 begin
 
    -- All signals to SDRAM buffered.
 
-   (sdCe_box, sdRas_bo, sdCas_bo, sdWe_bo) <= cmd_r;   -- SDRAM operation control bits
+   (sdCe_bo, sdRas_bo, sdCas_bo, sdWe_bo) <= cmd_r;   -- SDRAM operation control bits
    sdCke_o      <= cke_r;      -- SDRAM clock enable
    sdBs_o      <= bank_r;      -- SDRAM bank address
    sdAddr_o    <= addr_r;      -- SDRAM address
@@ -146,14 +146,15 @@ begin
 
    -- 23  22  | 21 20 19 18 17 16 15 14 13 12 11 10 09 | 08 07 06 05 04 03 02 01 00 |
    -- BS0 BS1 |        ROW (A12-A0)  8192 rows         |   COL (A8-A0)  512 cols    |
-   bank_s <= addr_i(23 downto 22);
-   row_s <= addr_i(21 downto 9);
-   col_s <= addr_i(8 downto 0);
+   bank_s <= addr_i(21 downto 20);
+   row_s <= addr_i(19 downto 8);
+   col_s <= addr_i(7 downto 0);
+   sdClk_o <= transport sdram_clk after tOPD;
 
  sdram_clk_forward : ODDR2
    generic map(DDR_ALIGNMENT => "NONE", INIT => '0', SRTYPE => "SYNC")
 -- port map (Q => sdClk_o, C0 => clk_100m0_i, C1 => not clk_100m0_i, CE => '1', R => '0', S => '0', D0 => '0', D1 => '1');
-   port map(S => '0', R => '0', D0 => '1', D1 =>'0', CE =>'1', C0 => clk50m, C1 => not clk50m,Q => sdClk_o);
+   port map(S => '0', R => '0', D0 => '1', D1 =>'0', CE =>'1', C0 => clk50m, C1 => not clk50m, Q => sdram_clk);
 
    process (
    state_r, timer_r, refcnt_r, cke_r, addr_r, sd_dout_r, sd_busdir_r, sd_dqmu_r, sd_dqml_r, ready_r,
@@ -162,8 +163,8 @@ begin
    buf_dout_r, sdData_io)
    begin
 
-      state_x      <= state_r;       -- Stay in the same state unless changed.
-      timer_x      <= timer_r;       -- Hold the cycle timer by default.
+      state_x     <= state_r;       -- Stay in the same state unless changed.
+      timer_x     <= timer_r;       -- Hold the cycle timer by default.
       refcnt_x    <= refcnt_r;      -- Hold the refresh timer by default.
       cke_x       <= cke_r;         -- Stay in the same clock mode unless changed.
       cmd_x       <= CMD_NOP;       -- Default to NOP unless changed.
