@@ -62,7 +62,7 @@ entity mz700 is
 		 SDRAM_CAS_N : out std_logic;
 		 SDRAM_WE_N : out std_logic;
 		 SDRAM_BA : out std_logic_vector(1 downto 0);
-		 SDRAM_A : out std_logic_vector(12 downto 0);
+		 SDRAM_A : out std_logic_vector(11 downto 0);
 		 SDRAM_DQ : inout std_logic_vector(15 downto 0);
 		 SDRAM_DQM : out std_logic_vector(1 downto 0);
 		 SDRAM_CLK : out std_logic;
@@ -83,7 +83,8 @@ signal cmd_rd          : std_logic := '1';
 signal cmd_rd_gnt      : std_logic;
 signal cmd_rd_address  : std_logic_vector(21 downto 0) := (others => '0');
 signal cmd_rd_data     : std_logic_vector(15 downto 0);
-signal cmd_rd_valid    : std_logic := '1';
+signal cmd_rd_ready    : std_logic := '1';
+signal cmd_busy        : std_logic := '1';
 signal cmd_wr          : std_logic;
 signal cmd_wr_gnt      : std_logic;
 signal cmd_wr_address  : std_logic_vector(21 downto 0) := (others => '0');
@@ -195,33 +196,37 @@ signal AA : std_logic_vector(3 downto 0);
 --
 -- Components
 --
-component SDRAM_ctrl 
-    port (
-        clk : in std_logic := '1';
---		read agent
-	    RdReq : in std_logic;
-	    RdGnt : out std_logic;
-	    RdAddr : in std_logic_vector(21 downto 0);
-	    RdData : out std_logic_vector(15 downto 0);
-	    RdDataValid : out std_logic;
+component sdram_controller 
+	port (
+    --/* HOST INTERFACE */
+    wr_addr : in std_logic_vector(21 downto 0);
+    wr_data : out std_logic_vector(15 downto 0);
+    wr_enable : in std_logic;
 
---       write agent
-		WrReq  : in std_logic;
-		WrGnt  : out std_logic;
-	    WrAddr : in std_logic_vector(21 downto 0);
-		WrData : in std_logic_vector(15 downto 0);
+    rd_addr : in std_logic_vector(21 downto 0); 
+    rd_data : out std_logic_vector(15 downto 0);
+    rd_ready : out std_logic;
+    rd_enable : in std_logic;
+    
+    busy : out std_logic;
+	rst_n : in std_logic;
+	clk : in std_logic;
 
---      SDRAM
-	    SDRAM_CKE : out std_logic;
-		SDRAM_WEn : out std_logic; 
-		SDRAM_CASn : out std_logic;
-		SDRAM_RASn : out std_logic;
-		SDRAM_A : out std_logic_vector(12 downto 0);
-		SDRAM_BA : out std_logic_vector(1 downto 0);
-		SDRAM_DQM : out std_logic_vector(1 downto 0) := "11";
-		SDRAM_DQ : inout std_logic_vector(15 downto 0)
-	);
+    --/* SDRAM SIDE */
+    addr : out std_logic_vector(11 downto 0);
+	bank_addr :  out std_logic_vector(1 downto 0);
+	data : inout std_logic_vector(15 downto 0);
+	clock_enable: out std_logic;
+	cs_n : out std_logic;
+	ras_n : out std_logic;
+	cas_n : out std_logic;
+	we_n : out std_logic;
+	data_mask_low : out std_logic;
+	data_mask_high : out std_logic
+);
 end component;
+
+
 
 component T80s
 	generic(
@@ -425,26 +430,30 @@ begin
 -- port map (Q => sdClk_o, C0 => clk_100m0_i, C1 => not clk_100m0_i, CE => '1', R => '0', S => '0', D0 => '0', D1 => '1');
    port map(S => '0', R => '0', D0 => '1', D1 =>'0', CE =>'1', C0 => CLK2X, C1 => not CLK2X, Q => SDRAM_CLK);
 	
-Inst_SDRAM_Controller: SDRAM_ctrl PORT MAP(
+Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
       clk             => CLK2X,
-      RdReq           => cmd_rd,
-	  RdGnt           => cmd_rd_gnt,
-	  RdAddr 		  => cmd_rd_address,
-	  RdData          => cmd_rd_data,
-      RdDataValid     => cmd_rd_valid,
-      WrReq           => cmd_wr,
-      WrGnt           => cmd_wr_gnt,
-	  WrAddr          => cmd_wr_address,
-      WrData          => cmd_wr_data,
-   
-      SDRAM_CKE       => SDRAM_CKE,
-      SDRAM_RASn      => SDRAM_RAS_N,
-      SDRAM_CASn      => SDRAM_CAS_N,
-      SDRAM_WEn       => SDRAM_WE_N,
-      SDRAM_DQM       => SDRAM_DQM,
-      SDRAM_BA        => SDRAM_BA,
-      SDRAM_A         => SDRAM_A,
-      SDRAM_DQ        => SDRAM_DQ
+      wr_enable       => cmd_wr,
+	  wr_addr 		  => cmd_wr_address,
+	  wr_data         => cmd_wr_data,
+	  
+      rd_addr         => cmd_rd_address,
+      rd_data         => cmd_rd_data,
+      rd_ready        => cmd_rd_ready,
+      rd_enable       => cmd_rd,
+	  
+	  busy            => cmd_busy,
+	  rst_n           => URST,
+	  
+      addr            => SDRAM_A,
+	  cs_n            => SDRAM_CS_N,
+      clock_enable    => SDRAM_CKE,
+      ras_n           => SDRAM_RAS_N,
+      cas_n           => SDRAM_CAS_N,
+      we_n            => SDRAM_WE_N,
+      data_mask_low   => SDRAM_DQM(0),
+	  data_mask_high  => SDRAM_DQM(1),
+      bank_addr       => SDRAM_BA,
+      data            => SDRAM_DQ
    );
 
 	CPU0 : T80s port map (
@@ -643,9 +652,9 @@ Inst_SDRAM_Controller: SDRAM_ctrl PORT MAP(
 	-- User Reset with automatic
 	--
 	URST<='0' when BUF(9 downto 5)="00000" else '1';
-	process( CLK50M ) begin
-		if( CLK50M'event and CLK50M='1' ) then
-			BUF<=BUF(8 downto 0)&(BTN3);
+	process( CLK2X ) begin
+		if( CLK2X'event and CLK2X='1' ) then
+			BUF<=BUF(8 downto 0)&(BTN3);		
 		end if;
 	end process;
 
@@ -675,11 +684,7 @@ Inst_SDRAM_Controller: SDRAM_ctrl PORT MAP(
 	--
 	-- misc.
 	--
-	SDRAM_CS_N <= CS1;
-	cmd_rd <= not CS1 and not RD;
-	cmd_wr <= not CS1 and not WR;
-	cmd_rd_address <= "000000" & A16;
-	cmd_wr_address <= "000000" & A16;
+
 	--cmd_byte_enable <= (others =>'1');
 	TXD<=TXDi;
 	--LED<= "0000";
@@ -687,22 +692,24 @@ Inst_SDRAM_Controller: SDRAM_ctrl PORT MAP(
 	SPKOUT <= '0';
 	--SPKOUT<=not XSPKOUT;
 	INT<=not (INTX and INTMSK);
+	WAITN <= '1';
 	--
 	-- Data Bus
 	--
+	cmd_rd <= '1' when CS1 = '0' and RD = '0' else '0';
+	cmd_rd_address <= "000000" & A16 when CS1 = '0' and RD = '0';	
+	cmd_wr <= '1' when CS1 = '0' and WR = '0' else '0';
+	cmd_wr_address <= "000000" & A16 when CS1 = '0' and WR = '0';
+	cmd_wr_data(7 downto 0)<=DO when CS1 = '0' and WR = '0';	
 	DI<=MRDI when CS00='0' else
-	    CVDI when CSD0='0' else
-	    AVDI when CSD8='0' else
-	    EMDI when CSE8='0' else
-	    cmd_rd_data(7 downto 0) when CS1='0' and RD = '0' else
-	    DO367 when CS367='0' else
-	    DOPPI when CSPPI='0' else
-	    DOPIT when CSPIT='0' else
-	    DOPRT when CSPRT='0' else (others=>'1');
-	cmd_wr_data(7 downto 0)<=DO when CS1='0' and WR = '0' else (others=>'Z');
-	
-	WAITN <= '0' when (cmd_rd_valid = '0' and CS1='0' and RD = '0') or (cmd_wr_gnt = '0' and CS1 = '0' and WR = '0') else '1';
---	WAITN <= '1';
+		CVDI when CSD0='0' else
+		AVDI when CSD8='0' else
+		EMDI when CSE8='0' else
+		cmd_rd_data(7 downto 0) when CS1 = '0' and cmd_rd_ready = '0' and RD = '0' else
+		DO367 when CS367='0' else
+		DOPPI when CSPPI='0' else
+		DOPIT when CSPIT='0' else
+		DOPRT when CSPRT='0' else (others=>'1');
 	--
 	-- LED
 	--
@@ -747,12 +754,10 @@ Inst_SDRAM_Controller: SDRAM_ctrl PORT MAP(
 		if( HCLK'event and HCLK='1' ) then
 			TMG<=TMG+'1';
 			DIG <= DIG + 1;
-	
 		end if;
 	end process;
 	
-	
-
+-- ITN <= '0' when (cmd_rd_ready = '0' and CS1='0' and RD = '0') or (cmd_busy = '1' and CS1 = '0' and WR = '0') else '1';
 --	LD<=(others=>'0');
 --	LD<=LDDAT;
 --	LD(0)<='0';

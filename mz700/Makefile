@@ -4,7 +4,7 @@ family = spartan6
 part = xc6slx9-3-tqg144
 top_module = mz700
 
-vfiles = SDRAM_ctrl.v 
+vfiles = SDRAM_Controller.v 
 
 vhdlfiles = cgrom.vhd \
 			counter0.vhd \

@@ -21,14 +21,14 @@ module SDRAM_ctrl(
 	// read agent
 	input RdReq,
 	output RdGnt,
-	input [21:0] RdAddr,
+	input [21:0] Addr,
 	output reg [15:0] RdData,
 	output RdDataValid,
 
 	// write agent
 	input WrReq,
 	output WrGnt,
-	input [21:0] WrAddr,
+	//input [21:0] WrAddr,
 	input [15:0] WrData,
 
 	// SDRAM
@@ -61,7 +61,7 @@ reg ReadSelected=0;  always @(posedge clk) if(state==2'h0) ReadSelected <= read_
 wire WriteSelected = ~ReadSelected;
 
 wire ReadCycle = (state==2'h0) ? read_now : ReadSelected;
-wire [21:0] Addr = ReadCycle ? RdAddr : WrAddr;
+//wire [21:0] Addr = ReadCycle ? RdAddr : WrAddr;
 reg [21:0] AddrR=0;  always @(posedge clk) AddrR <= Addr;
 
 wire SameRowAndBank = (Addr[19:8]==AddrR[19:8]);
@@ -74,7 +74,7 @@ case(state)
 		if(RdReq | WrReq) begin  // is there a read or write request?
 			SDRAM_CMD <= SDRAM_CMD_ACTIVE;  // if so activate
 			SDRAM_BA <= Addr[21:20];  // this bank
-			SDRAM_A <= Addr[18:8];  // this row
+			SDRAM_A <= Addr[19:8];  // this row
 			SDRAM_DQM <= 2'b11;
 			state <= 2'h1;
 		end
@@ -90,7 +90,7 @@ case(state)
 	2'h1: begin
 		SDRAM_CMD <= ReadSelected ? SDRAM_CMD_READ : SDRAM_CMD_WRITE;
 		SDRAM_BA <= AddrR[21:20];
-		SDRAM_A[9:0] <= {2'b00, AddrR[7:0]};  // column
+		SDRAM_A[8:0] <= AddrR[7:0];  // column
 		SDRAM_A[10] <= 1'b0;  // no auto-precharge
 		SDRAM_DQM <= 2'b00;
 		state <= (ReadSelected ? RdReq : WrReq) & SameRowAndBank ? 2'h1 : 2'h2;
