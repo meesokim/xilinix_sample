@@ -223,7 +223,7 @@ begin
 				TBCTR<=(others=>'0');
 			end if;
 			if( TBUSY='1' ) then -- data transfer
-				if( TCTR=744 ) then -- 4800bps
+				if( TCTR=715 ) then -- 4800bps
 					TCTR<=(others=>'0');
 					TDAT<='1'&TDAT(8 downto 1);
 					TBCTR<=TBCTR+1;
@@ -254,7 +254,7 @@ begin
 				RCTR<=(others=>'0');
 				RDAT<="0111111111"; -- start bit
 			elsif( RXEN='1' ) then
-				if( RCTR=744 ) then -- 4800bps
+				if( RCTR=715 ) then -- 4800bps for 48Mhz not 50Mhz 744
 					RCTR<=(others=>'0');
 					RDAT<=RXD&RDAT(9 downto 1);
 				else

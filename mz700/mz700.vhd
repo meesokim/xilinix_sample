@@ -714,7 +714,7 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 	-- LED
 	--
 --	AN<=(others=>'1');
-    LED(3 downto 2) <= "0" & not WAITN;
+    LED(3 downto 2) <= "0" & not RXD;
 --	LED<="1110" when TMG="00" else
 --	    "1101" when TMG="01" else
 --	    "1011" when TMG="10" else

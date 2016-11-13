@@ -25,55 +25,55 @@
 #include <windows.h>
 #include <mmsystem.h>
 
-#define DEF_BUFSIZE 0x2000000											// ƒfƒtƒHƒ‹ƒg32MB
-#define default_depth 0x20												// –³‰¹‚Æ‚İ‚È‚·U•
-#define default_wait 0x07												// ƒ^ƒCƒ~ƒ“ƒO(320us)
+#define DEF_BUFSIZE 0x2000000											// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ32MB
+#define default_depth 0x20												// ç„¡éŸ³ã¨ã¿ãªã™æŒ¯å¹…
+#define default_wait 0x07												// ã‚¿ã‚¤ãƒŸãƒ³ã‚°(320us)
 
-#define CP_JAPAN		932												// “ú–{‚ÌƒR[ƒhƒy[ƒWF‚X‚R‚Q
-#define JAPANESE		0												// “ú–{Œêg—pƒtƒ‰ƒO
+#define CP_JAPAN		932												// æ—¥æœ¬ã®ã‚³?ãƒ‰ãƒš?ã‚¸ï¼šï¼™ï¼“ï¼’
+#define JAPANESE		0												// æ—¥æœ¬èªä½¿ç”¨ãƒ•ãƒ©ã‚°
 
-#define USE_RECORD_16BIT                                                // 16bit˜^‰¹g—p
+#define USE_RECORD_16BIT                                                // 16bit?éŸ³ä½¿ç”¨
 
 
 typedef struct _TCHUNK
 {
-	char   ID[4];														// ƒ`ƒƒƒ“ƒN‚Ìí—Ş
-	DWORD  size;														// ƒ`ƒƒƒ“ƒN‚ÌƒTƒCƒY
+	char   ID[4];														// ãƒãƒ£ãƒ³ã‚¯ã®ç¨®é¡
+	DWORD  size;														// ãƒãƒ£ãƒ³ã‚¯ã®ã‚µã‚¤ã‚º
 } TCHUNK;
 
-int BUFSIZE;															// WAVƒoƒbƒtƒ@ƒTƒCƒY
+int BUFSIZE;															// WAVãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
 
-FILE *ifp;																// WAVƒtƒ@ƒCƒ‹“ü—Í—p
+FILE *ifp;																// WAVãƒ•ã‚¡ã‚¤ãƒ«å…¥åŠ›ç”¨
 
-char infile[256];														// “ü—Íƒtƒ@ƒCƒ‹–¼
+char infile[256];														// å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
 
 
 int wav_free(void);
 void findtone(int);
 void file_input_setup(void);
 
-/* ƒtƒ@ƒCƒ‹–¼•\¦—p•¶š—ñ */
-/* “ú–{Œê */
+/* ãƒ•ã‚¡ã‚¤ãƒ«åè¡¨ç¤ºç”¨æ–‡å­—åˆ— */
+/* æ—¥æœ¬èª */
 static unsigned char mzascii_jp[]=
 {
-	"@Ih”“•fij–{C|D^"\
-	"‚O‚P‚Q‚R‚S‚T‚U‚V‚W‚XFGƒ„H"\
-	"—‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n"\
-	"‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚ym_nª©"\
-	"¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦"\
-	"“úŒ‰Î…–Ø‹à“y¶”N•ª•b‰~’¥"\
-	"«BuvADƒ’ƒ@ƒBƒDƒFƒHƒƒƒ…ƒ‡ƒb"\
-	"[ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\"\
-	"ƒ^ƒ`ƒcƒeƒgƒiƒjƒkƒlƒmƒnƒqƒtƒwƒzƒ}"\
-	"ƒ~ƒ€ƒƒ‚ƒ„ƒ†ƒˆƒ‰ƒŠƒ‹ƒŒƒƒƒ“JK"\
-	"¨¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦"\
-	"¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦"\
-	"¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦"\
-	"¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦ƒÎ"\
+	"ã€€ï¼â€ï¼ƒï¼„ï¼…ï¼†â€™ï¼ˆï¼‰ï¼Šï¼‹ï¼Œï¼ï¼ï¼"\
+	"ï¼ï¼‘ï¼’ï¼“ï¼”ï¼•ï¼–ï¼—ï¼˜ï¼™ï¼šï¼›ï¼œï¼ï¼ï¼Ÿ"\
+	"ï¼ ï¼¡ï¼¢ï¼£ï¼¤ï¼¥ï¼¦ï¼§ï¼¨ï¼©ï¼ªï¼«ï¼¬ï¼­ï¼®ï¼¯"\
+	"ï¼°ï¼±ï¼²ï¼³ï¼´ï¼µï¼¶ï¼·ï¼¸ï¼¹ï¼ºï¼»ï¼¼ï¼½â†‘â†"\
+	"â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»"\
+	"æ—¥æœˆç«æ°´æœ¨é‡‘åœŸç”Ÿå¹´æ™‚åˆ†ç§’å††ï¿¥ï¿¡â–¼"\
+	"â†“ã€‚ã€Œã€ã€ï¼ãƒ²ã‚¡ã‚£ã‚¥ã‚§ã‚©ãƒ£ãƒ¥ãƒ§ãƒƒ"\
+	"?ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½"\
+	"ã‚¿ãƒãƒ„ãƒ†ãƒˆãƒŠãƒ‹ãƒŒãƒãƒãƒãƒ’ãƒ•ãƒ˜ãƒ›ãƒ"\
+	"ãƒŸãƒ ãƒ¡ãƒ¢ãƒ¤ãƒ¦ãƒ¨ãƒ©ãƒªãƒ«ãƒ¬ãƒ­ãƒ¯ãƒ³??"\
+	"â†’â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»"\
+	"â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»"\
+	"â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»"\
+	"â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»Ï€"\
 
 };
 
-/* ŠCŠO */
+/* æµ·å¤– */
 static unsigned char mzascii_eu[]=
 {
 	" !\x22#$%&\x27()*+,-./"											/* 20 */
@@ -109,17 +109,17 @@ int low,high;
 
 int wav_bits = 8;
 
-int cp;																	// ƒR[ƒhƒy[ƒW
+int cp;																	// ã‚³?ãƒ‰ãƒš?ã‚¸
 
-char opt_b;																// ƒrƒbƒgƒf[ƒ^•\¦
-char opt_v;																// ƒ_ƒ“ƒvƒf[ƒ^•\¦
+char opt_b;																// ãƒ“ãƒƒãƒˆãƒ‡?ã‚¿è¡¨ç¤º
+char opt_v;																// ãƒ€ãƒ³ãƒ—ãƒ‡?ã‚¿è¡¨ç¤º
 char opt_r;																// rev.flag
-int opt_d;																// –³‰¹‚Æ‚İ‚È‚·U•
-int opt_w;																// ƒ^ƒCƒ~ƒ“ƒO(Default=7)
-int opt_s;																// ƒXƒ^[ƒgƒrƒbƒgƒ^ƒCƒ~ƒ“ƒO
-int opt_m;																// ƒoƒbƒtƒ@ƒƒ‚ƒŠ
+int opt_d;																// ç„¡éŸ³ã¨ã¿ãªã™æŒ¯å¹…
+int opt_w;																// ã‚¿ã‚¤ãƒŸãƒ³ã‚°(Default=7)
+int opt_s;																// ã‚¹ã‚¿?ãƒˆãƒ“ãƒƒãƒˆã‚¿ã‚¤ãƒŸãƒ³ã‚°
+int opt_m;																// ãƒãƒƒãƒ•ã‚¡ãƒ¡ãƒ¢ãƒª
 
-// ˜^‰¹’†‚ÉƒGƒ‰[‚ª‹N‚«‚ÄI—¹
+// ?éŸ³ä¸­ã«ã‚¨ãƒ©?ãŒèµ·ãã¦çµ‚äº†
 void die(char *mes)
 {
     Sleep(0);
@@ -128,13 +128,13 @@ void die(char *mes)
 	exit(1);
 }
 
-// stderr‚ÉƒƒbƒZ[ƒWo—Í
+// stderrã«ãƒ¡ãƒƒã‚»?ã‚¸å‡ºåŠ›
 void debug(char *mes)
 {
 	fprintf(stderr,mes);
 }
 
-// g—p–@ (Usage)
+// ä½¿ç”¨æ³• (Usage)
 void usage(void)
 {
 	debug("usage:tapeload [options] <Wavefile[.wav]>\n\n");
@@ -143,18 +143,18 @@ void usage(void)
 	{
 		// Japanese
 		debug(
-		  "22050Hz ‚Wƒrƒbƒgƒ‚ƒmƒ‰ƒ‹‚Å‹L˜^‚³‚ê‚½WAVƒtƒ@ƒCƒ‹‚Ü‚½‚Í\n"\
-		  "ƒTƒEƒ“ƒhƒJ[ƒh‚ÌŠO•”“ü—Í’[q‚©‚çAMZ-700/1500‚Ìƒe[ƒv‚ğƒ[ƒh‚µ‚Ü‚·\n"\
-		  "ƒtƒ@ƒCƒ‹–¼‚Ìw’è‚ª–³‚¢ê‡AŠO•”“ü—Í’[q‚©‚çƒ[ƒh‚µ‚Ü‚·\n"\
-		  "ƒ[ƒh‚³‚ê‚½ƒf[ƒ^‚ÍAheader.dat / out.dat ‚Æ‚¢‚¤ƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä\n"\
-		  "‹L˜^‚³‚ê‚Ü‚·\n\n"\
-		  "      -l[j|e]\t\tå‚ÈƒƒbƒZ[ƒW‚ğ“ú–{Œê(j)^‰pŒê(e)‚Åo—Í‚·‚é\n"\
-		  "      -mn[1~64]\t\tŠm•Û‚·‚éƒoƒbƒtƒ@ƒTƒCƒY(Default=32MB)\n"\
-		  "      -r\t\t‰¹ºƒf[ƒ^‚ÌˆÊ‘Š‚ğ”½“]‚µ‚Ä‰ğß‚·‚é\n"\
-		  "      -b\t\tƒrƒbƒgƒf[ƒ^‚ğ•\¦‚·‚é\n"\
-		  "      -v\t\tƒ_ƒ“ƒvƒf[ƒ^‚ğ•\¦‚·‚é\n"\
-		  "      -dn[1~127]\t–³‰¹‚Æ‚İ‚È‚·‚µ‚«‚¢’l(Default=32)\n"\
-		  "      -wn[1~16] \tƒf[ƒ^“Ç‚İæ‚è’PˆÊŠÔ(Default=7)\n");
+		  "22050Hz ï¼˜ãƒ“ãƒƒãƒˆãƒ¢ãƒãƒ©ãƒ«ã§è¨˜?ã•ã‚ŒãŸWAVãƒ•ã‚¡ã‚¤ãƒ«ã¾ãŸã¯\n"\
+		  "ã‚µã‚¦ãƒ³ãƒ‰ã‚«?ãƒ‰ã®å¤–éƒ¨å…¥åŠ›ç«¯å­ã‹ã‚‰ã€MZ-700/1500ã®ãƒ†?ãƒ—ã‚’ãƒ­?ãƒ‰ã—ã¾ã™\n"\
+		  "ãƒ•ã‚¡ã‚¤ãƒ«åã®æŒ‡å®šãŒç„¡ã„å ´åˆã€å¤–éƒ¨å…¥åŠ›ç«¯å­ã‹ã‚‰ãƒ­?ãƒ‰ã—ã¾ã™\n"\
+		  "ãƒ­?ãƒ‰ã•ã‚ŒãŸãƒ‡?ã‚¿ã¯ã€header.dat / out.dat ã¨ã„ã†ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦\n"\
+		  "è¨˜?ã•ã‚Œã¾ã™\n\n"\
+		  "      -l[j|e]\t\tä¸»ãªãƒ¡ãƒƒã‚»?ã‚¸ã‚’æ—¥æœ¬èª(j)ï¼è‹±èª(e)ã§å‡ºåŠ›ã™ã‚‹\n"\
+		  "      -mn[1~64]\t\tç¢ºä¿ã™ã‚‹ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º(Default=32MB)\n"\
+		  "      -r\t\téŸ³?ãƒ‡?ã‚¿ã®ä½ç›¸ã‚’å?ã—ã¦è§£?ã™ã‚‹\n"\
+		  "      -b\t\tãƒ“ãƒƒãƒˆãƒ‡?ã‚¿ã‚’è¡¨ç¤ºã™ã‚‹\n"\
+		  "      -v\t\tãƒ€ãƒ³ãƒ—ãƒ‡?ã‚¿ã‚’è¡¨ç¤ºã™ã‚‹\n"\
+		  "      -dn[1~127]\tç„¡éŸ³ã¨ã¿ãªã™ã—ãã„å€¤(Default=32)\n"\
+		  "      -wn[1~16] \tãƒ‡?ã‚¿?ã¿å–ã‚Š?ä½æ™‚é–“(Default=7)\n");
 	}
 	else
 	{
@@ -179,7 +179,7 @@ void usage(void)
 	exit(0);
 }
 
-// ƒ}ƒ‹ƒ`ƒƒfƒBƒAŠÖ”‚ÌƒGƒ‰[•\¦
+// ãƒãƒ«ãƒãƒ¡ãƒ‡ã‚£ã‚¢??ã®ã‚¨ãƒ©?è¡¨ç¤º
 void mmerr(int mr)
 {
 	char err_str[256];
@@ -195,7 +195,7 @@ void filename_put(unsigned char *ptr)
 	
 	fprintf(stderr,"FOUND ");
 
-	mzascii = ((cp == CP_JAPAN) ? mzascii_jp : mzascii_eu);				// mzascii‚Ìƒ|ƒCƒ“ƒ^æ“¾
+	mzascii = ((cp == CP_JAPAN) ? mzascii_jp : mzascii_eu);				// mzasciiã®ãƒã‚¤ãƒ³ã‚¿å–å¾—
 	
 	for (;;)
 	{
@@ -205,7 +205,7 @@ void filename_put(unsigned char *ptr)
 		if (c<0x20) continue;
 
 		c-=0x20;
-		// “ú–{Œê‚Ìê‡
+		// æ—¥æœ¬èªã®å ´åˆ
 		if (cp==CP_JAPAN)
 		{
 			c<<=1;
@@ -215,7 +215,7 @@ void filename_put(unsigned char *ptr)
 		}
 		else
 		{
-			// ŠCŠO‚Ìê‡
+			// æµ·å¤–ã®å ´åˆ
 			fputc(mzascii[c],stderr);
 		}
 		
@@ -227,6 +227,7 @@ void filename_put(unsigned char *ptr)
 
 int getwave(void)
 {
+	fpos_t pos;
 	int r;
 
 	if (ifp == NULL)
@@ -243,7 +244,7 @@ int getwave(void)
 			
 			if (kbhit())
 			{
-				die("\nAbort...\n");
+				die("\nAbort...WAV\n");
 			}
 			Sleep(0);
 		} while (now_ptr<(read_ptr+0x1000));
@@ -283,6 +284,8 @@ int getwave(void)
 		{
 			die("\nAbort...\n");
 		}
+		fgetpos(ifp, &pos);
+		printf("\r%d", pos);
 
 	}
 	
@@ -415,7 +418,7 @@ int getblock(unsigned char *dataptr,int length,int header)
 	 * copy, but I don't here. (I may do later if it seems to be needed.)
 	 */
 
-	for (i=0;i<2;i++)													// ƒGƒ‰[ƒŠƒgƒ‰ƒC‰ñ”
+	for (i=0;i<2;i++)													// ã‚¨ãƒ©?ãƒªãƒˆãƒ©ã‚¤å›?
 	{
 		do
 		{
@@ -518,17 +521,17 @@ int wav_setup(void)
 	record_buf = (BYTE *) malloc(BUFSIZE);
 	if (record_buf==NULL)
 	{
-		debug((cp == CP_JAPAN) ? "ƒƒ‚ƒŠ‚ª‘«‚è‚Ü‚¹‚ñB\n" : "Out of memory.\n");
+		debug((cp == CP_JAPAN) ? "ãƒ¡ãƒ¢ãƒªãŒè¶³ã‚Šã¾ã›ã‚“ã€‚\n" : "Out of memory.\n");
 		return 1;
 	}
 
 	if (!waveInGetNumDevs())
 	{
-		debug((cp == CP_JAPAN) ? "wave“ü—ÍƒfƒoƒCƒX‚ª‚ ‚è‚Ü‚¹‚ñB\n" : "Can't find wave input device.\n");
+		debug((cp == CP_JAPAN) ? "waveå…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ã€‚\n" : "Can't find wave input device.\n");
 		return 1;
 	}
 
-	/* WAVE FORMAT‚ğİ’è */
+	/* WAVE FORMATã‚’è¨­å®š */
 	wfmt.wFormatTag = WAVE_FORMAT_PCM;									// 0001?
 	wfmt.nChannels = 0x0001;
 	wfmt.nSamplesPerSec = 22050;
@@ -585,7 +588,7 @@ int wav_free(void)
 
 	if (infile[0] !=0)                                                  // change:09/05/29
 	{
-		// WAV’¼Ú“ü—Í‚Ìê‡
+		// WAVç›´æ¥å…¥åŠ›ã®å ´åˆ
 		mmr = waveInStop(hwi);
 //	printf("waveInStop = %d\n",mmr);
 		
@@ -598,10 +601,10 @@ int wav_free(void)
 	}
 	else
 	{
-		// ƒtƒ@ƒCƒ‹‚©‚ç“ü—Í‚Ìê‡
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰å…¥åŠ›ã®å ´åˆ
 		if (ifp)
 		{
-			// “ü—Íƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+			// å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ­?ã‚º
 			fclose(ifp);
 			ifp=NULL;
 		}
@@ -655,23 +658,23 @@ void file_input_setup(void)
 
 //			printf("freq=%d\n", wfmt.nSamplesPerSec);
 			
-			// ƒ‚ƒmƒ‰ƒ‹ˆÈŠO‚Ìƒf[ƒ^‚¾‚Á‚½‚ç‚Í‚¶‚­
+			// ãƒ¢ãƒãƒ©ãƒ«ä»¥å¤–ã®ãƒ‡?ã‚¿ã ã£ãŸã‚‰ã¯ã˜ã
 			if (wfmt.nChannels != 1)
 			{
-				debug((cp == CP_JAPAN) ? "ƒ‚ƒmƒ‰ƒ‹ƒf[ƒ^ˆÈŠO‚Íg‚¦‚Ü‚¹‚ñB\n" : "It is not able to use it except for monaural data.\n");
+				debug((cp == CP_JAPAN) ? "ãƒ¢ãƒãƒ©ãƒ«ãƒ‡?ã‚¿ä»¥å¤–ã¯ä½¿ãˆã¾ã›ã‚“ã€‚\n" : "It is not able to use it except for monaural data.\n");
 				ifp = NULL;
 				break;
 			}
 
-			// WAVƒtƒ@ƒCƒ‹ü”g”ƒ`ƒFƒbƒN
+			// WAVãƒ•ã‚¡ã‚¤ãƒ«å‘¨æ³¢?ãƒã‚§ãƒƒã‚¯
 			if (wfmt.nSamplesPerSec != 22050)
 			{
-				debug((cp == CP_JAPAN) ? "warning:WAVƒtƒ@ƒCƒ‹‚Ìü”g”‚ª22.05KHz‚Å‚Í‚ ‚è‚Ü‚¹‚ñB\n" :
+				debug((cp == CP_JAPAN) ? "warning:WAVãƒ•ã‚¡ã‚¤ãƒ«ã®å‘¨æ³¢?ãŒ22.05KHzã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚\n" :
 					  "warning:Frequency of WAV file is not 22.05KHz.\n");
 				ifp = NULL;
 			}
 			
-			// WAVƒtƒ@ƒCƒ‹ƒrƒbƒg”ƒ`ƒFƒbƒN
+			// WAVãƒ•ã‚¡ã‚¤ãƒ«ãƒ“ãƒƒãƒˆ?ãƒã‚§ãƒƒã‚¯
 			printf("wfmt.wBitsPerSample=%d\n",wfmt.wBitsPerSample);
 			wav_bits = wfmt.wBitsPerSample;
 		}
@@ -713,13 +716,13 @@ int main(int argc,char *argv[])
 	opt_b = opt_v = opt_r = opt_s = 0;
 	BUFSIZE = DEF_BUFSIZE;
 
-	cp = GetOEMCP();													// ƒfƒtƒHƒ‹ƒgƒR[ƒhƒy[ƒW‚Ìæ“¾ JP=932
+	cp = GetOEMCP();													// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³?ãƒ‰ãƒš?ã‚¸ã®å–å¾— JP=932
 	
-	infile[0]=0;														// ƒtƒ@ƒCƒ‹–¼‚ğNULL‚É
+	infile[0]=0;														// ãƒ•ã‚¡ã‚¤ãƒ«åã‚’NULLã«
 	
 	debug("tapeload.exe for Win32 Version 0.14 Programmed by T.Maruyama\n");
 	
-	/* ƒIƒvƒVƒ‡ƒ“”»’è */
+	/* ã‚ªãƒ—ã‚·ãƒ§ãƒ³åˆ¤å®š */
 	for (i=1;i<argc;i++)
 	{
 		a=argv[i][0];
@@ -744,7 +747,7 @@ int main(int argc,char *argv[])
 //			   printf("opt_d=%d\n",opt_d);
 			   if (opt_d<1 || opt_d>127)
 			   {
-				   debug((cp == CP_JAPAN) ? "ƒpƒ‰ƒ[ƒ^‚Ì’l‚ª”ÍˆÍŠO‚Å‚·\n" : "Out of range.\n");
+				   debug((cp == CP_JAPAN) ? "ãƒ‘ãƒ©ãƒ¡?ã‚¿ã®å€¤ãŒç¯„?å¤–ã§ã™\n" : "Out of range.\n");
 				   exit(1);
 			   }
 			   break;
@@ -753,7 +756,7 @@ int main(int argc,char *argv[])
 //			   printf("opt_m=%d\n",opt_m);
 			   if (opt_m<1 || opt_m>64)
 			   {
-				   debug((cp == CP_JAPAN) ? "ƒpƒ‰ƒ[ƒ^‚Ì’l‚ª”ÍˆÍŠO‚Å‚·\n" : "Out of range.\n");
+				   debug((cp == CP_JAPAN) ? "ãƒ‘ãƒ©ãƒ¡?ã‚¿ã®å€¤ãŒç¯„?å¤–ã§ã™\n" : "Out of range.\n");
 				   exit(1);
 			   }
 			   BUFSIZE = opt_m * 0x100000;
@@ -763,7 +766,7 @@ int main(int argc,char *argv[])
 //			   printf("opt_w=%d\n",opt_w);
 			   if (opt_w<1 || opt_w>16)
 			   {
-				   debug((cp == CP_JAPAN) ? "ƒpƒ‰ƒ[ƒ^‚Ì’l‚ª”ÍˆÍŠO‚Å‚·\n" : "Out of range.\n");
+				   debug((cp == CP_JAPAN) ? "ãƒ‘ãƒ©ãƒ¡?ã‚¿ã®å€¤ãŒç¯„?å¤–ã§ã™\n" : "Out of range.\n");
 				   exit(1);
 			   }
 			   break;
@@ -772,7 +775,7 @@ int main(int argc,char *argv[])
 //			   printf("opt_s=%d\n",opt_s);
 			   if (opt_s<1 || opt_s>16)
 			   {
-				   debug((cp == CP_JAPAN) ? "ƒpƒ‰ƒ[ƒ^‚Ì’l‚ª”ÍˆÍŠO‚Å‚·\n" : "Out of range.\n");
+				   debug((cp == CP_JAPAN) ? "ãƒ‘ãƒ©ãƒ¡?ã‚¿ã®å€¤ãŒç¯„?å¤–ã§ã™\n" : "Out of range.\n");
 				   exit(1);
 			   }
 			   break;
@@ -786,7 +789,7 @@ int main(int argc,char *argv[])
 		   case '?':
 			   usage();
 		   default:
-			   fprintf(stderr,(cp == CP_JAPAN) ? "-%c : –³Œø‚ÈƒIƒvƒVƒ‡ƒ“‚Å‚·\n" : "-%c : Invalid option.\n",argv[i][1]);
+			   fprintf(stderr,(cp == CP_JAPAN) ? "-%c : ç„¡?ãªã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ã™\n" : "-%c : Invalid option.\n",argv[i][1]);
 			   exit(1);
 		   }
 
@@ -794,12 +797,12 @@ int main(int argc,char *argv[])
 		}
 		else
 		{
-			/* ƒtƒ@ƒCƒ‹–¼æ“¾ */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«åå–å¾— */
 			if (infile[0]=='\x0')
 			{
 				lstrcpy(infile,argv[i]);
 				_splitpath(infile , drive, dir, fname, ext );
-				if (!ext[0]) lstrcat(infile, ".wav");					// Šg’£q‚ª–³‚©‚Á‚½‚ç•âŠ®
+				if (!ext[0]) lstrcat(infile, ".wav");					// ?å¼µå­ãŒç„¡ã‹ã£ãŸã‚‰è£œå®Œ
 			}
 
 
@@ -807,7 +810,7 @@ int main(int argc,char *argv[])
 
 	}
 
-	/* ˜^‰¹ƒXƒ^[ƒg */
+	/* ?éŸ³ã‚¹ã‚¿?ãƒˆ */
 	now_ptr = read_ptr = 0;
 	low=0x80;
 	high=0x80;
@@ -826,12 +829,12 @@ int main(int argc,char *argv[])
 	}
 	else
 	{
-		/* ƒtƒ@ƒCƒ‹“ü—Í‰Šú‰» */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«å…¥åŠ›åˆæœŸåŒ– */
 		file_input_setup();
 		if (ifp == NULL) return 1;
 	}
 
-	/* ƒ[ƒhŠJn */
+	/* ãƒ­?ãƒ‰é–‹å§‹ */
 	debug("Now Searching...\n");
 
 	/* read header */
