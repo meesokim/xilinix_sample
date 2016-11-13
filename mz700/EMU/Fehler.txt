@@ -1,0 +1,33 @@
+Hinweise TXT. 
+
+F = Frage  : L = Lösung
+
+F: Beim Start einer EMULATION bleibt das Emufenster Scwarz.
+F: Die Anwahl des MZ700 und MZ1500 ist nicht mehr möglich: Bringt "I/O error 6"s
+L: Bei win 9x/ME bitte die MZwin.INI aus dem ZIPFile entpacken
+   und gegen die defekte tauschen
+    
+   Bei win2000/NT4 und XP die MZwin.ini löschen und den EMU erneut 
+   starten.
+
+
+F: Beim Anwählen einer Emulation, wird gemeldet, daß die Datei nicht 
+   vorhanden ist. 
+L: Datei an den angezeigten Ort ablegen.
+
+
+F: nach Anwahl von Diskedit(oder anderem Eintrag)  und fehlender MZF-Datei des Diskeditors(Files)
+   ergibt, die nachfolgende Anwahl eines anderen Eintrages,der  Fehler: Fehler beim öffnen der RSX-fiels... ??? 
+L: Der Emu befindet sich in einem Undefinierten Zustand, deshalb kann er keine INI mehr Lesen. 
+   Bitte den EMU beenden und die Fehlende Datei ergänzen, oder aber die entsprechende INI Datei löschen.
+
+F: Nach Anwahl eines Eintrages, werden unsinnige Werte im Fileinfo Fenster angezeigt (z.B : Typ xyz / ??? )
+L: Datei ist Fehlerhaft, bzw nicht vorhanden.
+
+
+F: Die MZ800 Monitore erzeugen unsinnige Anzeigen.
+L: Einmal Reset drücken und sie laufen.
+
+
+Bei anderen Fehlen bitte an Franzenm@web.de melden.
+ 

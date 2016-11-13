@@ -1,0 +1,1 @@
+Filename of RSOUTFILE : [C:\xilinx_sample\mz700\EMU\SIO2_OUT.TXT]

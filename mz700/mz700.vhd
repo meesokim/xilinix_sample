@@ -608,7 +608,7 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 			CLK => CLK,
 			TADDR => TADDR,
 			RXD => RXD,
-			TXD => TXDi,
+			TXD => TXD,
 			PRTSW => SW(4),
 			PLYSW => SW(0),
 			RBIT => RBIT,
@@ -686,11 +686,11 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 	--
 
 	--cmd_byte_enable <= (others =>'1');
-	TXD<=TXDi;
+	--TXD<=TXDi;
 	--LED<= "0000";
 	HS<=HSPLS;
-	SPKOUT <= '0';
-	--SPKOUT<=not XSPKOUT;
+	--SPKOUT <= '0';
+	SPKOUT<=not XSPKOUT;
 	INT<=not (INTX and INTMSK);
 	WAITN <= '1';
 	--
