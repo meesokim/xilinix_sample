@@ -155,6 +155,7 @@ signal CSPCG : std_logic;
 signal CSPPI : std_logic;
 signal DOPPI : std_logic_vector(7 downto 0);
 signal TXDi : std_logic;
+signal RXDi : std_logic;
 signal RBIT : std_logic;
 signal MOTOR : std_logic;
 signal INTMSK : std_logic;
@@ -540,7 +541,7 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 			ROMA => CGADR,
 			CSEL => CSEL,
 			ROMD => CGDAT,
-			PCGSW => '1',
+			PCGSW => '0',
 			CSPCG => CSPCG,
 			WR => WR,
 			RAMA => A16(1 downto 0),
@@ -607,10 +608,10 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 			RST => URST,
 			CLK => CLK,
 			TADDR => TADDR,
-			RXD => RXD,
-			TXD => TXD,
+			RXD => RXDi,
+			TXD => TXDi,
 			PRTSW => SW(4),
-			PLYSW => SW(0),
+			PLYSW => '1',
 			RBIT => RBIT,
 			MOTOR => MOTOR,
 			LDDAT => open,
@@ -684,9 +685,9 @@ Inst_SDRAM_Controller: SDRAM_Controller PORT MAP(
 	--
 	-- misc.
 	--
-
+	RXDi <= RXD;
+	TXD <=TXDi;
 	--cmd_byte_enable <= (others =>'1');
-	--TXD<=TXDi;
 	--LED<= "0000";
 	HS<=HSPLS;
 	--SPKOUT <= '0';
