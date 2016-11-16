@@ -56,6 +56,7 @@ signal IREQ : std_logic;
 signal IACK : std_logic;
 signal EN : std_logic;
 signal SLEEP : std_logic;
+signal bram_enable    : std_logic;
 --
 -- Printer
 --
@@ -101,6 +102,7 @@ signal BUFO : std_logic_vector(7 downto 0);
 component kcpsm6
     Port (      address : out std_logic_vector(11 downto 0);
             instruction : in std_logic_vector(17 downto 0);
+			bram_enable : out std_logic;
                 port_id : out std_logic_vector(7 downto 0);
            write_strobe : out std_logic;
                out_port : out std_logic_vector(7 downto 0);
@@ -129,6 +131,7 @@ begin
 	scpu : kcpsm6 port map(
 	           address => PADDR,
             instruction => PINST,
+			bram_enable => bram_enable,
                 port_id => PID,
            write_strobe => WS,
                out_port => PO,
@@ -144,7 +147,7 @@ begin
 	rom : prom port map(
                 address => PADDR,
             instruction => PINST,
-			     enable => EN,
+			     enable => bram_enable,
 --           proc_reset => IRST,
                     clk => CLK);
 
@@ -206,6 +209,7 @@ begin
 	-- Transfer to Serial port
 	--
 	TXD<=TDAT(0);
+	SLEEP<='0';
 	process( CLK, RST ) begin
 		if( RST='0' ) then
 			TBFULL<='0'; -- double buffer status ('1' means full)
@@ -254,7 +258,7 @@ begin
 				RCTR<=(others=>'0');
 				RDAT<="0111111111"; -- start bit
 			elsif( RXEN='1' ) then
-				if( RCTR=715 ) then -- 4800bps for 48Mhz not 50Mhz 744
+				if( RCTR=715 ) then -- 4800bps for 48Mhz 715, not 50Mhz 744
 					RCTR<=(others=>'0');
 					RDAT<=RXD&RDAT(9 downto 1);
 				else
